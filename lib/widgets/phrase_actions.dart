@@ -9,6 +9,7 @@ import '../state/collections_provider.dart';
 import '../state/toast_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/image_exporter.dart';
+import '../utils/category_translations.dart';
 
 class PhraseActions extends StatelessWidget {
   final Phrase phrase;
@@ -137,7 +138,11 @@ class PhraseActions extends StatelessWidget {
                             : Icons.add_circle_outline,
                         color: isIn ? RomanticColors.romantic600 : null,
                       ),
-                      title: Text(col.name),
+                      title: Text(CategoryTranslations.collectionDisplayName(
+                        col.id,
+                        col.name,
+                        Localizations.localeOf(context),
+                      )),
                       subtitle:
                           Text('${col.phraseIds.length} ${l10n.frases}'),
                       onTap: () {

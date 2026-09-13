@@ -60,6 +60,22 @@ class CategoryTranslations {
       'it': 'Buonanotte amore',
       'de': 'Gute Nacht Liebe',
     },
+    'momentos_especiales': {
+      'es': 'Momentos especiales',
+      'en': 'Special moments',
+      'pt': 'Momentos especiais',
+      'fr': 'Moments spéciaux',
+      'it': 'Momenti speciali',
+      'de': 'Besondere Momente',
+    },
+    'favoritos': {
+      'es': 'Mis favoritas',
+      'en': 'My favorites',
+      'pt': 'Meus favoritos',
+      'fr': 'Mes favoris',
+      'it': 'I miei preferiti',
+      'de': 'Meine Favoriten',
+    },
   };
 
   static String label(String categoryId, Locale locale) {
@@ -75,5 +91,30 @@ class CategoryTranslations {
 
   static String labelEs(String categoryId) {
     return label(categoryId, const Locale('es'));
+  }
+
+  static const Map<String, String> _predefinedCollectionCategory = {
+    'col-favoritas': 'favoritos',
+    'col-para-dedicar': 'para_dedicar',
+    'col-momentos': 'momentos_especiales',
+    'col-amor': 'amor',
+    'col-pasion': 'pasion',
+  };
+
+  static const Map<String, String> _predefinedCollectionEmoji = {
+    'col-favoritas': '\u2764\uFE0F',
+    'col-para-dedicar': '\uD83D\uDC95',
+    'col-momentos': '\u2728',
+    'col-amor': '\uD83C\uDF39',
+    'col-pasion': '\uD83D\uDD25',
+  };
+
+  static String collectionDisplayName(
+      String collectionId, String fallbackName, Locale locale) {
+    final categoryKey = _predefinedCollectionCategory[collectionId];
+    if (categoryKey == null) return fallbackName;
+    final emoji = _predefinedCollectionEmoji[collectionId] ?? '';
+    final translated = label(categoryKey, locale);
+    return '$emoji $translated';
   }
 }

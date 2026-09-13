@@ -10,6 +10,7 @@ import '../models/collection.dart';
 import '../theme/app_colors.dart';
 import '../widgets/phrase_card.dart';
 import '../widgets/phrase_detail_modal.dart';
+import '../utils/category_translations.dart';
 
 class FavoritosView extends StatefulWidget {
   const FavoritosView({super.key});
@@ -374,7 +375,13 @@ class _CollectionsTab extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
-                      l10n.frasesEnColeccion(updatedCol.name),
+                      l10n.frasesEnColeccion(
+                        CategoryTranslations.collectionDisplayName(
+                          updatedCol.id,
+                          updatedCol.name,
+                          Localizations.localeOf(context),
+                        ),
+                      ),
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.w700),
                     ),
@@ -687,7 +694,11 @@ class _CollectionCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 10),
                     Text(
-                      collection.name,
+                      CategoryTranslations.collectionDisplayName(
+                        collection.id,
+                        collection.name,
+                        Localizations.localeOf(context),
+                      ),
                       style: const TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w700,
