@@ -9,7 +9,7 @@ class AppLocalizationsPt extends AppLocalizations {
   AppLocalizationsPt([String locale = 'pt']) : super(locale);
 
   @override
-  String get appTitle => 'Frases de Amor para Casais';
+  String get appTitle => 'Frases para Casais';
 
   @override
   String get inicio => 'Início';

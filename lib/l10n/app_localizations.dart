@@ -109,7 +109,7 @@ abstract class AppLocalizations {
   /// No description provided for @appTitle.
   ///
   /// In es, this message translates to:
-  /// **'Frases de Amor para Parejas'**
+  /// **'Frases para Parejas'**
   String get appTitle;
 
   /// No description provided for @inicio.

@@ -9,7 +9,7 @@ class AppLocalizationsFr extends AppLocalizations {
   AppLocalizationsFr([String locale = 'fr']) : super(locale);
 
   @override
-  String get appTitle => 'Phrases d\'Amour pour Couples';
+  String get appTitle => 'Citations pour Couples';
 
   @override
   String get inicio => 'Accueil';
