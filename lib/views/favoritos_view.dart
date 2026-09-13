@@ -63,7 +63,7 @@ class _FavoritosViewState extends State<FavoritosView>
           child: TabBarView(
             controller: _tabController,
             children: [
-              _FavoritesTab(phrases: savedPhrases, isDark: isDark),
+              _FavoritesTab(isDark: isDark),
               _CollectionsTab(
                 collections: collectionsProvider.collections,
                 allPhrases: phrasesProvider.phrases,
@@ -78,15 +78,19 @@ class _FavoritosViewState extends State<FavoritosView>
 }
 
 class _FavoritesTab extends StatelessWidget {
-  final List<Phrase> phrases;
   final bool isDark;
 
-  const _FavoritesTab({required this.phrases, required this.isDark});
+  const _FavoritesTab({required this.isDark});
 
   @override
   Widget build(BuildContext context) {
     final favoritesProvider = context.watch<FavoritesProvider>();
+    final phrasesProvider = context.watch<PhrasesProvider>();
     final l10n = AppLocalizations.of(context)!;
+
+    final phrases = phrasesProvider.phrases
+        .where((p) => favoritesProvider.savedIds.contains(p.id))
+        .toList();
 
     if (phrases.isEmpty) {
       return Center(

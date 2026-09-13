@@ -24,80 +24,57 @@ class PhraseActions extends StatelessWidget {
     final favoritesProvider = context.watch<FavoritesProvider>();
     final isSaved = favoritesProvider.isSaved(phrase.id);
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.45),
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(
-          color: Colors.white.withValues(alpha: 0.12),
-          width: 0.5,
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        _ActionBtn(
+          icon: isSaved ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
+          color: isSaved ? RomanticColors.romantic400 : Colors.white,
+          onTap: () {
+            favoritesProvider.toggle(phrase.id);
+            context.read<ToastProvider>().show(
+                  isSaved
+                      ? l10n.eliminadaDeFavoritos
+                      : l10n.guardadaEnFavoritos,
+                  type: isSaved ? ToastType.info : ToastType.success,
+                );
+          },
         ),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          _BarAction(
-            icon: isSaved ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
-            color: isSaved ? RomanticColors.romantic400 : Colors.white,
-            onTap: () {
-              favoritesProvider.toggle(phrase.id);
-              context.read<ToastProvider>().show(
-                    isSaved
-                        ? l10n.eliminadaDeFavoritos
-                        : l10n.guardadaEnFavoritos,
-                    type: isSaved ? ToastType.info : ToastType.success,
-                  );
-            },
-          ),
-          _barSeparator(),
-          _BarAction(
-            icon: Icons.share_rounded,
-            onTap: () async {
-              final toast = context.read<ToastProvider>();
-              toast.showInfo(l10n.preparandoParaCompartir);
-              final translatedText = context
-                  .read<PhrasesProvider>()
-                  .getText(phrase, Localizations.localeOf(context));
-              await exportAndShare(phrase, context, text: translatedText);
-            },
-          ),
-          _barSeparator(),
-          _BarAction(
-            icon: Icons.download_rounded,
-            onTap: () async {
-              final toast = context.read<ToastProvider>();
-              toast.showInfo(l10n.generandoImagen);
-              final translatedText = context
-                  .read<PhrasesProvider>()
-                  .getText(phrase, Localizations.localeOf(context));
-              final ok = await exportPhraseImage(phrase, translatedText);
-              if (ok) {
-                toast.showSuccess(l10n.imagenGuardada);
-              } else {
-                toast.showError(l10n.noPudoGuardar);
-              }
-            },
-          ),
-          _barSeparator(),
-          _BarAction(
-            icon: Icons.bookmark_outline_rounded,
-            onTap: () => _showAddToCollection(context),
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _barSeparator() {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
-      child: Container(
-        width: 1,
-        height: 18,
-        color: Colors.white.withValues(alpha: 0.18),
-      ),
+        const SizedBox(width: 16),
+        _ActionBtn(
+          icon: Icons.share_rounded,
+          onTap: () async {
+            final toast = context.read<ToastProvider>();
+            toast.showInfo(l10n.preparandoParaCompartir);
+            final translatedText = context
+                .read<PhrasesProvider>()
+                .getText(phrase, Localizations.localeOf(context));
+            await exportAndShare(phrase, context, text: translatedText);
+          },
+        ),
+        const SizedBox(width: 16),
+        _ActionBtn(
+          icon: Icons.download_rounded,
+          onTap: () async {
+            final toast = context.read<ToastProvider>();
+            toast.showInfo(l10n.generandoImagen);
+            final translatedText = context
+                .read<PhrasesProvider>()
+                .getText(phrase, Localizations.localeOf(context));
+            final ok = await exportPhraseImage(phrase, translatedText);
+            if (ok) {
+              toast.showSuccess(l10n.imagenGuardada);
+            } else {
+              toast.showError(l10n.noPudoGuardar);
+            }
+          },
+        ),
+        const SizedBox(width: 16),
+        _ActionBtn(
+          icon: Icons.bookmark_outline_rounded,
+          onTap: () => _showAddToCollection(context),
+        ),
+      ],
     );
   }
 
@@ -228,12 +205,12 @@ class PhraseActions extends StatelessWidget {
   }
 }
 
-class _BarAction extends StatelessWidget {
+class _ActionBtn extends StatelessWidget {
   final IconData icon;
   final Color? color;
   final VoidCallback onTap;
 
-  const _BarAction({
+  const _ActionBtn({
     required this.icon,
     this.color,
     required this.onTap,
@@ -245,12 +222,16 @@ class _BarAction extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.black.withValues(alpha: 0.35),
+          shape: BoxShape.circle,
+        ),
         child: Icon(
           icon,
           color: effectiveColor,
-          size: 22,
+          size: 20,
         ),
       ),
     );
