@@ -10,7 +10,7 @@ import '../theme/app_colors.dart';
 import '../utils/category_translations.dart';
 import '../utils/image_exporter.dart';
 
-class PhraseCard extends StatefulWidget {
+class PhraseCard extends StatelessWidget {
   final Phrase phrase;
   final bool isSaved;
   final VoidCallback onTap;
@@ -25,28 +25,11 @@ class PhraseCard extends StatefulWidget {
   });
 
   @override
-  State<PhraseCard> createState() => _PhraseCardState();
-}
-
-class _PhraseCardState extends State<PhraseCard> {
-  bool _showActions = false;
-
-  void _onImageTap() {
-    if (_showActions) {
-      widget.onTap();
-    } else {
-      setState(() => _showActions = true);
-    }
-  }
-
-  @override
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
-    final phrase = widget.phrase;
-    final isSaved = widget.isSaved;
 
     return GestureDetector(
-      onTap: _onImageTap,
+      onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16),
@@ -93,7 +76,7 @@ class _PhraseCardState extends State<PhraseCard> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                height: 140,
+                height: 160,
                 child: DecoratedBox(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -101,7 +84,7 @@ class _PhraseCardState extends State<PhraseCard> {
                       end: Alignment.bottomCenter,
                       colors: [
                         Colors.transparent,
-                        Colors.black.withValues(alpha: 0.85),
+                        Colors.black.withValues(alpha: 0.88),
                       ],
                     ),
                   ),
@@ -155,7 +138,7 @@ class _PhraseCardState extends State<PhraseCard> {
                 ),
               ),
               Positioned(
-                bottom: _showActions ? 52 : 12,
+                bottom: 54,
                 left: 10,
                 right: 10,
                 child: Column(
@@ -183,7 +166,7 @@ class _PhraseCardState extends State<PhraseCard> {
                         fontWeight: FontWeight.w500,
                         height: 1.3,
                       ),
-                      maxLines: _showActions ? 1 : 2,
+                      maxLines: 2,
                       overflow: TextOverflow.ellipsis,
                     ),
                   ],
@@ -193,112 +176,55 @@ class _PhraseCardState extends State<PhraseCard> {
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: IgnorePointer(
-                  ignoring: !_showActions,
-                  child: AnimatedOpacity(
-                    opacity: _showActions ? 1.0 : 0.0,
-                    duration: const Duration(milliseconds: 200),
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 4, vertical: 6),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          GestureDetector(
-                            onTap: () {
-                              widget.onSave();
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(7),
-                              decoration: BoxDecoration(
-                                color: isSaved
-                                    ? RomanticColors.romantic600
-                                        .withValues(alpha: 0.4)
-                                    : Colors.black.withValues(alpha: 0.4),
-                                shape: BoxShape.circle,
-                              ),
-                              child: Icon(
-                                isSaved
-                                    ? Icons.favorite
-                                    : Icons.favorite_outline,
-                                color: isSaved
-                                    ? RomanticColors.romantic400
-                                    : Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              final toast = context.read<ToastProvider>();
-                              toast.showInfo(l10n.preparandoParaCompartir);
-                              final text = context
-                                  .read<PhrasesProvider>()
-                                  .getText(phrase,
-                                      Localizations.localeOf(context));
-                              await exportAndShare(phrase, context,
-                                  text: text);
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(7),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withValues(alpha: 0.4),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.share_rounded,
-                                color: Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () async {
-                              final toast = context.read<ToastProvider>();
-                              toast.showInfo(l10n.generandoImagen);
-                              final text = context
-                                  .read<PhrasesProvider>()
-                                  .getText(phrase,
-                                      Localizations.localeOf(context));
-                              final ok =
-                                  await exportPhraseImage(phrase, text);
-                              if (ok) {
-                                toast.showSuccess(l10n.imagenGuardada);
-                              } else {
-                                toast.showError(l10n.noPudoGuardar);
-                              }
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.all(7),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withValues(alpha: 0.4),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.download_rounded,
-                                color: Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                          ),
-                          GestureDetector(
-                            onTap: () => _showAddToCollection(context),
-                            child: Container(
-                              padding: const EdgeInsets.all(7),
-                              decoration: BoxDecoration(
-                                color: Colors.black.withValues(alpha: 0.4),
-                                shape: BoxShape.circle,
-                              ),
-                              child: const Icon(
-                                Icons.bookmark_add_rounded,
-                                color: Colors.white,
-                                size: 18,
-                              ),
-                            ),
-                          ),
-                        ],
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _ActionCircleButton(
+                        icon: isSaved
+                            ? Icons.favorite
+                            : Icons.favorite_outline,
+                        isActive: isSaved,
+                        activeColor: RomanticColors.romantic400,
+                        onTap: onSave,
                       ),
-                    ),
+                      _ActionCircleButton(
+                        icon: Icons.share_rounded,
+                        onTap: () async {
+                          final toast = context.read<ToastProvider>();
+                          toast.showInfo(l10n.preparandoParaCompartir);
+                          final text = context
+                              .read<PhrasesProvider>()
+                              .getText(
+                                  phrase, Localizations.localeOf(context));
+                          await exportAndShare(phrase, context, text: text);
+                        },
+                      ),
+                      _ActionCircleButton(
+                        icon: Icons.download_rounded,
+                        onTap: () async {
+                          final toast = context.read<ToastProvider>();
+                          toast.showInfo(l10n.generandoImagen);
+                          final text = context
+                              .read<PhrasesProvider>()
+                              .getText(
+                                  phrase, Localizations.localeOf(context));
+                          final ok =
+                              await exportPhraseImage(phrase, text);
+                          if (ok) {
+                            toast.showSuccess(l10n.imagenGuardada);
+                          } else {
+                            toast.showError(l10n.noPudoGuardar);
+                          }
+                        },
+                      ),
+                      _ActionCircleButton(
+                        icon: Icons.bookmark_add_rounded,
+                        onTap: () => _showAddToCollection(context),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -360,7 +286,7 @@ class _PhraseCardState extends State<PhraseCard> {
                   itemCount: collectionsProvider.collections.length,
                   itemBuilder: (context, index) {
                     final col = collectionsProvider.collections[index];
-                    final isIn = col.phraseIds.contains(widget.phrase.id);
+                    final isIn = col.phraseIds.contains(phrase.id);
                     return ListTile(
                       leading: Icon(
                         isIn
@@ -373,7 +299,7 @@ class _PhraseCardState extends State<PhraseCard> {
                           Text('${col.phraseIds.length} ${l10n.frases}'),
                       onTap: () {
                         collectionsProvider.togglePhraseInCollection(
-                            col.id, widget.phrase.id);
+                            col.id, phrase.id);
                         toast.show(
                           isIn
                               ? l10n.eliminadaDeColeccion
@@ -422,7 +348,7 @@ class _PhraseCardState extends State<PhraseCard> {
               if (controller.text.trim().isNotEmpty) {
                 collectionsProvider.createCollection(
                   controller.text.trim(),
-                  phraseId: widget.phrase.id,
+                  phraseId: phrase.id,
                 );
                 toast.showSuccess(l10n.coleccionCreada);
                 Navigator.pop(context);
@@ -431,6 +357,60 @@ class _PhraseCardState extends State<PhraseCard> {
             child: Text(l10n.crear),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _ActionCircleButton extends StatelessWidget {
+  final IconData icon;
+  final bool isActive;
+  final Color? activeColor;
+  final VoidCallback onTap;
+
+  const _ActionCircleButton({
+    required this.icon,
+    this.isActive = false,
+    this.activeColor,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final color = isActive && activeColor != null ? activeColor! : Colors.white;
+    return GestureDetector(
+      behavior: HitTestBehavior.opaque,
+      onTap: onTap,
+      child: Container(
+        width: 34,
+        height: 34,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              Colors.white.withValues(alpha: 0.22),
+              Colors.white.withValues(alpha: 0.08),
+            ],
+          ),
+          border: Border.all(
+            color: Colors.white.withValues(alpha: 0.3),
+            width: 0.5,
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.12),
+              blurRadius: 6,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Icon(
+          icon,
+          color: color,
+          size: 17,
+        ),
       ),
     );
   }

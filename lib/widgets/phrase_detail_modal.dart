@@ -20,7 +20,6 @@ class PhraseDetailModal extends StatefulWidget {
 
 class _PhraseDetailModalState extends State<PhraseDetailModal> {
   late List<Phrase> _relatedPhrases;
-  bool _showActions = false;
 
   @override
   void initState() {
@@ -74,161 +73,148 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                 child: ListView(
                   controller: scrollController,
                   children: [
-                    GestureDetector(
-                      onTap: () =>
-                          setState(() => _showActions = !_showActions),
-                      child: Stack(
-                        children: [
-                          AspectRatio(
-                            aspectRatio: 9 / 16,
-                            child: Image.asset(
-                              'Imagenes/${widget.phrase.image}',
-                              fit: BoxFit.cover,
-                              errorBuilder: (_, __, ___) => Container(
-                                color: RomanticColors.darkSurfaceAlt,
+                    Stack(
+                      children: [
+                        AspectRatio(
+                          aspectRatio: 9 / 16,
+                          child: Image.asset(
+                            'Imagenes/${widget.phrase.image}',
+                            fit: BoxFit.cover,
+                            errorBuilder: (_, __, ___) => Container(
+                              color: RomanticColors.darkSurfaceAlt,
+                            ),
+                          ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          height: 160,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.black.withValues(alpha: 0.55),
+                                  Colors.transparent,
+                                ],
                               ),
                             ),
                           ),
-                          Positioned(
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            height: 160,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Colors.black.withValues(alpha: 0.55),
-                                    Colors.transparent,
-                                  ],
-                                ),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          left: 0,
+                          right: 0,
+                          height: 400,
+                          child: DecoratedBox(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black.withValues(alpha: 0.9),
+                                ],
                               ),
                             ),
                           ),
-                          Positioned(
-                            bottom: 0,
-                            left: 0,
-                            right: 0,
-                            height: 400,
-                            child: DecoratedBox(
-                              decoration: BoxDecoration(
-                                gradient: LinearGradient(
-                                  begin: Alignment.topCenter,
-                                  end: Alignment.bottomCenter,
-                                  colors: [
-                                    Colors.transparent,
-                                    Colors.black.withValues(alpha: 0.9),
-                                  ],
+                        ),
+                        Positioned(
+                          bottom: 80,
+                          left: 20,
+                          right: 20,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                CategoryTranslations.label(
+                                        widget.phrase.categoryId,
+                                        Localizations.localeOf(context))
+                                    .toUpperCase(),
+                                style: TextStyle(
+                                  color: Colors.white
+                                      .withValues(alpha: 0.75),
+                                  fontSize: 11,
+                                  fontWeight: FontWeight.w600,
+                                  letterSpacing: 2,
                                 ),
                               ),
-                            ),
-                          ),
-                          Positioned(
-                            bottom: 80,
-                            left: 20,
-                            right: 20,
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  CategoryTranslations.label(
-                                          widget.phrase.categoryId,
-                                          Localizations.localeOf(context))
-                                      .toUpperCase(),
-                                  style: TextStyle(
-                                    color: Colors.white
-                                        .withValues(alpha: 0.75),
-                                    fontSize: 11,
-                                    fontWeight: FontWeight.w600,
-                                    letterSpacing: 2,
-                                  ),
-                                ),
-                                const SizedBox(height: 10),
-                                Text(
-                                  context
-                                      .read<PhrasesProvider>()
-                                      .getText(widget.phrase,
-                                          Localizations.localeOf(context)),
-                                  style: const TextStyle(
-                                    color: Colors.white,
-                                    fontSize: 22,
-                                    fontStyle: FontStyle.italic,
-                                    fontWeight: FontWeight.w500,
-                                    height: 1.35,
-                                  ),
-                                ),
-                                const SizedBox(height: 16),
-                                Wrap(
-                                  spacing: 6,
-                                  runSpacing: 6,
-                                  children:
-                                      widget.phrase.tags.map((tag) {
-                                    return Container(
-                                      padding:
-                                          const EdgeInsets.symmetric(
-                                              horizontal: 10,
-                                              vertical: 4),
-                                      decoration: BoxDecoration(
-                                        color: Colors.white
-                                            .withValues(alpha: 0.15),
-                                        borderRadius:
-                                            BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        '#$tag',
-                                        style: const TextStyle(
-                                          color: Colors.white70,
-                                          fontSize: 11,
-                                        ),
-                                      ),
-                                    );
-                                  }).toList(),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Positioned(
-                            top: MediaQuery.of(context).padding.top + 8,
-                            right: 16,
-                            child: GestureDetector(
-                              onTap: () =>
-                                  Navigator.of(context).pop(),
-                              child: Container(
-                                padding: const EdgeInsets.all(8),
-                                decoration: BoxDecoration(
-                                  color: Colors.black
-                                      .withValues(alpha: 0.35),
-                                  shape: BoxShape.circle,
-                                ),
-                                child: const Icon(
-                                  Icons.close,
+                              const SizedBox(height: 10),
+                              Text(
+                                context
+                                    .read<PhrasesProvider>()
+                                    .getText(widget.phrase,
+                                        Localizations.localeOf(context)),
+                                style: const TextStyle(
                                   color: Colors.white,
-                                  size: 20,
+                                  fontSize: 22,
+                                  fontStyle: FontStyle.italic,
+                                  fontWeight: FontWeight.w500,
+                                  height: 1.35,
                                 ),
+                              ),
+                              const SizedBox(height: 16),
+                              Wrap(
+                                spacing: 6,
+                                runSpacing: 6,
+                                children:
+                                    widget.phrase.tags.map((tag) {
+                                  return Container(
+                                    padding:
+                                        const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                            vertical: 4),
+                                    decoration: BoxDecoration(
+                                      color: Colors.white
+                                          .withValues(alpha: 0.15),
+                                      borderRadius:
+                                          BorderRadius.circular(20),
+                                    ),
+                                    child: Text(
+                                      '#$tag',
+                                      style: const TextStyle(
+                                        color: Colors.white70,
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                  );
+                                }).toList(),
+                              ),
+                            ],
+                          ),
+                        ),
+                        Positioned(
+                          top: MediaQuery.of(context).padding.top + 8,
+                          right: 16,
+                          child: GestureDetector(
+                            onTap: () =>
+                                Navigator.of(context).pop(),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.black
+                                    .withValues(alpha: 0.35),
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 20,
                               ),
                             ),
                           ),
-                          Positioned(
-                            bottom: 16,
-                            left: 16,
-                            right: 16,
-                            child: IgnorePointer(
-                              ignoring: !_showActions,
-                              child: AnimatedOpacity(
-                                opacity:
-                                    _showActions ? 1.0 : 0.0,
-                                duration: const Duration(
-                                    milliseconds: 200),
-                                child: PhraseActions(
-                                  phrase: widget.phrase,
-                                ),
-                              ),
-                            ),
+                        ),
+                        Positioned(
+                          bottom: 16,
+                          left: 16,
+                          right: 16,
+                          child: PhraseActions(
+                            phrase: widget.phrase,
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(
