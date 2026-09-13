@@ -239,6 +239,13 @@ class _CollectionsTab extends StatelessWidget {
                           border: Border.all(
                             color: isDark ? Colors.white12 : Colors.black12,
                           ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.06),
+                              blurRadius: 8,
+                              offset: const Offset(0, 2),
+                            ),
+                          ],
                         ),
                         child: Row(
                           children: [
@@ -259,12 +266,19 @@ class _CollectionsTab extends StatelessWidget {
                               Container(
                                 width: 110,
                                 decoration: BoxDecoration(
-                                  color: RomanticColors.romantic900,
+                                  gradient: LinearGradient(
+                                    begin: Alignment.topLeft,
+                                    end: Alignment.bottomRight,
+                                    colors: [
+                                      RomanticColors.romantic800,
+                                      RomanticColors.romantic600,
+                                    ],
+                                  ),
                                   borderRadius: const BorderRadius.horizontal(
                                       left: Radius.circular(15)),
                                 ),
                                 child: const Icon(Icons.favorite,
-                                    color: Colors.white30, size: 36),
+                                    color: Colors.white54, size: 36),
                               ),
                             Expanded(
                               child: Padding(
@@ -295,62 +309,28 @@ class _CollectionsTab extends StatelessWidget {
                                     const Spacer(),
                                     Row(
                                       children: [
-                                        TextButton(
-                                          onPressed: () =>
-                                              _showCollectionDetail(
-                                                  context, col),
-                                          style: TextButton.styleFrom(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 4),
-                                            minimumSize: Size.zero,
-                                            tapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
-                                          ),
-                                          child: Text(l10n.ver,
-                                              style:
-                                                  const TextStyle(fontSize: 12)),
+                                        _CollectionAction(
+                                          label: l10n.ver,
+                                          icon: Icons.visibility_outlined,
+                                          onTap: () => _showCollectionDetail(
+                                              context, col),
                                         ),
-                                        TextButton(
-                                          onPressed: () =>
+                                        const SizedBox(width: 4),
+                                        _CollectionAction(
+                                          label: l10n.editar,
+                                          icon: Icons.edit_outlined,
+                                          onTap: () =>
                                               _showEditCollectionDialog(
                                                   context, col),
-                                          style: TextButton.styleFrom(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 4),
-                                            minimumSize: Size.zero,
-                                            tapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
-                                          ),
-                                          child: Text(l10n.editar,
-                                              style:
-                                                  const TextStyle(fontSize: 12)),
                                         ),
-                                        TextButton(
-                                          onPressed: () =>
+                                        const SizedBox(width: 4),
+                                        _CollectionAction(
+                                          label: l10n.eliminar,
+                                          icon: Icons.delete_outline,
+                                          color: Colors.red,
+                                          onTap: () =>
                                               _confirmDeleteCollection(
                                                   context, col),
-                                          style: TextButton.styleFrom(
-                                            padding:
-                                                const EdgeInsets.symmetric(
-                                                    horizontal: 12,
-                                                    vertical: 4),
-                                            minimumSize: Size.zero,
-                                            tapTargetSize:
-                                                MaterialTapTargetSize
-                                                    .shrinkWrap,
-                                          ),
-                                          child: Text(l10n.eliminar,
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: isDark
-                                                      ? Colors.white54
-                                                      : Colors.black45)),
                                         ),
                                       ],
                                     ),
@@ -566,6 +546,49 @@ class _CollectionsTab extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CollectionAction extends StatelessWidget {
+  final String label;
+  final IconData icon;
+  final Color? color;
+  final VoidCallback onTap;
+
+  const _CollectionAction({
+    required this.label,
+    required this.icon,
+    this.color,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        decoration: BoxDecoration(
+          color: (color ?? Colors.grey).withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 12, color: color ?? Colors.grey),
+            const SizedBox(width: 3),
+            Text(
+              label,
+              style: TextStyle(
+                fontSize: 10,
+                fontWeight: FontWeight.w600,
+                color: color ?? Colors.grey,
+              ),
+            ),
+          ],
         ),
       ),
     );

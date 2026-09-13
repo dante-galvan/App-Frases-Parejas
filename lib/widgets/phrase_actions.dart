@@ -12,14 +12,10 @@ import '../utils/image_exporter.dart';
 
 class PhraseActions extends StatelessWidget {
   final Phrase phrase;
-  final bool showLabels;
-  final bool isInsideDetail;
 
   const PhraseActions({
     super.key,
     required this.phrase,
-    this.showLabels = true,
-    this.isInsideDetail = true,
   });
 
   @override
@@ -29,19 +25,21 @@ class PhraseActions extends StatelessWidget {
     final isSaved = favoritesProvider.isSaved(phrase.id);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
       decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.4),
-        borderRadius: BorderRadius.circular(20),
+        color: Colors.black.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(24),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _ActionItem(
+          _ActionButton(
             icon: isSaved ? Icons.favorite : Icons.favorite_outline,
             label: l10n.favorito,
             color: isSaved ? RomanticColors.romantic400 : Colors.white,
-            isActive: isSaved,
+            bgColor: isSaved
+                ? RomanticColors.romantic600.withValues(alpha: 0.35)
+                : Colors.white.withValues(alpha: 0.12),
             onTap: () {
               favoritesProvider.toggle(phrase.id);
               context.read<ToastProvider>().show(
@@ -52,10 +50,12 @@ class PhraseActions extends StatelessWidget {
                   );
             },
           ),
-          _ActionItem(
-            icon: Icons.share_outlined,
+          const SizedBox(width: 8),
+          _ActionButton(
+            icon: Icons.share_rounded,
             label: l10n.compartir,
             color: Colors.white,
+            bgColor: Colors.white.withValues(alpha: 0.12),
             onTap: () async {
               final toast = context.read<ToastProvider>();
               toast.showInfo(l10n.preparandoParaCompartir);
@@ -65,10 +65,12 @@ class PhraseActions extends StatelessWidget {
               await exportAndShare(phrase, context, text: translatedText);
             },
           ),
-          _ActionItem(
-            icon: Icons.download_outlined,
+          const SizedBox(width: 8),
+          _ActionButton(
+            icon: Icons.download_rounded,
             label: l10n.descargar,
             color: Colors.white,
+            bgColor: Colors.white.withValues(alpha: 0.12),
             onTap: () async {
               final toast = context.read<ToastProvider>();
               toast.showInfo(l10n.generandoImagen);
@@ -83,10 +85,12 @@ class PhraseActions extends StatelessWidget {
               }
             },
           ),
-          _ActionItem(
-            icon: Icons.playlist_add,
+          const SizedBox(width: 8),
+          _ActionButton(
+            icon: Icons.playlist_add_rounded,
             label: l10n.coleccion,
             color: Colors.white,
+            bgColor: Colors.white.withValues(alpha: 0.12),
             onTap: () => _showAddToCollection(context),
           ),
         ],
@@ -221,53 +225,53 @@ class PhraseActions extends StatelessWidget {
   }
 }
 
-class _ActionItem extends StatelessWidget {
+class _ActionButton extends StatelessWidget {
   final IconData icon;
   final String label;
   final Color color;
-  final bool isActive;
+  final Color bgColor;
   final VoidCallback onTap;
 
-  const _ActionItem({
+  const _ActionButton({
     required this.icon,
     required this.label,
     required this.color,
-    this.isActive = false,
+    required this.bgColor,
     required this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: isActive
-                  ? RomanticColors.romantic600.withValues(alpha: 0.3)
-                  : Colors.white.withValues(alpha: 0.15),
-              shape: BoxShape.circle,
+    return Expanded(
+      child: GestureDetector(
+        onTap: onTap,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                color: bgColor,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                icon,
+                color: color,
+                size: 26,
+              ),
             ),
-            child: Icon(
-              icon,
-              color: color,
-              size: 24,
+            const SizedBox(height: 6),
+            Text(
+              label,
+              style: TextStyle(
+                color: color,
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+              ),
+              textAlign: TextAlign.center,
             ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            label,
-            style: TextStyle(
-              color: color,
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

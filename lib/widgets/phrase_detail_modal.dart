@@ -193,7 +193,6 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                       padding: const EdgeInsets.all(16),
                       child: PhraseActions(
                         phrase: widget.phrase,
-                        isInsideDetail: true,
                       ),
                     ),
                     Padding(

@@ -3,7 +3,7 @@ import '../models/collection.dart';
 const List<CollectionItem> initialCollections = [
   CollectionItem(
     id: 'col-favoritas',
-    name: 'Mis favoritas',
+    name: '❤️ Mis favoritas',
     description: 'Las frases que más resuenan en mi corazón',
     phraseIds: [],
     createdAt: '2026-09-01',
@@ -11,7 +11,7 @@ const List<CollectionItem> initialCollections = [
   ),
   CollectionItem(
     id: 'col-para-dedicar',
-    name: 'Para dedicar',
+    name: '💕 Para dedicar',
     description: 'Palabras sinceras para dedicar en cualquier momento',
     phraseIds: [],
     createdAt: '2026-09-01',
@@ -19,7 +19,7 @@ const List<CollectionItem> initialCollections = [
   ),
   CollectionItem(
     id: 'col-momentos',
-    name: 'Momentos especiales',
+    name: '✨ Momentos especiales',
     description: 'Frases para momentos únicos',
     phraseIds: [],
     createdAt: '2026-09-01',
@@ -27,7 +27,7 @@ const List<CollectionItem> initialCollections = [
   ),
   CollectionItem(
     id: 'col-amor',
-    name: 'Amor',
+    name: '🌹 Amor',
     description: 'Todo sobre el amor',
     phraseIds: [],
     createdAt: '2026-09-01',
@@ -35,7 +35,7 @@ const List<CollectionItem> initialCollections = [
   ),
   CollectionItem(
     id: 'col-pasion',
-    name: 'Pasión',
+    name: '🔥 Pasión',
     description: 'Frases llenas de pasión',
     phraseIds: [],
     createdAt: '2026-09-01',
