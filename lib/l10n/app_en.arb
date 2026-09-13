@@ -118,5 +118,8 @@
   "errorCargarImagen": "Could not load image",
   "frase": "quote",
   "ver": "View",
-  "editar": "Edit"
+  "editar": "Edit",
+  "favorito": "Favorite",
+  "preparandoParaCompartir": "Preparing to share...",
+  "coleccion": "Collection"
 }

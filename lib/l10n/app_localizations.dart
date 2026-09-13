@@ -606,6 +606,24 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'Editar'**
   String get editar;
+
+  /// No description provided for @favorito.
+  ///
+  /// In es, this message translates to:
+  /// **'Favorito'**
+  String get favorito;
+
+  /// No description provided for @preparandoParaCompartir.
+  ///
+  /// In es, this message translates to:
+  /// **'Preparando para compartir...'**
+  String get preparandoParaCompartir;
+
+  /// No description provided for @coleccion.
+  ///
+  /// In es, this message translates to:
+  /// **'Colección'**
+  String get coleccion;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

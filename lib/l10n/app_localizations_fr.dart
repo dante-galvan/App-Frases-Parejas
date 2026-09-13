@@ -269,4 +269,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get editar => 'Modifier';
+
+  @override
+  String get favorito => 'Favori';
+
+  @override
+  String get preparandoParaCompartir => 'Préparation du partage...';
+
+  @override
+  String get coleccion => 'Collection';
 }

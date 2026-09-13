@@ -118,5 +118,8 @@
   "errorCargarImagen": "Impossibile caricare l'immagine",
   "frase": "frase",
   "ver": "Visualizza",
-  "editar": "Modifica"
+  "editar": "Modifica",
+  "favorito": "Preferito",
+  "preparandoParaCompartir": "Preparazione condivisione...",
+  "coleccion": "Collezione"
 }

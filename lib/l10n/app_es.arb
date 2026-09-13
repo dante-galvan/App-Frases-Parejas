@@ -118,5 +118,8 @@
   "errorCargarImagen": "No se pudo cargar la imagen",
   "frase": "frase",
   "ver": "Ver",
-  "editar": "Editar"
+  "editar": "Editar",
+  "favorito": "Favorito",
+  "preparandoParaCompartir": "Preparando para compartir...",
+  "coleccion": "Colección"
 }

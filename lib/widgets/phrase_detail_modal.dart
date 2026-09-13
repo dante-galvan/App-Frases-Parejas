@@ -3,15 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:frases_amor_flutter/l10n/app_localizations.dart';
 import '../models/phrase.dart';
-import '../models/toast.dart';
 import '../state/phrases_provider.dart';
-import '../state/favorites_provider.dart';
 import '../state/history_provider.dart';
-import '../state/collections_provider.dart';
-import '../state/toast_provider.dart';
 import '../theme/app_colors.dart';
-import '../utils/image_exporter.dart';
 import '../utils/category_translations.dart';
+import 'phrase_actions.dart';
 
 class PhraseDetailModal extends StatefulWidget {
   final Phrase phrase;
@@ -40,9 +36,7 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final favoritesProvider = context.watch<FavoritesProvider>();
     final historyProvider = context.read<HistoryProvider>();
-    final isSaved = favoritesProvider.isSaved(widget.phrase.id);
     final l10n = AppLocalizations.of(context)!;
 
     historyProvider.add(widget.phrase.id);
@@ -177,61 +171,33 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                         Positioned(
                           top: MediaQuery.of(context).padding.top + 8,
                           right: 16,
-                          child: Row(
-                            children: [
-                              _CircleButton(
-                                icon: isSaved
-                                    ? Icons.favorite
-                                    : Icons.favorite_outline,
-                                color: isSaved
-                                    ? RomanticColors.romantic400
-                                    : Colors.white,
-                                onTap: () {
-                                  favoritesProvider.toggle(widget.phrase.id);
-                                  context.read<ToastProvider>().show(
-                                        isSaved
-                                            ? l10n.eliminadaDeFavoritos
-                                            : l10n.guardadaEnFavoritos,
-                                        type: isSaved
-                                            ? ToastType.info
-                                            : ToastType.success,
-                                      );
-                                },
+                          child: GestureDetector(
+                            onTap: () => Navigator.of(context).pop(),
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              decoration: BoxDecoration(
+                                color: Colors.black.withValues(alpha: 0.35),
+                                shape: BoxShape.circle,
                               ),
-                              const SizedBox(width: 8),
-                              _CircleButton(
-                                icon: Icons.share,
-                                onTap: () async {
-                                  final translatedText = context.read<PhrasesProvider>().getText(widget.phrase, Localizations.localeOf(context));
-                                  await exportAndShare(widget.phrase, context, text: translatedText);
-                                },
+                              child: const Icon(
+                                Icons.close,
+                                color: Colors.white,
+                                size: 20,
                               ),
-                              const SizedBox(width: 8),
-                              _CircleButton(
-                                icon: Icons.download,
-                                onTap: () async {
-                                  final toast = context.read<ToastProvider>();
-                                  toast.showInfo(l10n.generandoImagen);
-                                  final ok = await exportPhraseImage(widget.phrase);
-                                  if (ok) {
-                                    toast.showSuccess(l10n.guardadaEnGaleria);
-                                  } else {
-                                    toast.showError(l10n.noPudoGuardar);
-                                  }
-                                },
-                              ),
-                              const SizedBox(width: 8),
-                              _CircleButton(
-                                icon: Icons.bookmark_add_outlined,
-                                onTap: () => _showAddToCollection(context),
-                              ),
-                            ],
+                            ),
                           ),
                         ),
                       ],
                     ),
                     Padding(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(16),
+                      child: PhraseActions(
+                        phrase: widget.phrase,
+                        isInsideDetail: true,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -295,7 +261,7 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                                                 ),
                                               ),
                                               child: Text(
-                                                p.text,
+                                                context.read<PhrasesProvider>().getText(p, Localizations.localeOf(context)),
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10,
@@ -324,143 +290,6 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
           ),
         );
       },
-    );
-  }
-
-  void _showAddToCollection(BuildContext context) {
-    final collectionsProvider = context.read<CollectionsProvider>();
-    final toast = context.read<ToastProvider>();
-    final l10n = AppLocalizations.of(context)!;
-
-    showModalBottomSheet(
-      context: context,
-      backgroundColor: Colors.transparent,
-      builder: (_) {
-        final isDark = Theme.of(context).brightness == Brightness.dark;
-        return Container(
-          decoration: BoxDecoration(
-            color: isDark
-                ? RomanticColors.darkSurface
-                : RomanticColors.lightSurface,
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      l10n.agregarAColeccion,
-                      style:
-                          const TextStyle(fontSize: 18, fontWeight: FontWeight.w700),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.add),
-                      onPressed: () {
-                        Navigator.pop(context);
-                        _showCreateCollection(context);
-                      },
-                    ),
-                  ],
-                ),
-              ),
-              ...collectionsProvider.collections.map((col) {
-                final isIn =
-                    col.phraseIds.contains(widget.phrase.id);
-                return ListTile(
-                    leading: Icon(
-                      isIn ? Icons.check_circle : Icons.collections_bookmark_outlined,
-                      color: isIn ? RomanticColors.romantic600 : null,
-                    ),
-                  title: Text(col.name),
-                  subtitle: Text('${col.phraseIds.length} ${l10n.frases}'),
-                  onTap: () {
-                    collectionsProvider.togglePhraseInCollection(col.id, widget.phrase.id);
-                    toast.show(
-                      isIn ? l10n.eliminadaDeColeccion : l10n.agregadaAColeccion,
-                      type: ToastType.success,
-                    );
-                    Navigator.pop(context);
-                  },
-                );
-              }),
-              const SizedBox(height: 16),
-            ],
-          ),
-        );
-      },
-    );
-  }
-
-  void _showCreateCollection(BuildContext context) {
-    final controller = TextEditingController();
-    final collectionsProvider = context.read<CollectionsProvider>();
-    final toast = context.read<ToastProvider>();
-    final l10n = AppLocalizations.of(context)!;
-
-    showDialog(
-      context: context,
-      builder: (_) => AlertDialog(
-        title: Text(l10n.nuevaColeccion),
-        content: TextField(
-          controller: controller,
-          decoration: InputDecoration(
-            hintText: l10n.nombreColeccion,
-            border: const OutlineInputBorder(),
-          ),
-          autofocus: true,
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context),
-            child: Text(l10n.cancelar),
-          ),
-          TextButton(
-            onPressed: () {
-              if (controller.text.trim().isNotEmpty) {
-                collectionsProvider.createCollection(
-                  controller.text.trim(),
-                  phraseId: widget.phrase.id,
-                );
-                toast.showSuccess(l10n.coleccionCreada);
-                Navigator.pop(context);
-              }
-            },
-            child: Text(l10n.crear),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _CircleButton extends StatelessWidget {
-  final IconData icon;
-  final Color? color;
-  final VoidCallback onTap;
-
-  const _CircleButton({
-    required this.icon,
-    this.color,
-    required this.onTap,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: const EdgeInsets.all(8),
-        decoration: BoxDecoration(
-          color: Colors.black.withValues(alpha: 0.35),
-          shape: BoxShape.circle,
-        ),
-        child: Icon(icon, color: color ?? Colors.white, size: 20),
-      ),
     );
   }
 }

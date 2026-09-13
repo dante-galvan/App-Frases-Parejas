@@ -118,5 +118,8 @@
   "errorCargarImagen": "Bild konnte nicht geladen werden",
   "frase": "Zitat",
   "ver": "Ansehen",
-  "editar": "Bearbeiten"
+  "editar": "Bearbeiten",
+  "favorito": "Favorit",
+  "preparandoParaCompartir": "Vorbereitung zum Teilen...",
+  "coleccion": "Sammlung"
 }
