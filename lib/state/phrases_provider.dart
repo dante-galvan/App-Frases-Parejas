@@ -5,10 +5,15 @@ import '../data/frases_repository.dart';
 import '../utils/phrase_translations.dart';
 
 class PhrasesProvider extends ChangeNotifier {
+  final LanguageCode initialLanguage;
   List<Phrase> _phrases = [];
   bool _isLoading = true;
   bool _isTranslating = false;
   String? _error;
+
+  PhrasesProvider({this.initialLanguage = LanguageCode.es}) {
+    _load();
+  }
 
   List<Phrase> get phrases => _phrases;
   bool get isLoading => _isLoading;
@@ -20,16 +25,15 @@ class PhrasesProvider extends ChangeNotifier {
   List<Phrase> get newPhrases => _phrases.where((p) => p.isNew).toList();
   List<String> get categories => FrasesRepository.categoriesFrom(_phrases);
 
-  PhrasesProvider() {
-    _load();
-  }
-
   Future<void> _load() async {
     try {
       _phrases = await FrasesRepository.load();
       await PhraseTranslations.initialize();
       _isLoading = false;
       notifyListeners();
+      if (initialLanguage != LanguageCode.es) {
+        await setLanguage(initialLanguage);
+      }
     } catch (e) {
       _error = e.toString();
       _isLoading = false;
