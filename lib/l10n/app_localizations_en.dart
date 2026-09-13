@@ -27,7 +27,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bienvenido => 'Welcome!';
 
   @override
-  String get seleccionaTemas => 'Select the topics you\'re most interested in to personalize your experience.';
+  String get seleccionaTemas =>
+      'Select the topics you\'re most interested in to personalize your experience.';
 
   @override
   String get comenzarDescubrir => 'Start exploring';
@@ -133,7 +134,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sinColecciones => 'No collections';
 
   @override
-  String get creaColeccion => 'Create your first collection by saving quotes from any card';
+  String get creaColeccion =>
+      'Create your first collection by saving quotes from any card';
 
   @override
   String get colecciones => 'Collections';
@@ -212,7 +214,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bienvenidoMensaje => 'Welcome! Couples love quotes catalog ready';
 
   @override
-  String get descubrePorTemas => 'Discover romantic phrases to dedicate to your partner';
+  String get descubrePorTemas =>
+      'Discover romantic phrases to dedicate to your partner';
 
   @override
   String frasesGuardadas(int count) {
@@ -235,7 +238,8 @@ class AppLocalizationsEn extends AppLocalizations {
   String get confirmarEliminar => 'Delete this collection?';
 
   @override
-  String get eliminarColeccionMensaje => 'The phrases will not be deleted from the app or favorites.';
+  String get eliminarColeccionMensaje =>
+      'The phrases will not be deleted from the app or favorites.';
 
   @override
   String get editarNombre => 'Edit name';
@@ -278,4 +282,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get coleccion => 'Collection';
+
+  @override
+  String get splashTagline => 'Words that speak for you';
 }

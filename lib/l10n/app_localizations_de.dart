@@ -27,7 +27,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get bienvenido => 'Willkommen!';
 
   @override
-  String get seleccionaTemas => 'Wähle die Themen, die dich am meisten interessieren, um dein Erlebnis zu personalisieren.';
+  String get seleccionaTemas =>
+      'Wähle die Themen, die dich am meisten interessieren, um dein Erlebnis zu personalisieren.';
 
   @override
   String get comenzarDescubrir => 'Entdecken beginnen';
@@ -90,7 +91,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get reiniciarOnboarding => 'Onboarding zurücksetzen';
 
   @override
-  String get reiniciarOnboardingSubtitle => 'Sieh dir erneut die Willkommensseite an';
+  String get reiniciarOnboardingSubtitle =>
+      'Sieh dir erneut die Willkommensseite an';
 
   @override
   String get version => 'Version 2.0.0';
@@ -127,13 +129,15 @@ class AppLocalizationsDe extends AppLocalizations {
   String get sinFavoritos => 'Du hast noch keine Favoriten';
 
   @override
-  String get tocaCorazon => 'Tippe auf das Herz bei einem Zitat, um es hier zu speichern';
+  String get tocaCorazon =>
+      'Tippe auf das Herz bei einem Zitat, um es hier zu speichern';
 
   @override
   String get sinColecciones => 'Keine Sammlungen';
 
   @override
-  String get creaColeccion => 'Erstelle de erste Sammlung, indem du Zitate von einer Karte speicherst';
+  String get creaColeccion =>
+      'Erstelle de erste Sammlung, indem du Zitate von einer Karte speicherst';
 
   @override
   String get colecciones => 'Sammlungen';
@@ -235,7 +239,8 @@ class AppLocalizationsDe extends AppLocalizations {
   String get confirmarEliminar => 'Diese Sammlung löschen?';
 
   @override
-  String get eliminarColeccionMensaje => 'Die Zitate werden nicht aus der App oder den Favoriten gelöscht.';
+  String get eliminarColeccionMensaje =>
+      'Die Zitate werden nicht aus der App oder den Favoriten gelöscht.';
 
   @override
   String get editarNombre => 'Name bearbeiten';
@@ -278,4 +283,7 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get coleccion => 'Sammlung';
+
+  @override
+  String get splashTagline => 'Worte, die für dich sprechen';
 }

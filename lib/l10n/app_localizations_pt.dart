@@ -27,7 +27,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get bienvenido => 'Bem-vindo!';
 
   @override
-  String get seleccionaTemas => 'Selecione os temas que mais lhe interessam para personalizar sua experiência.';
+  String get seleccionaTemas =>
+      'Selecione os temas que mais lhe interessam para personalizar sua experiência.';
 
   @override
   String get comenzarDescubrir => 'Começar a explorar';
@@ -127,13 +128,15 @@ class AppLocalizationsPt extends AppLocalizations {
   String get sinFavoritos => 'Você ainda não tem favoritos';
 
   @override
-  String get tocaCorazon => 'Toque no coração em qualquer frase para salvá-la aqui';
+  String get tocaCorazon =>
+      'Toque no coração em qualquer frase para salvá-la aqui';
 
   @override
   String get sinColecciones => 'Sem coleções';
 
   @override
-  String get creaColeccion => 'Crie sua primeira coleção salvando frases de qualquer cartão';
+  String get creaColeccion =>
+      'Crie sua primeira coleção salvando frases de qualquer cartão';
 
   @override
   String get colecciones => 'Coleções';
@@ -235,7 +238,8 @@ class AppLocalizationsPt extends AppLocalizations {
   String get confirmarEliminar => 'Excluir esta coleção?';
 
   @override
-  String get eliminarColeccionMensaje => 'As frases não serão excluídas do aplicativo nem dos favoritos.';
+  String get eliminarColeccionMensaje =>
+      'As frases não serão excluídas do aplicativo nem dos favoritos.';
 
   @override
   String get editarNombre => 'Editar nome';
@@ -278,4 +282,7 @@ class AppLocalizationsPt extends AppLocalizations {
 
   @override
   String get coleccion => 'Coleção';
+
+  @override
+  String get splashTagline => 'Frases que falam por você';
 }

@@ -27,7 +27,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get bienvenido => 'Bienvenue !';
 
   @override
-  String get seleccionaTemas => 'Sélectionnez les thèmes qui vous intéressent le plus pour personnaliser votre expérience.';
+  String get seleccionaTemas =>
+      'Sélectionnez les thèmes qui vous intéressent le plus pour personnaliser votre expérience.';
 
   @override
   String get comenzarDescubrir => 'Commencer à explorer';
@@ -127,13 +128,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sinFavoritos => 'Vous n\'avez pas encore de favoris';
 
   @override
-  String get tocaCorazon => 'Appuyez sur le cœur de n\'importe quelle citation pour la sauvegarder ici';
+  String get tocaCorazon =>
+      'Appuyez sur le cœur de n\'importe quelle citation pour la sauvegarder ici';
 
   @override
   String get sinColecciones => 'Aucune collection';
 
   @override
-  String get creaColeccion => 'Créez votre première collection en sauvegardant des citations depuis n\'importe quelle carte';
+  String get creaColeccion =>
+      'Créez votre première collection en sauvegardant des citations depuis n\'importe quelle carte';
 
   @override
   String get colecciones => 'Collections';
@@ -206,7 +209,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sinHistorial => 'Aucun historique';
 
   @override
-  String get frasesQueVeas => 'Les citations que vous consultez apparaîtront ici';
+  String get frasesQueVeas =>
+      'Les citations que vous consultez apparaîtront ici';
 
   @override
   String get bienvenidoMensaje => 'Bienvenue ! Catalogue prêt à découvrir';
@@ -235,7 +239,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get confirmarEliminar => 'Supprimer cette collection ?';
 
   @override
-  String get eliminarColeccionMensaje => 'Les citations ne seront pas supprimées de l\'application ni des favoris.';
+  String get eliminarColeccionMensaje =>
+      'Les citations ne seront pas supprimées de l\'application ni des favoris.';
 
   @override
   String get editarNombre => 'Modifier le nom';
@@ -278,4 +283,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get coleccion => 'Collection';
+
+  @override
+  String get splashTagline => 'Des mots qui parlent pour vous';
 }

@@ -27,7 +27,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get bienvenido => 'Benvenuto!';
 
   @override
-  String get seleccionaTemas => 'Seleziona gli argomenti che ti interessano di più per personalizzare la tua esperienza.';
+  String get seleccionaTemas =>
+      'Seleziona gli argomenti che ti interessano di più per personalizzare la tua esperienza.';
 
   @override
   String get comenzarDescubrir => 'Inizia a esplorare';
@@ -90,7 +91,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get reiniciarOnboarding => 'Ripristina onboarding';
 
   @override
-  String get reiniciarOnboardingSubtitle => 'Rivisualizza la schermata iniziale';
+  String get reiniciarOnboardingSubtitle =>
+      'Rivisualizza la schermata iniziale';
 
   @override
   String get version => 'Versione 2.0.0';
@@ -127,13 +129,15 @@ class AppLocalizationsIt extends AppLocalizations {
   String get sinFavoritos => 'Non hai ancora preferiti';
 
   @override
-  String get tocaCorazon => 'Tocca il cuore su qualsiasi frase per salvarla qui';
+  String get tocaCorazon =>
+      'Tocca il cuore su qualsiasi frase per salvarla qui';
 
   @override
   String get sinColecciones => 'Nessuna collezione';
 
   @override
-  String get creaColeccion => 'Crea la tua prima collezione salvando frasi da qualsiasi scheda';
+  String get creaColeccion =>
+      'Crea la tua prima collezione salvando frasi da qualsiasi scheda';
 
   @override
   String get colecciones => 'Collezioni';
@@ -235,7 +239,8 @@ class AppLocalizationsIt extends AppLocalizations {
   String get confirmarEliminar => 'Eliminare questa collezione?';
 
   @override
-  String get eliminarColeccionMensaje => 'Le frasi non verranno eliminate dall\'applicazione né dai preferiti.';
+  String get eliminarColeccionMensaje =>
+      'Le frasi non verranno eliminate dall\'applicazione né dai preferiti.';
 
   @override
   String get editarNombre => 'Modifica nome';
@@ -278,4 +283,7 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get coleccion => 'Collezione';
+
+  @override
+  String get splashTagline => 'Frasi che parlano per te';
 }
