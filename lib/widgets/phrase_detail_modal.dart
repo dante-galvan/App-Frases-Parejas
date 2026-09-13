@@ -26,7 +26,9 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
     super.initState();
     final allPhrases = context.read<PhrasesProvider>().phrases;
     final sameCategory = allPhrases
-        .where((p) => p.categoryId == widget.phrase.categoryId && p.id != widget.phrase.id)
+        .where((p) =>
+            p.categoryId == widget.phrase.categoryId &&
+            p.id != widget.phrase.id)
         .toList();
     final rng = Random();
     sameCategory.shuffle(rng);
@@ -48,8 +50,11 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
       builder: (_, scrollController) {
         return Container(
           decoration: BoxDecoration(
-            color: isDark ? RomanticColors.darkSurface : RomanticColors.lightSurface,
-            borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+            color: isDark
+                ? RomanticColors.darkSurface
+                : RomanticColors.lightSurface,
+            borderRadius:
+                const BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
             children: [
@@ -102,7 +107,7 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                           bottom: 0,
                           left: 0,
                           right: 0,
-                          height: 350,
+                          height: 400,
                           child: DecoratedBox(
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
@@ -110,23 +115,27 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                                 end: Alignment.bottomCenter,
                                 colors: [
                                   Colors.transparent,
-                                  Colors.black.withValues(alpha: 0.88),
+                                  Colors.black.withValues(alpha: 0.9),
                                 ],
                               ),
                             ),
                           ),
                         ),
                         Positioned(
-                          bottom: 32,
+                          bottom: 80,
                           left: 20,
                           right: 20,
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                CategoryTranslations.label(widget.phrase.categoryId, Localizations.localeOf(context)).toUpperCase(),
+                                CategoryTranslations.label(
+                                        widget.phrase.categoryId,
+                                        Localizations.localeOf(context))
+                                    .toUpperCase(),
                                 style: TextStyle(
-                                  color: Colors.white.withValues(alpha: 0.75),
+                                  color:
+                                      Colors.white.withValues(alpha: 0.75),
                                   fontSize: 11,
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 2,
@@ -134,7 +143,10 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                context.read<PhrasesProvider>().getText(widget.phrase, Localizations.localeOf(context)),
+                                context
+                                    .read<PhrasesProvider>()
+                                    .getText(widget.phrase,
+                                        Localizations.localeOf(context)),
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
@@ -152,8 +164,10 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 4),
                                     decoration: BoxDecoration(
-                                      color: Colors.white.withValues(alpha: 0.15),
-                                      borderRadius: BorderRadius.circular(20),
+                                      color: Colors.white
+                                          .withValues(alpha: 0.15),
+                                      borderRadius:
+                                          BorderRadius.circular(20),
                                     ),
                                     child: Text(
                                       '#$tag',
@@ -176,7 +190,8 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                             child: Container(
                               padding: const EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color: Colors.black.withValues(alpha: 0.35),
+                                color:
+                                    Colors.black.withValues(alpha: 0.35),
                                 shape: BoxShape.circle,
                               ),
                               child: const Icon(
@@ -187,19 +202,22 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                             ),
                           ),
                         ),
+                        Positioned(
+                          bottom: 16,
+                          left: 16,
+                          right: 16,
+                          child: PhraseActions(
+                            phrase: widget.phrase,
+                          ),
+                        ),
                       ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16),
-                      child: PhraseActions(
-                        phrase: widget.phrase,
-                      ),
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 20),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          const SizedBox(height: 16),
                           Text(
                             l10n.masFrases,
                             style: TextStyle(
@@ -228,13 +246,16 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                                       showModalBottomSheet(
                                         context: context,
                                         isScrollControlled: true,
-                                        backgroundColor: Colors.transparent,
+                                        backgroundColor:
+                                            Colors.transparent,
                                         builder: (_) =>
-                                            PhraseDetailModal(phrase: p),
+                                            PhraseDetailModal(
+                                                phrase: p),
                                       );
                                     },
                                     child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(12),
+                                      borderRadius:
+                                          BorderRadius.circular(12),
                                       child: Stack(
                                         fit: StackFit.expand,
                                         children: [
@@ -247,27 +268,39 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                                             left: 0,
                                             right: 0,
                                             child: Container(
-                                              padding: const EdgeInsets.all(8),
+                                              padding:
+                                                  const EdgeInsets.all(8),
                                               decoration: BoxDecoration(
                                                 gradient: LinearGradient(
-                                                  begin: Alignment.topCenter,
-                                                  end: Alignment.bottomCenter,
+                                                  begin:
+                                                      Alignment.topCenter,
+                                                  end: Alignment
+                                                      .bottomCenter,
                                                   colors: [
                                                     Colors.transparent,
                                                     Colors.black
-                                                        .withValues(alpha: 0.75),
+                                                        .withValues(
+                                                            alpha: 0.75),
                                                   ],
                                                 ),
                                               ),
                                               child: Text(
-                                                context.read<PhrasesProvider>().getText(p, Localizations.localeOf(context)),
+                                                context
+                                                    .read<PhrasesProvider>()
+                                                    .getText(
+                                                        p,
+                                                        Localizations
+                                                            .localeOf(
+                                                                context)),
                                                 style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 10,
-                                                  fontStyle: FontStyle.italic,
+                                                  fontStyle:
+                                                      FontStyle.italic,
                                                 ),
                                                 maxLines: 3,
-                                                overflow: TextOverflow.ellipsis,
+                                                overflow:
+                                                    TextOverflow.ellipsis,
                                               ),
                                             ),
                                           ),
@@ -279,6 +312,7 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                               },
                             ),
                           ),
+                          const SizedBox(height: 20),
                         ],
                       ),
                     ),

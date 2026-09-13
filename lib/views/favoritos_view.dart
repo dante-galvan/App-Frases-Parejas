@@ -90,30 +90,48 @@ class _FavoritesTab extends StatelessWidget {
 
     if (phrases.isEmpty) {
       return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.favorite_outline,
-                size: 64, color: isDark ? Colors.white24 : Colors.black26),
-            const SizedBox(height: 16),
-            Text(
-              l10n.sinFavoritos,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white60 : Colors.black54,
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 40),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: isDark
+                      ? Colors.white.withValues(alpha: 0.05)
+                      : RomanticColors.romantic50,
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.favorite_outline,
+                  size: 48,
+                  color: isDark
+                      ? RomanticColors.romantic300
+                      : RomanticColors.romantic600,
+                ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              l10n.tocaCorazon,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 13,
-                color: isDark ? Colors.white38 : Colors.black38,
+              const SizedBox(height: 20),
+              Text(
+                l10n.sinFavoritos,
+                style: TextStyle(
+                  fontSize: 17,
+                  fontWeight: FontWeight.w700,
+                  color: isDark ? Colors.white : const Color(0xFF1A1A1A),
+                ),
               ),
-            ),
-          ],
+              const SizedBox(height: 8),
+              Text(
+                l10n.tocaCorazon,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 13,
+                  height: 1.4,
+                  color: isDark ? Colors.white54 : Colors.black45,
+                ),
+              ),
+            ],
+          ),
         ),
       );
     }
@@ -122,7 +140,7 @@ class _FavoritesTab extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 0.68,
+        childAspectRatio: 0.62,
         crossAxisSpacing: 10,
         mainAxisSpacing: 10,
       ),
@@ -172,7 +190,7 @@ class _CollectionsTab extends StatelessWidget {
             width: double.infinity,
             child: OutlinedButton.icon(
               onPressed: () => _showCreateCollectionDialog(context),
-              icon: const Icon(Icons.add, size: 20),
+              icon: const Icon(Icons.add_rounded, size: 20),
               label: Text(l10n.nuevaColeccion),
               style: OutlinedButton.styleFrom(
                 foregroundColor: RomanticColors.romantic600,
@@ -187,160 +205,22 @@ class _CollectionsTab extends StatelessWidget {
         ),
         Expanded(
           child: collections.isEmpty
-              ? Center(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Icon(Icons.collections_outlined,
-                          size: 64,
-                          color: isDark ? Colors.white24 : Colors.black26),
-                      const SizedBox(height: 16),
-                      Text(
-                        l10n.sinColecciones,
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: isDark ? Colors.white60 : Colors.black54,
-                        ),
-                      ),
-                      const SizedBox(height: 8),
-                      Text(
-                        l10n.creaColeccion,
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          fontSize: 13,
-                          color: isDark ? Colors.white38 : Colors.black38,
-                        ),
-                      ),
-                    ],
-                  ),
-                )
+              ? _EmptyCollectionsState(isDark: isDark)
               : ListView.separated(
-                  padding: const EdgeInsets.all(20),
+                  padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
                   itemCount: collections.length,
                   separatorBuilder: (_, __) => const SizedBox(height: 12),
                   itemBuilder: (context, i) {
                     final col = collections[i];
-                    final coverPhrase = col.coverPhraseId != null
-                        ? allPhrases
-                            .where((p) => p.id == col.coverPhraseId)
-                            .firstOrNull
-                        : null;
-
-                    return GestureDetector(
+                    return _CollectionCard(
+                      collection: col,
+                      allPhrases: allPhrases,
+                      isDark: isDark,
                       onTap: () => _showCollectionDetail(context, col),
-                      child: Container(
-                        height: 110,
-                        decoration: BoxDecoration(
-                          color: isDark
-                              ? RomanticColors.darkSurfaceAlt
-                              : Colors.white,
-                          borderRadius: BorderRadius.circular(16),
-                          border: Border.all(
-                            color: isDark ? Colors.white12 : Colors.black12,
-                          ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withValues(alpha: 0.06),
-                              blurRadius: 8,
-                              offset: const Offset(0, 2),
-                            ),
-                          ],
-                        ),
-                        child: Row(
-                          children: [
-                            if (coverPhrase != null)
-                              ClipRRect(
-                                borderRadius: const BorderRadius.horizontal(
-                                    left: Radius.circular(15)),
-                                child: SizedBox(
-                                  width: 110,
-                                  height: 110,
-                                  child: Image.asset(
-                                    'Imagenes/${coverPhrase.image}',
-                                    fit: BoxFit.cover,
-                                  ),
-                                ),
-                              )
-                            else
-                              Container(
-                                width: 110,
-                                decoration: BoxDecoration(
-                                  gradient: LinearGradient(
-                                    begin: Alignment.topLeft,
-                                    end: Alignment.bottomRight,
-                                    colors: [
-                                      RomanticColors.romantic800,
-                                      RomanticColors.romantic600,
-                                    ],
-                                  ),
-                                  borderRadius: const BorderRadius.horizontal(
-                                      left: Radius.circular(15)),
-                                ),
-                                child: const Icon(Icons.favorite,
-                                    color: Colors.white54, size: 36),
-                              ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(14),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      col.name,
-                                      style: TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                        color: isDark
-                                            ? Colors.white
-                                            : const Color(0xFF1A1A1A),
-                                      ),
-                                    ),
-                                    const SizedBox(height: 4),
-                                    Text(
-                                      '${col.phraseIds.length} ${l10n.frases}',
-                                      style: TextStyle(
-                                        fontSize: 12,
-                                        color: isDark
-                                            ? Colors.white54
-                                            : Colors.black45,
-                                      ),
-                                    ),
-                                    const Spacer(),
-                                    Row(
-                                      children: [
-                                        _CollectionAction(
-                                          label: l10n.ver,
-                                          icon: Icons.visibility_outlined,
-                                          onTap: () => _showCollectionDetail(
-                                              context, col),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        _CollectionAction(
-                                          label: l10n.editar,
-                                          icon: Icons.edit_outlined,
-                                          onTap: () =>
-                                              _showEditCollectionDialog(
-                                                  context, col),
-                                        ),
-                                        const SizedBox(width: 4),
-                                        _CollectionAction(
-                                          label: l10n.eliminar,
-                                          icon: Icons.delete_outline,
-                                          color: Colors.red,
-                                          onTap: () =>
-                                              _confirmDeleteCollection(
-                                                  context, col),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                      onEdit: () =>
+                          _showEditCollectionDialog(context, col),
+                      onDelete: () =>
+                          _confirmDeleteCollection(context, col),
                     );
                   },
                 ),
@@ -492,53 +372,67 @@ class _CollectionsTab extends StatelessWidget {
               ),
               Expanded(
                 child: col.phraseIds.isEmpty
-                    ? Center(
-                        child: Text(
-                          l10n.sinFavoritos,
-                          style: TextStyle(
-                            color: Theme.of(context).brightness ==
-                                    Brightness.dark
-                                ? Colors.white54
-                                : Colors.black45,
-                          ),
-                        ),
-                      )
+                    ? _EmptyCollectionDetail(isDark: isDark)
                     : ListView.separated(
                         controller: scrollController,
-                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        padding:
+                            const EdgeInsets.symmetric(horizontal: 16),
                         itemCount: col.phraseIds.length,
                         separatorBuilder: (_, __) =>
                             const SizedBox(height: 8),
                         itemBuilder: (context, i) {
                           final phraseId = col.phraseIds[i];
-                          final phrase = phrasesProvider.getById(phraseId);
-                          if (phrase == null) return const SizedBox.shrink();
+                          final phrase =
+                              phrasesProvider.getById(phraseId);
+                          if (phrase == null) {
+                            return const SizedBox.shrink();
+                          }
 
-                          return ListTile(
-                            leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(8),
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: Image.asset(
-                                  'Imagenes/${phrase.image}',
-                                  fit: BoxFit.cover,
-                                ),
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: isDark
+                                  ? Colors.white.withValues(alpha: 0.05)
+                                  : Colors.white,
+                              borderRadius: BorderRadius.circular(12),
+                              border: Border.all(
+                                color: isDark
+                                    ? Colors.white.withValues(alpha: 0.08)
+                                    : Colors.black.withValues(alpha: 0.06),
                               ),
                             ),
-                            title: Text(
-                              phrasesProvider.getText(
-                                  phrase, Localizations.localeOf(context)),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(fontSize: 13),
-                            ),
-                            trailing: IconButton(
-                              icon: const Icon(Icons.remove_circle_outline,
-                                  color: Colors.red),
-                              onPressed: () =>
-                                  collectionsProvider.togglePhraseInCollection(
-                                      col.id, phrase.id),
+                            child: ListTile(
+                              contentPadding:
+                                  const EdgeInsets.symmetric(
+                                      horizontal: 12, vertical: 4),
+                              leading: ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: SizedBox(
+                                  width: 48,
+                                  height: 48,
+                                  child: Image.asset(
+                                    'Imagenes/${phrase.image}',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                              title: Text(
+                                phrasesProvider.getText(phrase,
+                                    Localizations.localeOf(context)),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.w500),
+                              ),
+                              trailing: IconButton(
+                                icon: const Icon(
+                                    Icons.remove_circle_outline,
+                                    color: Colors.red,
+                                    size: 22),
+                                onPressed: () => collectionsProvider
+                                    .togglePhraseInCollection(
+                                        col.id, phrase.id),
+                              ),
                             ),
                           );
                         },
@@ -552,17 +446,287 @@ class _CollectionsTab extends StatelessWidget {
   }
 }
 
-class _CollectionAction extends StatelessWidget {
-  final String label;
-  final IconData icon;
-  final Color? color;
-  final VoidCallback onTap;
+class _EmptyCollectionsState extends StatelessWidget {
+  final bool isDark;
 
-  const _CollectionAction({
-    required this.label,
-    required this.icon,
-    this.color,
+  const _EmptyCollectionsState({required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : RomanticColors.romantic50,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.auto_stories_rounded,
+                size: 48,
+                color: isDark
+                    ? RomanticColors.romantic300
+                    : RomanticColors.romantic600,
+              ),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              l10n.sinColecciones,
+              style: TextStyle(
+                fontSize: 17,
+                fontWeight: FontWeight.w700,
+                color: isDark ? Colors.white : const Color(0xFF1A1A1A),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l10n.creaColeccion,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13,
+                height: 1.4,
+                color: isDark ? Colors.white54 : Colors.black45,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _EmptyCollectionDetail extends StatelessWidget {
+  final bool isDark;
+
+  const _EmptyCollectionDetail({required this.isDark});
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 40),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Container(
+              padding: const EdgeInsets.all(16),
+              decoration: BoxDecoration(
+                color: isDark
+                    ? Colors.white.withValues(alpha: 0.05)
+                    : RomanticColors.romantic50,
+                shape: BoxShape.circle,
+              ),
+              child: Icon(
+                Icons.format_quote_rounded,
+                size: 36,
+                color: isDark
+                    ? RomanticColors.romantic300
+                    : RomanticColors.romantic600,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              l10n.sinFavoritos,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: isDark ? Colors.white70 : Colors.black54,
+              ),
+            ),
+            const SizedBox(height: 6),
+            Text(
+              l10n.tocaCorazon,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 12,
+                height: 1.4,
+                color: isDark ? Colors.white38 : Colors.black38,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _CollectionCard extends StatelessWidget {
+  final CollectionItem collection;
+  final List<Phrase> allPhrases;
+  final bool isDark;
+  final VoidCallback onTap;
+  final VoidCallback onEdit;
+  final VoidCallback onDelete;
+
+  const _CollectionCard({
+    required this.collection,
+    required this.allPhrases,
+    required this.isDark,
     required this.onTap,
+    required this.onEdit,
+    required this.onDelete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+    final coverPhrase = collection.coverPhraseId != null
+        ? allPhrases
+            .where((p) => p.id == collection.coverPhraseId)
+            .firstOrNull
+        : null;
+
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        height: 120,
+        decoration: BoxDecoration(
+          color:
+              isDark ? RomanticColors.darkSurfaceAlt : Colors.white,
+          borderRadius: BorderRadius.circular(16),
+          border: Border.all(
+            color: isDark
+                ? Colors.white.withValues(alpha: 0.08)
+                : Colors.black.withValues(alpha: 0.06),
+          ),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.08),
+              blurRadius: 12,
+              offset: const Offset(0, 3),
+            ),
+          ],
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(16),
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              if (coverPhrase != null)
+                Positioned.fill(
+                  child: Image.asset(
+                    'Imagenes/${coverPhrase.image}',
+                    fit: BoxFit.cover,
+                  ),
+                )
+              else
+                Positioned.fill(
+                  child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
+                        colors: [
+                          RomanticColors.romantic800,
+                          RomanticColors.romantic600,
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              Positioned.fill(
+                child: Container(
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: [
+                        Colors.black.withValues(alpha: 0.75),
+                        Colors.black.withValues(alpha: 0.3),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 16,
+                top: 0,
+                bottom: 0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Icon(
+                      coverPhrase != null
+                          ? Icons.format_quote_rounded
+                          : Icons.auto_stories_rounded,
+                      color: Colors.white.withValues(alpha: 0.9),
+                      size: 28,
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      collection.name,
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 2),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.15),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Text(
+                        '${collection.phraseIds.length} ${l10n.frases}',
+                        style: TextStyle(
+                          fontSize: 11,
+                          fontWeight: FontWeight.w500,
+                          color: Colors.white.withValues(alpha: 0.85),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                right: 8,
+                top: 0,
+                bottom: 0,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    _CircleIconBtn(
+                      icon: Icons.edit_outlined,
+                      onTap: onEdit,
+                    ),
+                    const SizedBox(height: 6),
+                    _CircleIconBtn(
+                      icon: Icons.delete_outline,
+                      onTap: onDelete,
+                      isDestructive: true,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CircleIconBtn extends StatelessWidget {
+  final IconData icon;
+  final VoidCallback onTap;
+  final bool isDestructive;
+
+  const _CircleIconBtn({
+    required this.icon,
+    required this.onTap,
+    this.isDestructive = false,
   });
 
   @override
@@ -570,25 +734,19 @@ class _CollectionAction extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+        padding: const EdgeInsets.all(8),
         decoration: BoxDecoration(
-          color: (color ?? Colors.grey).withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(8),
+          color: isDestructive
+              ? Colors.red.withValues(alpha: 0.2)
+              : Colors.white.withValues(alpha: 0.15),
+          shape: BoxShape.circle,
         ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Icon(icon, size: 12, color: color ?? Colors.grey),
-            const SizedBox(width: 3),
-            Text(
-              label,
-              style: TextStyle(
-                fontSize: 10,
-                fontWeight: FontWeight.w600,
-                color: color ?? Colors.grey,
-              ),
-            ),
-          ],
+        child: Icon(
+          icon,
+          size: 16,
+          color: isDestructive
+              ? Colors.red.withValues(alpha: 0.9)
+              : Colors.white.withValues(alpha: 0.9),
         ),
       ),
     );
