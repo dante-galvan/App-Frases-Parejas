@@ -1,8 +1,8 @@
-import 'dart:ui';
+import '../utils/phrase_translations.dart';
 
 class CollectionItem {
   final String id;
-  final String name;
+  final String sourceName;
   final String? description;
   final List<String> phraseIds;
   final String createdAt;
@@ -10,12 +10,26 @@ class CollectionItem {
 
   const CollectionItem({
     required this.id,
-    required this.name,
+    required String name,
     this.description,
     required this.phraseIds,
     required this.createdAt,
     this.coverPhraseId,
-  });
+  }) : sourceName = name;
+
+  String get name {
+    final lang = PhraseTranslations.language;
+    switch (id) {
+      case 'col-1':
+        return {'es': 'Para ella', 'en': 'For her', 'pt': 'Para ela', 'fr': 'Pour elle', 'it': 'Per lei', 'de': 'Für sie'}[lang] ?? sourceName;
+      case 'col-2':
+        return {'es': 'Mis favoritas', 'en': 'My favorites', 'pt': 'Minhas favoritas', 'fr': 'Mes favorites', 'it': 'Le mie preferite', 'de': 'Meine Favoriten'}[lang] ?? sourceName;
+      case 'col-3':
+        return {'es': 'Buenos días y noches', 'en': 'Good mornings & nights', 'pt': 'Bons dias e noites', 'fr': 'Bons matins et nuits', 'it': 'Buongiorno e buonanotte', 'de': 'Guten Morgen & gute Nacht'}[lang] ?? sourceName;
+      default:
+        return sourceName;
+    }
+  }
 
   CollectionItem copyWith({
     String? id,
@@ -26,7 +40,7 @@ class CollectionItem {
     String? coverPhraseId,
   }) => CollectionItem(
         id: id ?? this.id,
-        name: name ?? this.name,
+        name: name ?? sourceName,
         description: description ?? this.description,
         phraseIds: phraseIds ?? this.phraseIds,
         createdAt: createdAt ?? this.createdAt,
@@ -44,26 +58,10 @@ class CollectionItem {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'name': name,
+        'name': sourceName,
         'description': description,
         'phraseIds': phraseIds,
         'createdAt': createdAt,
         'coverPhraseId': coverPhraseId,
       };
-}
-
-extension CollectionLocalization on CollectionItem {
-  String localizedName(Locale locale) {
-    final lang = locale.languageCode;
-    switch (id) {
-      case 'col-1':
-        return {'es': 'Para ella', 'en': 'For her', 'pt': 'Para ela', 'fr': 'Pour elle', 'it': 'Per lei', 'de': 'Für sie'}[lang] ?? name;
-      case 'col-2':
-        return {'es': 'Mis favoritas', 'en': 'My favorites', 'pt': 'Minhas favoritas', 'fr': 'Mes favorites', 'it': 'Le mie preferite', 'de': 'Meine Favoriten'}[lang] ?? name;
-      case 'col-3':
-        return {'es': 'Buenos días y noches', 'en': 'Good mornings & nights', 'pt': 'Bons dias e noites', 'fr': 'Bons matins et nuits', 'it': 'Buongiorno e buonanotte', 'de': 'Guten Morgen & gute Nacht'}[lang] ?? name;
-      default:
-        return name;
-    }
-  }
 }
