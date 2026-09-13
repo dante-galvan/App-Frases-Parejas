@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:frases_amor_flutter/l10n/app_localizations.dart';
 import '../state/settings_provider.dart';
-import '../state/favorites_provider.dart';
-import '../state/collections_provider.dart';
 import '../models/app_settings.dart';
 import '../theme/app_colors.dart';
 import '../widgets/history_modal.dart';
@@ -17,10 +15,6 @@ class PerfilView extends StatelessWidget {
   Widget build(BuildContext context) {
     final settingsProvider = context.watch<SettingsProvider>();
     final settings = settingsProvider.settings;
-    final favoritesCount =
-        context.watch<FavoritesProvider>().savedIds.length;
-    final collectionsCount =
-        context.watch<CollectionsProvider>().collections.length;
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
 
@@ -30,26 +24,6 @@ class PerfilView extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(height: 16),
-          _StatCard(
-            isDark: isDark,
-            children: [
-              _StatItem(
-                icon: Icons.favorite,
-                label: l10n.favoritos,
-                value: '$favoritesCount ${l10n.frases}',
-              ),
-              Container(
-                  width: 1,
-                  height: 40,
-                      color: isDark ? Colors.white12 : Colors.black12),
-              _StatItem(
-                icon: Icons.collections,
-                label: l10n.colecciones,
-                value: '$collectionsCount creadas',
-              ),
-            ],
-          ),
-          const SizedBox(height: 24),
           _SectionTitle(title: l10n.apariencia, isDark: isDark),
           const SizedBox(height: 10),
           _SettingsTile(
@@ -275,70 +249,6 @@ class PerfilView extends StatelessWidget {
           );
         },
       ),
-    );
-  }
-}
-
-class _StatCard extends StatelessWidget {
-  final bool isDark;
-  final List<Widget> children;
-
-  const _StatCard({required this.isDark, required this.children});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 20),
-      decoration: BoxDecoration(
-        color: isDark ? RomanticColors.darkSurfaceAlt : Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        border: Border.all(
-            color: isDark ? Colors.white12 : Colors.black12),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: children,
-      ),
-    );
-  }
-}
-
-class _StatItem extends StatelessWidget {
-  final IconData icon;
-  final String label;
-  final String value;
-
-  const _StatItem({
-    required this.icon,
-    required this.label,
-    required this.value,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final isDark = Theme.of(context).brightness == Brightness.dark;
-    return Column(
-      children: [
-        Icon(icon,
-            color: RomanticColors.romantic500,
-            size: 22),
-        const SizedBox(height: 6),
-        Text(
-          value,
-          style: TextStyle(
-            fontSize: 15,
-            fontWeight: FontWeight.w700,
-            color: isDark ? Colors.white : const Color(0xFF1A1A1A),
-          ),
-        ),
-        Text(
-          label,
-          style: TextStyle(
-            fontSize: 11,
-            color: isDark ? Colors.white54 : Colors.black45,
-          ),
-        ),
-      ],
     );
   }
 }

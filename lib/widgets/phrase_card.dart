@@ -119,17 +119,22 @@ class PhraseCard extends StatelessWidget {
               Positioned(
                 top: 8,
                 right: 8,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(
-                    color: Colors.black.withValues(alpha: 0.3),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Icon(
-                    isSaved ? Icons.favorite : Icons.favorite_outline,
-                    color:
-                        isSaved ? RomanticColors.romantic400 : Colors.white70,
-                    size: 12,
+                child: GestureDetector(
+                  behavior: HitTestBehavior.opaque,
+                  onTap: onSave,
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: Colors.black.withValues(alpha: 0.3),
+                      shape: BoxShape.circle,
+                    ),
+                    child: Icon(
+                      isSaved ? Icons.favorite : Icons.favorite_outline,
+                      color: isSaved
+                          ? RomanticColors.romantic400
+                          : Colors.white70,
+                      size: 12,
+                    ),
                   ),
                 ),
               ),

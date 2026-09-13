@@ -413,39 +413,49 @@ class _CollectionsTab extends StatelessWidget {
                                   ),
                                 ),
                                 child: ListTile(
-                                  contentPadding:
-                                      const EdgeInsets.symmetric(
-                                          horizontal: 12, vertical: 4),
-                                  leading: ClipRRect(
-                                    borderRadius: BorderRadius.circular(8),
-                                    child: SizedBox(
-                                      width: 48,
-                                      height: 48,
-                                      child: Image.asset(
-                                        'Imagenes/${phrase.image}',
-                                        fit: BoxFit.cover,
-                                      ),
-                                    ),
-                                  ),
-                                  title: Text(
-                                    phrasesProvider.getText(phrase,
-                                        Localizations.localeOf(context)),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontSize: 13,
-                                        fontWeight: FontWeight.w500),
-                                  ),
-                                  trailing: IconButton(
-                                    icon: const Icon(
-                                        Icons.remove_circle_outline,
-                                        color: Colors.red,
-                                        size: 22),
-                                    onPressed: () => collectionsProv
-                                        .togglePhraseInCollection(
-                                            updatedCol.id, phrase.id),
-                                  ),
-                                ),
+                                   onTap: () {
+                                     Navigator.pop(context);
+                                     showModalBottomSheet(
+                                       context: context,
+                                       isScrollControlled: true,
+                                       backgroundColor: Colors.transparent,
+                                       builder: (_) =>
+                                           PhraseDetailModal(phrase: phrase),
+                                     );
+                                   },
+                                   contentPadding:
+                                       const EdgeInsets.symmetric(
+                                           horizontal: 12, vertical: 4),
+                                   leading: ClipRRect(
+                                     borderRadius: BorderRadius.circular(8),
+                                     child: SizedBox(
+                                       width: 48,
+                                       height: 48,
+                                       child: Image.asset(
+                                         'Imagenes/${phrase.image}',
+                                         fit: BoxFit.cover,
+                                       ),
+                                     ),
+                                   ),
+                                   title: Text(
+                                     phrasesProvider.getText(phrase,
+                                         Localizations.localeOf(context)),
+                                     maxLines: 2,
+                                     overflow: TextOverflow.ellipsis,
+                                     style: const TextStyle(
+                                         fontSize: 13,
+                                         fontWeight: FontWeight.w500),
+                                   ),
+                                   trailing: IconButton(
+                                     icon: const Icon(
+                                         Icons.remove_circle_outline,
+                                         color: Colors.red,
+                                         size: 22),
+                                     onPressed: () => collectionsProv
+                                         .togglePhraseInCollection(
+                                             updatedCol.id, phrase.id),
+                                   ),
+                                 ),
                               );
                             },
                           ),
