@@ -290,7 +290,7 @@ class _FeaturedSection extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Text(
-                      phrase.text,
+                      context.read<PhrasesProvider>().getText(phrase, Localizations.localeOf(context)),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,

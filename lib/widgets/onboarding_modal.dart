@@ -4,6 +4,7 @@ import 'package:frases_amor_flutter/l10n/app_localizations.dart';
 import '../state/settings_provider.dart';
 import '../state/toast_provider.dart';
 import '../theme/app_colors.dart';
+import '../utils/category_translations.dart';
 
 class OnboardingModal extends StatefulWidget {
   const OnboardingModal({super.key});
@@ -13,28 +14,27 @@ class OnboardingModal extends StatefulWidget {
 }
 
 class _OnboardingModalState extends State<OnboardingModal> {
-  final List<String> _allInterests = [
-    'Amor',
-    'Enamoramiento',
-    'Pareja',
-    'Para dedicar',
-    'Pasión',
-    'Buenos días amor',
-    'Buenas noches amor',
-  ];
-
   late Set<String> _selected;
 
   @override
   void initState() {
     super.initState();
-    _selected = {'Amor', 'Pareja', 'Para dedicar'};
+    _selected = {'amor', 'pareja', 'para_dedicar'};
   }
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final l10n = AppLocalizations.of(context)!;
+    final allSlugs = [
+      'amor',
+      'enamoramiento',
+      'pareja',
+      'para_dedicar',
+      'pasion',
+      'buenos_dias_amor',
+      'buenas_noches_amor',
+    ];
 
     return Container(
       height: MediaQuery.of(context).size.height * 0.85,
@@ -83,17 +83,18 @@ class _OnboardingModalState extends State<OnboardingModal> {
                   crossAxisSpacing: 10,
                   mainAxisSpacing: 10,
                 ),
-                itemCount: _allInterests.length,
+                itemCount: allSlugs.length,
                 itemBuilder: (context, i) {
-                  final interest = _allInterests[i];
-                  final selected = _selected.contains(interest);
+                  final slug = allSlugs[i];
+                  final selected = _selected.contains(slug);
+                  final label = CategoryTranslations.label(slug, Localizations.localeOf(context));
                   return GestureDetector(
                     onTap: () {
                       setState(() {
                         if (selected) {
-                          _selected.remove(interest);
+                          _selected.remove(slug);
                         } else {
-                          _selected.add(interest);
+                          _selected.add(slug);
                         }
                       });
                     },
@@ -117,7 +118,7 @@ class _OnboardingModalState extends State<OnboardingModal> {
                       ),
                       alignment: Alignment.center,
                       child: Text(
-                        interest,
+                        label,
                         style: TextStyle(
                           color: selected
                               ? Colors.white

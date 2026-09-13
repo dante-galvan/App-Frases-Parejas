@@ -105,5 +105,18 @@
   "preferenciasCentro": "Preferencias y centro de control",
   "destacada": "DESTACADA",
   "trending": "TRENDING",
-  "nueva": "NUEVA"
+  "nueva": "NUEVA",
+  "confirmarEliminar": "¿Eliminar esta colección?",
+  "eliminarColeccionMensaje": "Las frases no se eliminarán de la aplicación ni de favoritos.",
+  "editarNombre": "Editar nombre",
+  "eliminarColeccion": "Eliminar colección",
+  "compartir": "Compartir",
+  "descargar": "Descargar",
+  "compartirFrase": "Compartir frase",
+  "imagenGuardada": "Imagen guardada en tu galería",
+  "errorPermiso": "Permiso de almacenamiento denegado",
+  "errorCargarImagen": "No se pudo cargar la imagen",
+  "frase": "frase",
+  "ver": "Ver",
+  "editar": "Editar"
 }

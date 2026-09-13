@@ -27,8 +27,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bienvenido => 'Welcome!';
 
   @override
-  String get seleccionaTemas =>
-      'Select the topics you\'re most interested in to personalize your experience.';
+  String get seleccionaTemas => 'Select the topics you\'re most interested in to personalize your experience.';
 
   @override
   String get comenzarDescubrir => 'Start exploring';
@@ -134,8 +133,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sinColecciones => 'No collections';
 
   @override
-  String get creaColeccion =>
-      'Create your first collection by saving quotes from any card';
+  String get creaColeccion => 'Create your first collection by saving quotes from any card';
 
   @override
   String get colecciones => 'Collections';
@@ -214,8 +212,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bienvenidoMensaje => 'Welcome! Couples love quotes catalog ready';
 
   @override
-  String get descubrePorTemas =>
-      'Discover romantic phrases to dedicate to your partner';
+  String get descubrePorTemas => 'Discover romantic phrases to dedicate to your partner';
 
   @override
   String frasesGuardadas(int count) {
@@ -233,4 +230,43 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nueva => 'NEW';
+
+  @override
+  String get confirmarEliminar => 'Delete this collection?';
+
+  @override
+  String get eliminarColeccionMensaje => 'The phrases will not be deleted from the app or favorites.';
+
+  @override
+  String get editarNombre => 'Edit name';
+
+  @override
+  String get eliminarColeccion => 'Delete collection';
+
+  @override
+  String get compartir => 'Share';
+
+  @override
+  String get descargar => 'Download';
+
+  @override
+  String get compartirFrase => 'Share quote';
+
+  @override
+  String get imagenGuardada => 'Image saved to your gallery';
+
+  @override
+  String get errorPermiso => 'Storage permission denied';
+
+  @override
+  String get errorCargarImagen => 'Could not load image';
+
+  @override
+  String get frase => 'quote';
+
+  @override
+  String get ver => 'View';
+
+  @override
+  String get editar => 'Edit';
 }

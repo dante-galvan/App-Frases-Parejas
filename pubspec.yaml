@@ -36,3 +36,4 @@ flutter:
   assets:
     - Imagenes/
     - frases_amor_224.json
+    - phrase_translations.json

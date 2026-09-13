@@ -27,8 +27,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get bienvenido => 'Benvenuto!';
 
   @override
-  String get seleccionaTemas =>
-      'Seleziona gli argomenti che ti interessano di più per personalizzare la tua esperienza.';
+  String get seleccionaTemas => 'Seleziona gli argomenti che ti interessano di più per personalizzare la tua esperienza.';
 
   @override
   String get comenzarDescubrir => 'Inizia a esplorare';
@@ -91,8 +90,7 @@ class AppLocalizationsIt extends AppLocalizations {
   String get reiniciarOnboarding => 'Ripristina onboarding';
 
   @override
-  String get reiniciarOnboardingSubtitle =>
-      'Rivisualizza la schermata iniziale';
+  String get reiniciarOnboardingSubtitle => 'Rivisualizza la schermata iniziale';
 
   @override
   String get version => 'Versione 2.0.0';
@@ -129,15 +127,13 @@ class AppLocalizationsIt extends AppLocalizations {
   String get sinFavoritos => 'Non hai ancora preferiti';
 
   @override
-  String get tocaCorazon =>
-      'Tocca il cuore su qualsiasi frase per salvarla qui';
+  String get tocaCorazon => 'Tocca il cuore su qualsiasi frase per salvarla qui';
 
   @override
   String get sinColecciones => 'Nessuna collezione';
 
   @override
-  String get creaColeccion =>
-      'Crea la tua prima collezione salvando frasi da qualsiasi scheda';
+  String get creaColeccion => 'Crea la tua prima collezione salvando frasi da qualsiasi scheda';
 
   @override
   String get colecciones => 'Collezioni';
@@ -234,4 +230,43 @@ class AppLocalizationsIt extends AppLocalizations {
 
   @override
   String get nueva => 'NUOVA';
+
+  @override
+  String get confirmarEliminar => 'Eliminare questa collezione?';
+
+  @override
+  String get eliminarColeccionMensaje => 'Le frasi non verranno eliminate dall\'applicazione né dai preferiti.';
+
+  @override
+  String get editarNombre => 'Modifica nome';
+
+  @override
+  String get eliminarColeccion => 'Elimina collezione';
+
+  @override
+  String get compartir => 'Condividi';
+
+  @override
+  String get descargar => 'Scarica';
+
+  @override
+  String get compartirFrase => 'Condividi frase';
+
+  @override
+  String get imagenGuardada => 'Immagine salvata nella tua galleria';
+
+  @override
+  String get errorPermiso => 'Permesso di archiviazione negato';
+
+  @override
+  String get errorCargarImagen => 'Impossibile caricare l\'immagine';
+
+  @override
+  String get frase => 'frase';
+
+  @override
+  String get ver => 'Visualizza';
+
+  @override
+  String get editar => 'Modifica';
 }

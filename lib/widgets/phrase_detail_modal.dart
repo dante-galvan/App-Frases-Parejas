@@ -140,7 +140,7 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                widget.phrase.text,
+                                context.read<PhrasesProvider>().getText(widget.phrase, Localizations.localeOf(context)),
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
@@ -202,7 +202,8 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                               _CircleButton(
                                 icon: Icons.share,
                                 onTap: () async {
-                                  await exportAndShare(widget.phrase, context);
+                                  final translatedText = context.read<PhrasesProvider>().getText(widget.phrase, Localizations.localeOf(context));
+                                  await exportAndShare(widget.phrase, context, text: translatedText);
                                 },
                               ),
                               const SizedBox(width: 8),

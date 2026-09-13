@@ -27,8 +27,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get bienvenido => 'Bienvenue !';
 
   @override
-  String get seleccionaTemas =>
-      'Sélectionnez les thèmes qui vous intéressent le plus pour personnaliser votre expérience.';
+  String get seleccionaTemas => 'Sélectionnez les thèmes qui vous intéressent le plus pour personnaliser votre expérience.';
 
   @override
   String get comenzarDescubrir => 'Commencer à explorer';
@@ -128,15 +127,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sinFavoritos => 'Vous n\'avez pas encore de favoris';
 
   @override
-  String get tocaCorazon =>
-      'Appuyez sur le cœur de n\'importe quelle citation pour la sauvegarder ici';
+  String get tocaCorazon => 'Appuyez sur le cœur de n\'importe quelle citation pour la sauvegarder ici';
 
   @override
   String get sinColecciones => 'Aucune collection';
 
   @override
-  String get creaColeccion =>
-      'Créez votre première collection en sauvegardant des citations depuis n\'importe quelle carte';
+  String get creaColeccion => 'Créez votre première collection en sauvegardant des citations depuis n\'importe quelle carte';
 
   @override
   String get colecciones => 'Collections';
@@ -209,8 +206,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get sinHistorial => 'Aucun historique';
 
   @override
-  String get frasesQueVeas =>
-      'Les citations que vous consultez apparaîtront ici';
+  String get frasesQueVeas => 'Les citations que vous consultez apparaîtront ici';
 
   @override
   String get bienvenidoMensaje => 'Bienvenue ! Catalogue prêt à découvrir';
@@ -234,4 +230,43 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get nueva => 'NOUVELLE';
+
+  @override
+  String get confirmarEliminar => 'Supprimer cette collection ?';
+
+  @override
+  String get eliminarColeccionMensaje => 'Les citations ne seront pas supprimées de l\'application ni des favoris.';
+
+  @override
+  String get editarNombre => 'Modifier le nom';
+
+  @override
+  String get eliminarColeccion => 'Supprimer la collection';
+
+  @override
+  String get compartir => 'Partager';
+
+  @override
+  String get descargar => 'Télécharger';
+
+  @override
+  String get compartirFrase => 'Partager la citation';
+
+  @override
+  String get imagenGuardada => 'Image sauvegardée dans votre galerie';
+
+  @override
+  String get errorPermiso => 'Permission de stockage refusée';
+
+  @override
+  String get errorCargarImagen => 'Impossible de charger l\'image';
+
+  @override
+  String get frase => 'citation';
+
+  @override
+  String get ver => 'Voir';
+
+  @override
+  String get editar => 'Modifier';
 }

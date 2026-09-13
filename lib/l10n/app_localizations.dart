@@ -66,8 +66,7 @@ import 'app_localizations_pt.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -75,8 +74,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -88,13 +86,12 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
@@ -103,7 +100,7 @@ abstract class AppLocalizations {
     Locale('es'),
     Locale('fr'),
     Locale('it'),
-    Locale('pt'),
+    Locale('pt')
   ];
 
   /// No description provided for @appTitle.
@@ -531,10 +528,87 @@ abstract class AppLocalizations {
   /// In es, this message translates to:
   /// **'NUEVA'**
   String get nueva;
+
+  /// No description provided for @confirmarEliminar.
+  ///
+  /// In es, this message translates to:
+  /// **'¿Eliminar esta colección?'**
+  String get confirmarEliminar;
+
+  /// No description provided for @eliminarColeccionMensaje.
+  ///
+  /// In es, this message translates to:
+  /// **'Las frases no se eliminarán de la aplicación ni de favoritos.'**
+  String get eliminarColeccionMensaje;
+
+  /// No description provided for @editarNombre.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar nombre'**
+  String get editarNombre;
+
+  /// No description provided for @eliminarColeccion.
+  ///
+  /// In es, this message translates to:
+  /// **'Eliminar colección'**
+  String get eliminarColeccion;
+
+  /// No description provided for @compartir.
+  ///
+  /// In es, this message translates to:
+  /// **'Compartir'**
+  String get compartir;
+
+  /// No description provided for @descargar.
+  ///
+  /// In es, this message translates to:
+  /// **'Descargar'**
+  String get descargar;
+
+  /// No description provided for @compartirFrase.
+  ///
+  /// In es, this message translates to:
+  /// **'Compartir frase'**
+  String get compartirFrase;
+
+  /// No description provided for @imagenGuardada.
+  ///
+  /// In es, this message translates to:
+  /// **'Imagen guardada en tu galería'**
+  String get imagenGuardada;
+
+  /// No description provided for @errorPermiso.
+  ///
+  /// In es, this message translates to:
+  /// **'Permiso de almacenamiento denegado'**
+  String get errorPermiso;
+
+  /// No description provided for @errorCargarImagen.
+  ///
+  /// In es, this message translates to:
+  /// **'No se pudo cargar la imagen'**
+  String get errorCargarImagen;
+
+  /// No description provided for @frase.
+  ///
+  /// In es, this message translates to:
+  /// **'frase'**
+  String get frase;
+
+  /// No description provided for @ver.
+  ///
+  /// In es, this message translates to:
+  /// **'Ver'**
+  String get ver;
+
+  /// No description provided for @editar.
+  ///
+  /// In es, this message translates to:
+  /// **'Editar'**
+  String get editar;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -543,40 +617,29 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) => <String>[
-    'de',
-    'en',
-    'es',
-    'fr',
-    'it',
-    'pt',
-  ].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['de', 'en', 'es', 'fr', 'it', 'pt'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'de':
-      return AppLocalizationsDe();
-    case 'en':
-      return AppLocalizationsEn();
-    case 'es':
-      return AppLocalizationsEs();
-    case 'fr':
-      return AppLocalizationsFr();
-    case 'it':
-      return AppLocalizationsIt();
-    case 'pt':
-      return AppLocalizationsPt();
+    case 'de': return AppLocalizationsDe();
+    case 'en': return AppLocalizationsEn();
+    case 'es': return AppLocalizationsEs();
+    case 'fr': return AppLocalizationsFr();
+    case 'it': return AppLocalizationsIt();
+    case 'pt': return AppLocalizationsPt();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
+    'that was used.'
   );
 }

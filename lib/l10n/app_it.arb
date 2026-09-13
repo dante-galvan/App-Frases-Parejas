@@ -105,5 +105,18 @@
   "preferenciasCentro": "Preferenze e centro di controllo",
   "destacada": "IN EVIDENZA",
   "trending": "TENDENZA",
-  "nueva": "NUOVA"
+  "nueva": "NUOVA",
+  "confirmarEliminar": "Eliminare questa collezione?",
+  "eliminarColeccionMensaje": "Le frasi non verranno eliminate dall'applicazione né dai preferiti.",
+  "editarNombre": "Modifica nome",
+  "eliminarColeccion": "Elimina collezione",
+  "compartir": "Condividi",
+  "descargar": "Scarica",
+  "compartirFrase": "Condividi frase",
+  "imagenGuardada": "Immagine salvata nella tua galleria",
+  "errorPermiso": "Permesso di archiviazione negato",
+  "errorCargarImagen": "Impossibile caricare l'immagine",
+  "frase": "frase",
+  "ver": "Visualizza",
+  "editar": "Modifica"
 }

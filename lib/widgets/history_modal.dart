@@ -169,7 +169,7 @@ class HistoryModal extends StatelessWidget {
                                           ),
                                           const SizedBox(height: 4),
                                           Text(
-                                            phrase.text,
+                                            context.read<PhrasesProvider>().getText(phrase, Localizations.localeOf(context)),
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontStyle: FontStyle.italic,

@@ -105,5 +105,18 @@
   "preferenciasCentro": "Präferenzen und Kontrollzentrum",
   "destacada": "EMPFOHLEN",
   "trending": "TREND",
-  "nueva": "NEU"
+  "nueva": "NEU",
+  "confirmarEliminar": "Diese Sammlung löschen?",
+  "eliminarColeccionMensaje": "Die Zitate werden nicht aus der App oder den Favoriten gelöscht.",
+  "editarNombre": "Name bearbeiten",
+  "eliminarColeccion": "Sammlung löschen",
+  "compartir": "Teilen",
+  "descargar": "Herunterladen",
+  "compartirFrase": "Zitat teilen",
+  "imagenGuardada": "Bild in deiner Galerie gespeichert",
+  "errorPermiso": "Speicherzugriff verweigert",
+  "errorCargarImagen": "Bild konnte nicht geladen werden",
+  "frase": "Zitat",
+  "ver": "Ansehen",
+  "editar": "Bearbeiten"
 }

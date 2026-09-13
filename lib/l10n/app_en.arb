@@ -105,5 +105,18 @@
   "preferenciasCentro": "Preferences and control center",
   "destacada": "FEATURED",
   "trending": "TRENDING",
-  "nueva": "NEW"
+  "nueva": "NEW",
+  "confirmarEliminar": "Delete this collection?",
+  "eliminarColeccionMensaje": "The phrases will not be deleted from the app or favorites.",
+  "editarNombre": "Edit name",
+  "eliminarColeccion": "Delete collection",
+  "compartir": "Share",
+  "descargar": "Download",
+  "compartirFrase": "Share quote",
+  "imagenGuardada": "Image saved to your gallery",
+  "errorPermiso": "Storage permission denied",
+  "errorCargarImagen": "Could not load image",
+  "frase": "quote",
+  "ver": "View",
+  "editar": "Edit"
 }

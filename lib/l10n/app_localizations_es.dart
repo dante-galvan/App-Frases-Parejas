@@ -27,8 +27,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get bienvenido => '¡Bienvenido!';
 
   @override
-  String get seleccionaTemas =>
-      'Selecciona los temas que más te interesen para personalizar tu experiencia.';
+  String get seleccionaTemas => 'Selecciona los temas que más te interesen para personalizar tu experiencia.';
 
   @override
   String get comenzarDescubrir => 'Comenzar a descubrir';
@@ -91,8 +90,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get reiniciarOnboarding => 'Reiniciar onboarding';
 
   @override
-  String get reiniciarOnboardingSubtitle =>
-      'Vuelve a ver la pantalla de inicio';
+  String get reiniciarOnboardingSubtitle => 'Vuelve a ver la pantalla de inicio';
 
   @override
   String get version => 'Versión 2.0.0';
@@ -129,15 +127,13 @@ class AppLocalizationsEs extends AppLocalizations {
   String get sinFavoritos => 'Aún no tienes favoritos';
 
   @override
-  String get tocaCorazon =>
-      'Toca el corazón en cualquier frase para guardarla aquí';
+  String get tocaCorazon => 'Toca el corazón en cualquier frase para guardarla aquí';
 
   @override
   String get sinColecciones => 'Sin colecciones';
 
   @override
-  String get creaColeccion =>
-      'Crea tu primera colección guardando frases desde cualquier tarjeta';
+  String get creaColeccion => 'Crea tu primera colección guardando frases desde cualquier tarjeta';
 
   @override
   String get colecciones => 'Colecciones';
@@ -213,12 +209,10 @@ class AppLocalizationsEs extends AppLocalizations {
   String get frasesQueVeas => 'Las frases que veas aparecerán aquí';
 
   @override
-  String get bienvenidoMensaje =>
-      '¡Bienvenido! Catálogo de frases para parejas listo';
+  String get bienvenidoMensaje => '¡Bienvenido! Catálogo de frases para parejas listo';
 
   @override
-  String get descubrePorTemas =>
-      'Descubre frases románticas para dedicar a tu pareja';
+  String get descubrePorTemas => 'Descubre frases románticas para dedicar a tu pareja';
 
   @override
   String frasesGuardadas(int count) {
@@ -236,4 +230,43 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get nueva => 'NUEVA';
+
+  @override
+  String get confirmarEliminar => '¿Eliminar esta colección?';
+
+  @override
+  String get eliminarColeccionMensaje => 'Las frases no se eliminarán de la aplicación ni de favoritos.';
+
+  @override
+  String get editarNombre => 'Editar nombre';
+
+  @override
+  String get eliminarColeccion => 'Eliminar colección';
+
+  @override
+  String get compartir => 'Compartir';
+
+  @override
+  String get descargar => 'Descargar';
+
+  @override
+  String get compartirFrase => 'Compartir frase';
+
+  @override
+  String get imagenGuardada => 'Imagen guardada en tu galería';
+
+  @override
+  String get errorPermiso => 'Permiso de almacenamiento denegado';
+
+  @override
+  String get errorCargarImagen => 'No se pudo cargar la imagen';
+
+  @override
+  String get frase => 'frase';
+
+  @override
+  String get ver => 'Ver';
+
+  @override
+  String get editar => 'Editar';
 }

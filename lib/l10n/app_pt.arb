@@ -105,5 +105,18 @@
   "preferenciasCentro": "Preferências e centro de controle",
   "destacada": "DESTACADA",
   "trending": "EM ALTA",
-  "nueva": "NOVA"
+  "nueva": "NOVA",
+  "confirmarEliminar": "Excluir esta coleção?",
+  "eliminarColeccionMensaje": "As frases não serão excluídas do aplicativo nem dos favoritos.",
+  "editarNombre": "Editar nome",
+  "eliminarColeccion": "Excluir coleção",
+  "compartir": "Compartilhar",
+  "descargar": "Baixar",
+  "compartirFrase": "Compartilhar frase",
+  "imagenGuardada": "Imagem salva na sua galeria",
+  "errorPermiso": "Permissão de armazenamento negada",
+  "errorCargarImagen": "Não foi possível carregar a imagem",
+  "frase": "frase",
+  "ver": "Ver",
+  "editar": "Editar"
 }

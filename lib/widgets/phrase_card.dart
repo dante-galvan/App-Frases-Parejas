@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:frases_amor_flutter/l10n/app_localizations.dart';
 import '../models/phrase.dart';
+import '../state/phrases_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/category_translations.dart';
 
@@ -151,7 +153,7 @@ class PhraseCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 4),
                     Text(
-                      phrase.text,
+                      context.read<PhrasesProvider>().getText(phrase, Localizations.localeOf(context)),
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 12,

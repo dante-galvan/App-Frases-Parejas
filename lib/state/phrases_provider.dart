@@ -1,11 +1,14 @@
+import 'dart:ui';
 import 'package:flutter/foundation.dart';
 import '../models/phrase.dart';
 import '../data/frases_repository.dart';
+import '../data/phrase_translations.dart';
 
 class PhrasesProvider extends ChangeNotifier {
   List<Phrase> _phrases = [];
   bool _isLoading = true;
   String? _error;
+  Map<String, Map<String, String>> _translations = {};
 
   List<Phrase> get phrases => _phrases;
   bool get isLoading => _isLoading;
@@ -29,6 +32,7 @@ class PhrasesProvider extends ChangeNotifier {
   Future<void> _load() async {
     try {
       _phrases = await FrasesRepository.load();
+      _translations = await PhraseTranslations.load();
       _isLoading = false;
       notifyListeners();
     } catch (e) {
@@ -36,6 +40,15 @@ class PhrasesProvider extends ChangeNotifier {
       _isLoading = false;
       notifyListeners();
     }
+  }
+
+  String getText(Phrase phrase, Locale locale) {
+    if (locale.languageCode == 'es') return phrase.text;
+
+    final phraseTranslations = _translations[phrase.id];
+    if (phraseTranslations == null) return phrase.text;
+
+    return phraseTranslations[locale.languageCode] ?? phrase.text;
   }
 
   int countForCategory(String categoryId) =>
@@ -55,10 +68,11 @@ class PhrasesProvider extends ChangeNotifier {
   List<Phrase> byTone(String tone) =>
       _phrases.where((p) => p.tone == tone).toList();
 
-  List<Phrase> search(String query) {
+  List<Phrase> search(String query, Locale locale) {
     final q = query.toLowerCase();
     return _phrases.where((p) {
-      return p.text.toLowerCase().contains(q) ||
+      final text = getText(p, locale).toLowerCase();
+      return text.contains(q) ||
           p.category.toLowerCase().contains(q) ||
           p.categoryId.toLowerCase().contains(q) ||
           p.tone.toLowerCase().contains(q) ||

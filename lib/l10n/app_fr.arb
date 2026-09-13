@@ -105,5 +105,18 @@
   "preferenciasCentro": "Préférences et centre de contrôle",
   "destacada": "À LA UNE",
   "trending": "TENDANCE",
-  "nueva": "NOUVELLE"
+  "nueva": "NOUVELLE",
+  "confirmarEliminar": "Supprimer cette collection ?",
+  "eliminarColeccionMensaje": "Les citations ne seront pas supprimées de l'application ni des favoris.",
+  "editarNombre": "Modifier le nom",
+  "eliminarColeccion": "Supprimer la collection",
+  "compartir": "Partager",
+  "descargar": "Télécharger",
+  "compartirFrase": "Partager la citation",
+  "imagenGuardada": "Image sauvegardée dans votre galerie",
+  "errorPermiso": "Permission de stockage refusée",
+  "errorCargarImagen": "Impossible de charger l'image",
+  "frase": "citation",
+  "ver": "Voir",
+  "editar": "Modifier"
 }

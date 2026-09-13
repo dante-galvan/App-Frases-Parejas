@@ -4,6 +4,7 @@ import 'package:frases_amor_flutter/l10n/app_localizations.dart';
 import '../state/phrases_provider.dart';
 import '../state/favorites_provider.dart';
 import '../state/collections_provider.dart';
+import '../state/toast_provider.dart';
 import '../models/phrase.dart';
 import '../models/collection.dart';
 import '../theme/app_colors.dart';
@@ -161,154 +162,324 @@ class _CollectionsTab extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final collectionsProvider = context.watch<CollectionsProvider>();
     final l10n = AppLocalizations.of(context)!;
 
-    if (collections.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.collections_outlined,
-                size: 64, color: isDark ? Colors.white24 : Colors.black26),
-            const SizedBox(height: 16),
-            Text(
-              l10n.sinColecciones,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white60 : Colors.black54,
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 12, 20, 0),
+          child: SizedBox(
+            width: double.infinity,
+            child: OutlinedButton.icon(
+              onPressed: () => _showCreateCollectionDialog(context),
+              icon: const Icon(Icons.add, size: 20),
+              label: Text(l10n.nuevaColeccion),
+              style: OutlinedButton.styleFrom(
+                foregroundColor: RomanticColors.romantic600,
+                side: const BorderSide(color: RomanticColors.romantic600),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                padding: const EdgeInsets.symmetric(vertical: 12),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              l10n.creaColeccion,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 13,
-                color: isDark ? Colors.white38 : Colors.black38,
-              ),
-            ),
-          ],
-        ),
-      );
-    }
-
-    return ListView.separated(
-      padding: const EdgeInsets.all(20),
-      itemCount: collections.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 12),
-      itemBuilder: (context, i) {
-        final col = collections[i];
-        final coverPhrase = allPhrases
-            .where((p) => col.phraseIds.contains(p.id))
-            .toList();
-
-        return Container(
-          height: 110,
-          decoration: BoxDecoration(
-            color: isDark
-                ? RomanticColors.darkSurfaceAlt
-                : Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: isDark ? Colors.white12 : Colors.black12,
             ),
           ),
-          child: Row(
-            children: [
-              if (coverPhrase.isNotEmpty)
-                ClipRRect(
-                  borderRadius: const BorderRadius.horizontal(
-                      left: Radius.circular(15)),
-                  child: SizedBox(
-                    width: 110,
-                    height: 110,
-                    child: Image.asset(
-                      'Imagenes/${coverPhrase.first.image}',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
-              else
-                Container(
-                  width: 110,
-                  decoration: BoxDecoration(
-                    color: RomanticColors.romantic900,
-                    borderRadius: const BorderRadius.horizontal(
-                        left: Radius.circular(15)),
-                  ),
-                  child: const Icon(Icons.favorite,
-                      color: Colors.white30, size: 36),
-                ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(14),
+        ),
+        Expanded(
+          child: collections.isEmpty
+              ? Center(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
+                      Icon(Icons.collections_outlined,
+                          size: 64,
+                          color: isDark ? Colors.white24 : Colors.black26),
+                      const SizedBox(height: 16),
                       Text(
-                        col.name,
+                        l10n.sinColecciones,
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: isDark ? Colors.white : const Color(0xFF1A1A1A),
+                          color: isDark ? Colors.white60 : Colors.black54,
                         ),
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 8),
                       Text(
-                        '${col.phraseIds.length} ${l10n.frases}',
+                        l10n.creaColeccion,
+                        textAlign: TextAlign.center,
                         style: TextStyle(
-                          fontSize: 12,
-                          color: isDark ? Colors.white54 : Colors.black45,
+                          fontSize: 13,
+                          color: isDark ? Colors.white38 : Colors.black38,
                         ),
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              _showAddPhrasesDialog(context, col);
-                            },
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 4),
-                              minimumSize: Size.zero,
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            ),
-                            child: Text(l10n.agregar,
-                                style: const TextStyle(fontSize: 12)),
-                          ),
-                          TextButton(
-                            onPressed: () =>
-                                collectionsProvider.deleteCollection(col.id),
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 4),
-                              minimumSize: Size.zero,
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            ),
-                            child: Text(l10n.eliminar,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: isDark
-                                        ? Colors.white54
-                                        : Colors.black45)),
-                          ),
-                        ],
                       ),
                     ],
                   ),
+                )
+              : ListView.separated(
+                  padding: const EdgeInsets.all(20),
+                  itemCount: collections.length,
+                  separatorBuilder: (_, __) => const SizedBox(height: 12),
+                  itemBuilder: (context, i) {
+                    final col = collections[i];
+                    final coverPhrase = col.coverPhraseId != null
+                        ? allPhrases
+                            .where((p) => p.id == col.coverPhraseId)
+                            .firstOrNull
+                        : null;
+
+                    return GestureDetector(
+                      onTap: () => _showCollectionDetail(context, col),
+                      child: Container(
+                        height: 110,
+                        decoration: BoxDecoration(
+                          color: isDark
+                              ? RomanticColors.darkSurfaceAlt
+                              : Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(
+                            color: isDark ? Colors.white12 : Colors.black12,
+                          ),
+                        ),
+                        child: Row(
+                          children: [
+                            if (coverPhrase != null)
+                              ClipRRect(
+                                borderRadius: const BorderRadius.horizontal(
+                                    left: Radius.circular(15)),
+                                child: SizedBox(
+                                  width: 110,
+                                  height: 110,
+                                  child: Image.asset(
+                                    'Imagenes/${coverPhrase.image}',
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              )
+                            else
+                              Container(
+                                width: 110,
+                                decoration: BoxDecoration(
+                                  color: RomanticColors.romantic900,
+                                  borderRadius: const BorderRadius.horizontal(
+                                      left: Radius.circular(15)),
+                                ),
+                                child: const Icon(Icons.favorite,
+                                    color: Colors.white30, size: 36),
+                              ),
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.all(14),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      col.name,
+                                      style: TextStyle(
+                                        fontSize: 15,
+                                        fontWeight: FontWeight.w600,
+                                        color: isDark
+                                            ? Colors.white
+                                            : const Color(0xFF1A1A1A),
+                                      ),
+                                    ),
+                                    const SizedBox(height: 4),
+                                    Text(
+                                      '${col.phraseIds.length} ${l10n.frases}',
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        color: isDark
+                                            ? Colors.white54
+                                            : Colors.black45,
+                                      ),
+                                    ),
+                                    const Spacer(),
+                                    Row(
+                                      children: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              _showCollectionDetail(
+                                                  context, col),
+                                          style: TextButton.styleFrom(
+                                            padding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 12,
+                                                    vertical: 4),
+                                            minimumSize: Size.zero,
+                                            tapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
+                                          ),
+                                          child: Text(l10n.ver,
+                                              style:
+                                                  const TextStyle(fontSize: 12)),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              _showEditCollectionDialog(
+                                                  context, col),
+                                          style: TextButton.styleFrom(
+                                            padding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 12,
+                                                    vertical: 4),
+                                            minimumSize: Size.zero,
+                                            tapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
+                                          ),
+                                          child: Text(l10n.editar,
+                                              style:
+                                                  const TextStyle(fontSize: 12)),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              _confirmDeleteCollection(
+                                                  context, col),
+                                          style: TextButton.styleFrom(
+                                            padding:
+                                                const EdgeInsets.symmetric(
+                                                    horizontal: 12,
+                                                    vertical: 4),
+                                            minimumSize: Size.zero,
+                                            tapTargetSize:
+                                                MaterialTapTargetSize
+                                                    .shrinkWrap,
+                                          ),
+                                          child: Text(l10n.eliminar,
+                                              style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: isDark
+                                                      ? Colors.white54
+                                                      : Colors.black45)),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  },
                 ),
-              ),
-            ],
-          ),
-        );
-      },
+        ),
+      ],
     );
   }
 
-  void _showAddPhrasesDialog(BuildContext context, CollectionItem col) {
+  void _showCreateCollectionDialog(BuildContext context) {
+    final controller = TextEditingController();
+    final collectionsProvider = context.read<CollectionsProvider>();
+    final toast = context.read<ToastProvider>();
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(l10n.nuevaColeccion),
+        content: TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: l10n.nombreColeccion,
+            border: const OutlineInputBorder(),
+          ),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.cancelar),
+          ),
+          TextButton(
+            onPressed: () {
+              if (controller.text.trim().isNotEmpty) {
+                collectionsProvider.createCollection(
+                  controller.text.trim(),
+                );
+                toast.showSuccess(l10n.coleccionCreada);
+                Navigator.pop(context);
+              }
+            },
+            child: Text(l10n.crear),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showEditCollectionDialog(BuildContext context, CollectionItem col) {
+    final controller = TextEditingController(text: col.name);
+    final collectionsProvider = context.read<CollectionsProvider>();
+    final toast = context.read<ToastProvider>();
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(l10n.editarNombre),
+        content: TextField(
+          controller: controller,
+          decoration: InputDecoration(
+            hintText: l10n.nombreColeccion,
+            border: const OutlineInputBorder(),
+          ),
+          autofocus: true,
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.cancelar),
+          ),
+          TextButton(
+            onPressed: () {
+              if (controller.text.trim().isNotEmpty) {
+                collectionsProvider.renameCollection(
+                  col.id,
+                  controller.text.trim(),
+                );
+                toast.showSuccess(l10n.coleccionCreada);
+                Navigator.pop(context);
+              }
+            },
+            child: Text(l10n.guardar),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _confirmDeleteCollection(BuildContext context, CollectionItem col) {
+    final collectionsProvider = context.read<CollectionsProvider>();
+    final toast = context.read<ToastProvider>();
+    final l10n = AppLocalizations.of(context)!;
+
+    showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text(l10n.confirmarEliminar),
+        content: Text(l10n.eliminarColeccionMensaje),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(l10n.cancelar),
+          ),
+          TextButton(
+            onPressed: () {
+              collectionsProvider.deleteCollection(col.id);
+              toast.showSuccess(l10n.eliminadaDeColeccion);
+              Navigator.pop(context);
+            },
+            child: Text(l10n.eliminarColeccion,
+                style: const TextStyle(color: Colors.red)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showCollectionDetail(BuildContext context, CollectionItem col) {
     final phrasesProvider = context.read<PhrasesProvider>();
     final collectionsProvider = context.read<CollectionsProvider>();
     final l10n = AppLocalizations.of(context)!;
@@ -340,47 +511,58 @@ class _CollectionsTab extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: ListView.separated(
-                  controller: scrollController,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  itemCount: phrasesProvider.phrases.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 8),
-                  itemBuilder: (context, i) {
-                    final phrase = phrasesProvider.phrases[i];
-                    final isInCollection = col.phraseIds.contains(phrase.id);
-                    return ListTile(
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: Image.asset(
-                            'Imagenes/${phrase.image}',
-                            fit: BoxFit.cover,
+                child: col.phraseIds.isEmpty
+                    ? Center(
+                        child: Text(
+                          l10n.sinFavoritos,
+                          style: TextStyle(
+                            color: Theme.of(context).brightness ==
+                                    Brightness.dark
+                                ? Colors.white54
+                                : Colors.black45,
                           ),
                         ),
+                      )
+                    : ListView.separated(
+                        controller: scrollController,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        itemCount: col.phraseIds.length,
+                        separatorBuilder: (_, __) =>
+                            const SizedBox(height: 8),
+                        itemBuilder: (context, i) {
+                          final phraseId = col.phraseIds[i];
+                          final phrase = phrasesProvider.getById(phraseId);
+                          if (phrase == null) return const SizedBox.shrink();
+
+                          return ListTile(
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(8),
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: Image.asset(
+                                  'Imagenes/${phrase.image}',
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
+                            ),
+                            title: Text(
+                              phrasesProvider.getText(
+                                  phrase, Localizations.localeOf(context)),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(fontSize: 13),
+                            ),
+                            trailing: IconButton(
+                              icon: const Icon(Icons.remove_circle_outline,
+                                  color: Colors.red),
+                              onPressed: () =>
+                                  collectionsProvider.togglePhraseInCollection(
+                                      col.id, phrase.id),
+                            ),
+                          );
+                        },
                       ),
-                      title: Text(
-                        phrase.text,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 13),
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(
-                          isInCollection
-                              ? Icons.check_circle
-                              : Icons.add_circle_outline,
-                          color: isInCollection
-                              ? RomanticColors.romantic600
-                              : null,
-                        ),
-                        onPressed: () => collectionsProvider
-                            .togglePhraseInCollection(col.id, phrase.id),
-                      ),
-                    );
-                  },
-                ),
               ),
             ],
           ),
