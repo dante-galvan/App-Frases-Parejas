@@ -1,32 +1,28 @@
+import '../utils/phrase_translations.dart';
+
 enum AspectRatioType { ratio9x16, ratio4x5, ratio1x1 }
 
 extension AspectRatioTypeX on AspectRatioType {
   String get label {
     switch (this) {
-      case AspectRatioType.ratio9x16:
-        return '9:16';
-      case AspectRatioType.ratio4x5:
-        return '4:5';
-      case AspectRatioType.ratio1x1:
-        return '1:1';
+      case AspectRatioType.ratio9x16: return '9:16';
+      case AspectRatioType.ratio4x5: return '4:5';
+      case AspectRatioType.ratio1x1: return '1:1';
     }
   }
 
   double get value {
     switch (this) {
-      case AspectRatioType.ratio9x16:
-        return 9 / 16;
-      case AspectRatioType.ratio4x5:
-        return 4 / 5;
-      case AspectRatioType.ratio1x1:
-        return 1.0;
+      case AspectRatioType.ratio9x16: return 9 / 16;
+      case AspectRatioType.ratio4x5: return 4 / 5;
+      case AspectRatioType.ratio1x1: return 1.0;
     }
   }
 }
 
 class Phrase {
   final String id;
-  final String text;
+  final String sourceText;
   final String image;
   final String category;
   final String categoryId;
@@ -40,7 +36,7 @@ class Phrase {
 
   const Phrase({
     required this.id,
-    required this.text,
+    required String text,
     required this.image,
     required this.category,
     required this.categoryId,
@@ -51,7 +47,9 @@ class Phrase {
     this.isFeaturedToday = false,
     this.isTrending = false,
     this.isNew = false,
-  });
+  })  : sourceText = text;
+
+  String get text => PhraseTranslations.textFor(id, sourceText);
 
   factory Phrase.fromJson(Map<String, dynamic> json) {
     final ratioStr = json['ratio'] as String? ?? '9:16';
@@ -77,7 +75,7 @@ class Phrase {
 
   Map<String, dynamic> toJson() => {
         'id': id,
-        'text': text,
+        'text': sourceText,
         'image': image,
         'category': category,
         'categoryId': categoryId,

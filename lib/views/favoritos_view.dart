@@ -17,9 +17,8 @@ class FavoritosView extends StatefulWidget {
   State<FavoritosView> createState() => _FavoritosViewState();
 }
 
-class _FavoritosViewState extends State<FavoritosView>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _FavoritosViewState extends State<FavoritosView> with SingleTickerProviderStateMixin {
+  late final TabController _tabController;
 
   @override
   void initState() {
@@ -36,95 +35,63 @@ class _FavoritosViewState extends State<FavoritosView>
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    final favoritesProvider = context.watch<FavoritesProvider>();
-    final phrasesProvider = context.watch<PhrasesProvider>();
-    final collectionsProvider = context.watch<CollectionsProvider>();
+    final favorites = context.watch<FavoritesProvider>();
+    final phrases = context.watch<PhrasesProvider>();
+    final collections = context.watch<CollectionsProvider>();
     final l10n = AppLocalizations.of(context)!;
+    final saved = phrases.phrases.where((p) => favorites.savedIds.contains(p.id)).toList();
 
-    final savedPhrases = phrasesProvider.phrases
-        .where((p) => favoritesProvider.savedIds.contains(p.id))
-        .toList();
-
-    return Column(
-      children: [
-        TabBar(
+    return Column(children: [
+      Padding(
+        padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+        child: TabBar(
           controller: _tabController,
           indicatorColor: RomanticColors.romantic600,
           labelColor: isDark ? Colors.white : const Color(0xFF1A1A1A),
           unselectedLabelColor: isDark ? Colors.white54 : Colors.black45,
           dividerColor: Colors.transparent,
           tabs: [
-            Tab(text: l10n.favoritosCount(savedPhrases.length)),
-            Tab(text: l10n.coleccionesCount(collectionsProvider.collections.length)),
+            Tab(text: l10n.favoritosCount(saved.length)),
+            Tab(text: l10n.coleccionesCount(collections.collections.length)),
           ],
         ),
-        Expanded(
-          child: TabBarView(
-            controller: _tabController,
-            children: [
-              _FavoritesTab(phrases: savedPhrases, isDark: isDark),
-              _CollectionsTab(
-                collections: collectionsProvider.collections,
-                allPhrases: phrasesProvider.phrases,
-                isDark: isDark,
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
+      ),
+      Expanded(child: TabBarView(
+        controller: _tabController,
+        children: [
+          _FavoritesTab(phrases: saved, isDark: isDark),
+          _CollectionsTab(collections: collections.collections, allPhrases: phrases.phrases, isDark: isDark),
+        ],
+      )),
+    ]);
   }
 }
 
 class _FavoritesTab extends StatelessWidget {
   final List<Phrase> phrases;
   final bool isDark;
-
   const _FavoritesTab({required this.phrases, required this.isDark});
 
   @override
   Widget build(BuildContext context) {
-    final favoritesProvider = context.watch<FavoritesProvider>();
+    final provider = context.watch<FavoritesProvider>();
     final l10n = AppLocalizations.of(context)!;
-
     if (phrases.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.favorite_outline,
-                size: 64, color: isDark ? Colors.white24 : Colors.black26),
-            const SizedBox(height: 16),
-            Text(
-              l10n.sinFavoritos,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white60 : Colors.black54,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              l10n.tocaCorazon,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 13,
-                color: isDark ? Colors.white38 : Colors.black38,
-              ),
-            ),
-          ],
-        ),
-      );
+      return Center(child: Padding(
+        padding: const EdgeInsets.all(32),
+        child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
+          Icon(Icons.favorite_outline_rounded, size: 64, color: isDark ? Colors.white24 : Colors.black26),
+          const SizedBox(height: 16),
+          Text(l10n.sinFavoritos, style: TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: isDark ? Colors.white70 : Colors.black60)),
+          const SizedBox(height: 8),
+          Text(l10n.tocaCorazon, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, color: isDark ? Colors.white38 : Colors.black45)),
+        ]),
+      ));
     }
 
     return GridView.builder(
-      padding: const EdgeInsets.all(20),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 0.68,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
-      ),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2, childAspectRatio: 0.68, crossAxisSpacing: 10, mainAxisSpacing: 10),
       itemCount: phrases.length,
       itemBuilder: (context, i) {
         final phrase = phrases[i];
@@ -132,19 +99,14 @@ class _FavoritesTab extends StatelessWidget {
           phrase: phrase,
           isSaved: true,
           onTap: () => _openDetail(context, phrase),
-          onSave: () => favoritesProvider.toggle(phrase.id),
+          onSave: () => provider.toggle(phrase.id),
         );
       },
     );
   }
 
   void _openDetail(BuildContext context, Phrase phrase) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (_) => PhraseDetailModal(phrase: phrase),
-    );
+    showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => PhraseDetailModal(phrase: phrase));
   }
 }
 
@@ -152,240 +114,175 @@ class _CollectionsTab extends StatelessWidget {
   final List<CollectionItem> collections;
   final List<Phrase> allPhrases;
   final bool isDark;
+  const _CollectionsTab({required this.collections, required this.allPhrases, required this.isDark});
 
-  const _CollectionsTab({
-    required this.collections,
-    required this.allPhrases,
-    required this.isDark,
-  });
+  String _collectionName(BuildContext context, CollectionItem col) {
+    final locale = Localizations.localeOf(context).languageCode;
+    switch (col.id) {
+      case 'col-1':
+        return {'es':'Para ella','en':'For her','pt':'Para ela','fr':'Pour elle','it':'Per lei','de':'Für sie'}[locale] ?? col.name;
+      case 'col-2':
+        return {'es':'Mis favoritas','en':'My favorites','pt':'Minhas favoritas','fr':'Mes favorites','it':'Le mie preferite','de':'Meine Favoriten'}[locale] ?? col.name;
+      case 'col-3':
+        return {'es':'Buenos días y noches','en':'Good mornings & nights','pt':'Bons dias e noites','fr':'Bons matins et nuits','it':'Buongiorno e buonanotte','de':'Guten Morgen & gute Nacht'}[locale] ?? col.name;
+      default:
+        return col.name;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    final collectionsProvider = context.watch<CollectionsProvider>();
+    final provider = context.watch<CollectionsProvider>();
     final l10n = AppLocalizations.of(context)!;
 
-    if (collections.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.collections_outlined,
-                size: 64, color: isDark ? Colors.white24 : Colors.black26),
-            const SizedBox(height: 16),
-            Text(
-              l10n.sinColecciones,
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: isDark ? Colors.white60 : Colors.black54,
-              ),
+    return Stack(children: [
+      collections.isEmpty
+          ? Center(child: Text(l10n.sinColecciones))
+          : ListView.separated(
+              padding: const EdgeInsets.fromLTRB(16, 12, 16, 100),
+              itemCount: collections.length,
+              separatorBuilder: (_, __) => const SizedBox(height: 12),
+              itemBuilder: (context, i) => _collectionCard(context, provider, collections[i]),
             ),
-            const SizedBox(height: 8),
-            Text(
-              l10n.creaColeccion,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 13,
-                color: isDark ? Colors.white38 : Colors.black38,
-              ),
-            ),
-          ],
+      Positioned(
+        right: 20,
+        bottom: 20,
+        child: FloatingActionButton.extended(
+          onPressed: () => _showCreateCollection(context),
+          icon: const Icon(Icons.add_rounded),
+          label: Text(l10n.crear),
         ),
-      );
-    }
+      ),
+    ]);
+  }
 
-    return ListView.separated(
-      padding: const EdgeInsets.all(20),
-      itemCount: collections.length,
-      separatorBuilder: (_, __) => const SizedBox(height: 12),
-      itemBuilder: (context, i) {
-        final col = collections[i];
-        final coverPhrase = allPhrases
-            .where((p) => col.phraseIds.contains(p.id))
-            .toList();
-
-        return Container(
-          height: 110,
-          decoration: BoxDecoration(
-            color: isDark
-                ? RomanticColors.darkSurfaceAlt
-                : Colors.white,
-            borderRadius: BorderRadius.circular(16),
-            border: Border.all(
-              color: isDark ? Colors.white12 : Colors.black12,
-            ),
-          ),
-          child: Row(
-            children: [
-              if (coverPhrase.isNotEmpty)
-                ClipRRect(
-                  borderRadius: const BorderRadius.horizontal(
-                      left: Radius.circular(15)),
-                  child: SizedBox(
-                    width: 110,
-                    height: 110,
-                    child: Image.asset(
-                      'Imagenes/${coverPhrase.first.image}',
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                )
-              else
-                Container(
-                  width: 110,
-                  decoration: BoxDecoration(
-                    color: RomanticColors.romantic900,
-                    borderRadius: const BorderRadius.horizontal(
-                        left: Radius.circular(15)),
-                  ),
-                  child: const Icon(Icons.favorite,
-                      color: Colors.white30, size: 36),
-                ),
-              Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.all(14),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        col.name,
-                        style: TextStyle(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w600,
-                          color: isDark ? Colors.white : const Color(0xFF1A1A1A),
-                        ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '${col.phraseIds.length} ${l10n.frases}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: isDark ? Colors.white54 : Colors.black45,
-                        ),
-                      ),
-                      const Spacer(),
-                      Row(
-                        children: [
-                          TextButton(
-                            onPressed: () {
-                              _showAddPhrasesDialog(context, col);
-                            },
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 4),
-                              minimumSize: Size.zero,
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            ),
-                            child: Text(l10n.agregar,
-                                style: const TextStyle(fontSize: 12)),
-                          ),
-                          TextButton(
-                            onPressed: () =>
-                                collectionsProvider.deleteCollection(col.id),
-                            style: TextButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 4),
-                              minimumSize: Size.zero,
-                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                            ),
-                            child: Text(l10n.eliminar,
-                                style: TextStyle(
-                                    fontSize: 12,
-                                    color: isDark
-                                        ? Colors.white54
-                                        : Colors.black45)),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+  Widget _collectionCard(BuildContext context, CollectionsProvider provider, CollectionItem col) {
+    final l10n = AppLocalizations.of(context)!;
+    final cover = allPhrases.where((p) => col.phraseIds.contains(p.id)).toList();
+    final name = _collectionName(context, col);
+    return Card(
+      margin: EdgeInsets.zero,
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => _openCollection(context, col),
+        child: SizedBox(height: 112, child: Row(children: [
+          SizedBox(width: 112, height: 112, child: cover.isNotEmpty
+              ? Image.asset('Imagenes/${cover.first.image}', fit: BoxFit.cover)
+              : Container(color: RomanticColors.romantic900, child: const Icon(Icons.collections_bookmark_rounded, color: Colors.white54, size: 34))),
+          Expanded(child: Padding(padding: const EdgeInsets.fromLTRB(14, 10, 8, 8), child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Row(children: [
+              Expanded(child: Text(name, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700))),
+              PopupMenuButton<String>(
+                tooltip: l10n.ajustes,
+                onSelected: (value) {
+                  if (value == 'edit') _showRenameCollection(context, col);
+                  if (value == 'delete') _confirmDelete(context, col);
+                },
+                itemBuilder: (_) => [
+                  PopupMenuItem(value: 'edit', child: ListTile(leading: const Icon(Icons.edit_outlined), title: Text(l10n.editarIntereses), contentPadding: EdgeInsets.zero)),
+                  PopupMenuItem(value: 'delete', child: ListTile(leading: const Icon(Icons.delete_outline), title: Text(l10n.eliminar), contentPadding: EdgeInsets.zero)),
+                ],
               ),
-            ],
-          ),
-        );
-      },
+            ]),
+            const SizedBox(height: 4),
+            Text('${col.phraseIds.length} ${l10n.frases}', style: TextStyle(fontSize: 12, color: isDark ? Colors.white54 : Colors.black45)),
+            const Spacer(),
+            Text(l10n.agregar, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w600, color: RomanticColors.romantic600)),
+          ]))),
+        ])),
+      ),
     );
   }
 
-  void _showAddPhrasesDialog(BuildContext context, CollectionItem col) {
-    final phrasesProvider = context.read<PhrasesProvider>();
-    final collectionsProvider = context.read<CollectionsProvider>();
-    final l10n = AppLocalizations.of(context)!;
-
+  void _openCollection(BuildContext context, CollectionItem col) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
       builder: (_) => DraggableScrollableSheet(
-        initialChildSize: 0.7,
-        maxChildSize: 0.9,
-        minChildSize: 0.5,
-        builder: (_, scrollController) => Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? RomanticColors.darkSurface
-                : RomanticColors.lightSurface,
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  l10n.frasesEnColeccion(col.name),
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w700),
-                ),
-              ),
-              Expanded(
-                child: ListView.separated(
-                  controller: scrollController,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  itemCount: phrasesProvider.phrases.length,
-                  separatorBuilder: (_, __) => const SizedBox(height: 8),
-                  itemBuilder: (context, i) {
-                    final phrase = phrasesProvider.phrases[i];
-                    final isInCollection = col.phraseIds.contains(phrase.id);
-                    return ListTile(
-                      leading: ClipRRect(
-                        borderRadius: BorderRadius.circular(8),
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: Image.asset(
-                            'Imagenes/${phrase.image}',
-                            fit: BoxFit.cover,
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        phrase.text,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(fontSize: 13),
-                      ),
-                      trailing: IconButton(
-                        icon: Icon(
-                          isInCollection
-                              ? Icons.check_circle
-                              : Icons.add_circle_outline,
-                          color: isInCollection
-                              ? RomanticColors.romantic600
-                              : null,
-                        ),
-                        onPressed: () => collectionsProvider
-                            .togglePhraseInCollection(col.id, phrase.id),
-                      ),
-                    );
-                  },
-                ),
-              ),
-            ],
-          ),
-        ),
+        initialChildSize: 0.72,
+        maxChildSize: 0.92,
+        minChildSize: 0.45,
+        builder: (context, controller) {
+          final current = context.watch<CollectionsProvider>().collections.firstWhere((c) => c.id == col.id, orElse: () => col);
+          final items = allPhrases.where((p) => current.phraseIds.contains(p.id)).toList();
+          return Container(
+            decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: const BorderRadius.vertical(top: Radius.circular(24))),
+            child: Column(children: [
+              Padding(padding: const EdgeInsets.fromLTRB(20, 18, 12, 12), child: Row(children: [
+                Expanded(child: Text(_collectionName(context, current), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w800))),
+                IconButton(onPressed: () => _showAddPhrasesDialog(context, current), icon: const Icon(Icons.add_circle_outline_rounded), tooltip: AppLocalizations.of(context)!.agregar),
+              ])),
+              Expanded(child: items.isEmpty
+                  ? Center(child: Text(AppLocalizations.of(context)!.noHayFrases))
+                  : ListView.separated(controller: controller, padding: const EdgeInsets.all(16), itemCount: items.length, separatorBuilder: (_, __) => const SizedBox(height: 8), itemBuilder: (context, i) {
+                      final phrase = items[i];
+                      return ListTile(
+                        leading: ClipRRect(borderRadius: BorderRadius.circular(8), child: Image.asset('Imagenes/${phrase.image}', width: 52, height: 52, fit: BoxFit.cover)),
+                        title: Text(phrase.text, maxLines: 2, overflow: TextOverflow.ellipsis),
+                        trailing: IconButton(icon: const Icon(Icons.remove_circle_outline), onPressed: () => context.read<CollectionsProvider>().togglePhraseInCollection(current.id, phrase.id)),
+                        onTap: () { Navigator.pop(context); showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => PhraseDetailModal(phrase: phrase)); },
+                      );
+                    }),
+            ]),
+          );
+        },
       ),
     );
+  }
+
+  void _showAddPhrasesDialog(BuildContext context, CollectionItem col) {
+    final provider = context.read<CollectionsProvider>();
+    showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => DraggableScrollableSheet(
+      initialChildSize: 0.75, maxChildSize: 0.95, minChildSize: 0.45,
+      builder: (context, controller) => Container(
+        decoration: BoxDecoration(color: Theme.of(context).colorScheme.surface, borderRadius: const BorderRadius.vertical(top: Radius.circular(24))),
+        child: Column(children: [
+          Padding(padding: const EdgeInsets.all(18), child: Text(AppLocalizations.of(context)!.agregarAColeccion, style: const TextStyle(fontSize: 19, fontWeight: FontWeight.w800))),
+          Expanded(child: ListView.separated(controller: controller, padding: const EdgeInsets.all(16), itemCount: allPhrases.length, separatorBuilder: (_, __) => const SizedBox(height: 6), itemBuilder: (context, i) {
+            final phrase = allPhrases[i];
+            final inCollection = col.phraseIds.contains(phrase.id);
+            return ListTile(
+              leading: ClipRRect(borderRadius: BorderRadius.circular(8), child: Image.asset('Imagenes/${phrase.image}', width: 50, height: 50, fit: BoxFit.cover)),
+              title: Text(phrase.text, maxLines: 2, overflow: TextOverflow.ellipsis),
+              trailing: Icon(inCollection ? Icons.check_circle_rounded : Icons.add_circle_outline_rounded, color: inCollection ? RomanticColors.romantic600 : null),
+              onTap: () => provider.togglePhraseInCollection(col.id, phrase.id),
+            );
+          })),
+        ]),
+      ),
+    ));
+  }
+
+  void _showCreateCollection(BuildContext context) {
+    final controller = TextEditingController();
+    final provider = context.read<CollectionsProvider>();
+    final l10n = AppLocalizations.of(context)!;
+    showDialog(context: context, builder: (_) => AlertDialog(
+      title: Text(l10n.nuevaColeccion),
+      content: TextField(controller: controller, autofocus: true, decoration: InputDecoration(labelText: l10n.nombreColeccion, border: const OutlineInputBorder())),
+      actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(l10n.cancelar)), TextButton(onPressed: () { provider.createCollection(controller.text); Navigator.pop(context); }, child: Text(l10n.crear))],
+    ));
+  }
+
+  void _showRenameCollection(BuildContext context, CollectionItem col) {
+    final controller = TextEditingController(text: col.name);
+    final provider = context.read<CollectionsProvider>();
+    final l10n = AppLocalizations.of(context)!;
+    showDialog(context: context, builder: (_) => AlertDialog(
+      title: Text(l10n.nuevaColeccion),
+      content: TextField(controller: controller, autofocus: true, decoration: InputDecoration(labelText: l10n.nombreColeccion, border: const OutlineInputBorder())),
+      actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(l10n.cancelar)), TextButton(onPressed: () { provider.renameCollection(col.id, controller.text); Navigator.pop(context); }, child: Text(l10n.guardar))],
+    ));
+  }
+
+  void _confirmDelete(BuildContext context, CollectionItem col) {
+    final provider = context.read<CollectionsProvider>();
+    final l10n = AppLocalizations.of(context)!;
+    showDialog(context: context, builder: (_) => AlertDialog(
+      title: Text(l10n.eliminar),
+      content: Text('${_collectionName(context, col)}?'),
+      actions: [TextButton(onPressed: () => Navigator.pop(context), child: Text(l10n.cancelar)), TextButton(onPressed: () { provider.deleteCollection(col.id); Navigator.pop(context); }, child: Text(l10n.eliminar))],
+    ));
   }
 }

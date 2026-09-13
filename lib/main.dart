@@ -11,15 +11,11 @@ import 'state/toast_provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  SystemChrome.setSystemUIOverlayStyle(
-    const SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      statusBarIconBrightness: Brightness.light,
-      statusBarBrightness: Brightness.dark,
-    ),
-  );
-
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.light,
+    statusBarBrightness: Brightness.dark,
+  ));
   await SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
@@ -27,18 +23,22 @@ void main() async {
 
   final settingsProvider = SettingsProvider();
   await settingsProvider.load();
-
-  runApp(
-    MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => PhrasesProvider()),
-        ChangeNotifierProvider.value(value: settingsProvider),
-        ChangeNotifierProvider(create: (_) => FavoritesProvider()),
-        ChangeNotifierProvider(create: (_) => HistoryProvider()),
-        ChangeNotifierProvider(create: (_) => CollectionsProvider()),
-        ChangeNotifierProvider(create: (_) => ToastProvider()),
-      ],
-      child: const FrasesApp(),
-    ),
+  final phrasesProvider = PhrasesProvider(
+    initialLanguage: settingsProvider.settings.language,
   );
+  settingsProvider.addListener(() {
+    phrasesProvider.setLanguage(settingsProvider.settings.language);
+  });
+
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider.value(value: phrasesProvider),
+      ChangeNotifierProvider.value(value: settingsProvider),
+      ChangeNotifierProvider(create: (_) => FavoritesProvider()),
+      ChangeNotifierProvider(create: (_) => HistoryProvider()),
+      ChangeNotifierProvider(create: (_) => CollectionsProvider()),
+      ChangeNotifierProvider(create: (_) => ToastProvider()),
+    ],
+    child: const FrasesApp(),
+  ));
 }
