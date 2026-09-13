@@ -19,7 +19,6 @@ class ExplorarView extends StatefulWidget {
 
 class _ExplorarViewState extends State<ExplorarView> {
   String? _selectedCategory;
-  String _selectedTone = 'todas';
 
   @override
   void initState() {
@@ -61,14 +60,9 @@ class _ExplorarViewState extends State<ExplorarView> {
 
     final categories = phrasesProvider.categories;
 
-    final tones = [l10n.todas, 'Románticas', 'Tiernas', 'Intensas', 'Coquetas', 'Poéticas', 'Divertidas', 'Profundas'];
-
     List<Phrase> filtered = phrasesProvider.phrases;
     if (_selectedCategory != null) {
       filtered = filtered.where((p) => p.category == _selectedCategory).toList();
-    }
-    if (_selectedTone != l10n.todas) {
-      filtered = filtered.where((p) => p.tone == _selectedTone).toList();
     }
 
     return Column(
@@ -78,51 +72,10 @@ class _ExplorarViewState extends State<ExplorarView> {
           child: ListView.separated(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             scrollDirection: Axis.horizontal,
-            itemCount: categories.length + 1,
+            itemCount: categories.length,
             separatorBuilder: (_, __) => const SizedBox(width: 8),
             itemBuilder: (context, i) {
-              if (i == 0) {
-                final selected = _selectedCategory == null;
-                return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedCategory = null;
-                    });
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: selected
-                          ? RomanticColors.romantic700
-                          : isDark
-                              ? RomanticColors.darkSurfaceAlt
-                              : Colors.white,
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(
-                        color: selected
-                            ? RomanticColors.romantic600
-                            : isDark
-                                ? Colors.white12
-                                : Colors.black12,
-                      ),
-                    ),
-                    child: Text(
-                      l10n.todosLosTonos,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
-                        color: selected
-                            ? Colors.white
-                            : isDark
-                                ? Colors.white70
-                                : Colors.black87,
-                      ),
-                    ),
-                  ),
-                );
-              }
-              final cat = categories[i - 1];
+              final cat = categories[i];
               final selected = _selectedCategory == cat;
               return GestureDetector(
                 onTap: () {
@@ -158,51 +111,6 @@ class _ExplorarViewState extends State<ExplorarView> {
                           : isDark
                               ? Colors.white70
                               : Colors.black87,
-                    ),
-                  ),
-                ),
-              );
-            },
-          ),
-        ),
-        const SizedBox(height: 8),
-        SizedBox(
-          height: 34,
-          child: ListView.separated(
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-            scrollDirection: Axis.horizontal,
-            itemCount: tones.length,
-            separatorBuilder: (_, __) => const SizedBox(width: 6),
-            itemBuilder: (context, i) {
-              final tone = tones[i];
-              final selected = _selectedTone == tone;
-              return GestureDetector(
-                onTap: () => setState(() => _selectedTone = tone),
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                  decoration: BoxDecoration(
-                    color: selected
-                        ? RomanticColors.romantic900.withValues(alpha: 0.8)
-                        : Colors.transparent,
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(
-                      color: selected
-                          ? RomanticColors.romantic600
-                          : isDark
-                              ? Colors.white24
-                              : Colors.black26,
-                    ),
-                  ),
-                  child: Text(
-                    tone == l10n.todas ? l10n.todosLosTonos : tone,
-                    style: TextStyle(
-                      fontSize: 11,
-                      fontWeight: FontWeight.w500,
-                      color: selected
-                          ? Colors.white
-                          : isDark
-                              ? Colors.white54
-                              : Colors.black54,
                     ),
                   ),
                 ),

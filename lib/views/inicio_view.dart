@@ -85,52 +85,56 @@ class InicioView extends StatelessWidget {
               },
             ),
           ),
-          const SizedBox(height: 28),
-          _SectionTitle(title: l10n.frasesTrending, isDark: isDark),
-          const SizedBox(height: 12),
-          SizedBox(
-            height: 220,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: phrasesProvider.trendingPhrases.length.clamp(0, 10),
-              separatorBuilder: (_, __) => const SizedBox(width: 12),
-              itemBuilder: (context, i) {
-                final phrase = phrasesProvider.trendingPhrases[i];
-                return SizedBox(
-                  width: 160,
-                  child: PhraseCard(
-                    phrase: phrase,
-                    isSaved: favoritesProvider.isSaved(phrase.id),
-                    onTap: () => _openDetail(context, phrase),
-                    onSave: () => favoritesProvider.toggle(phrase.id),
-                  ),
-                );
-              },
+          if (phrasesProvider.trendingPhrases.isNotEmpty) ...[
+            const SizedBox(height: 28),
+            _SectionTitle(title: l10n.frasesTrending, isDark: isDark),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 220,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: phrasesProvider.trendingPhrases.length.clamp(0, 10),
+                separatorBuilder: (_, __) => const SizedBox(width: 12),
+                itemBuilder: (context, i) {
+                  final phrase = phrasesProvider.trendingPhrases[i];
+                  return SizedBox(
+                    width: 160,
+                    child: PhraseCard(
+                      phrase: phrase,
+                      isSaved: favoritesProvider.isSaved(phrase.id),
+                      onTap: () => _openDetail(context, phrase),
+                      onSave: () => favoritesProvider.toggle(phrase.id),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-          const SizedBox(height: 28),
-          _SectionTitle(title: l10n.recienLlegadas, isDark: isDark),
-          const SizedBox(height: 12),
-          SizedBox(
-            height: 220,
-            child: ListView.separated(
-              scrollDirection: Axis.horizontal,
-              itemCount: phrasesProvider.newPhrases.length.clamp(0, 10),
-              separatorBuilder: (_, __) => const SizedBox(width: 12),
-              itemBuilder: (context, i) {
-                final phrase = phrasesProvider.newPhrases[i];
-                return SizedBox(
-                  width: 160,
-                  child: PhraseCard(
-                    phrase: phrase,
-                    isSaved: favoritesProvider.isSaved(phrase.id),
-                    onTap: () => _openDetail(context, phrase),
-                    onSave: () => favoritesProvider.toggle(phrase.id),
-                  ),
-                );
-              },
+          ],
+          if (phrasesProvider.newPhrases.isNotEmpty) ...[
+            const SizedBox(height: 28),
+            _SectionTitle(title: l10n.recienLlegadas, isDark: isDark),
+            const SizedBox(height: 12),
+            SizedBox(
+              height: 220,
+              child: ListView.separated(
+                scrollDirection: Axis.horizontal,
+                itemCount: phrasesProvider.newPhrases.length.clamp(0, 10),
+                separatorBuilder: (_, __) => const SizedBox(width: 12),
+                itemBuilder: (context, i) {
+                  final phrase = phrasesProvider.newPhrases[i];
+                  return SizedBox(
+                    width: 160,
+                    child: PhraseCard(
+                      phrase: phrase,
+                      isSaved: favoritesProvider.isSaved(phrase.id),
+                      onTap: () => _openDetail(context, phrase),
+                      onSave: () => favoritesProvider.toggle(phrase.id),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
+          ],
           const SizedBox(height: 28),
           _SectionTitle(title: l10n.todasLasFrases, isDark: isDark),
           const SizedBox(height: 12),

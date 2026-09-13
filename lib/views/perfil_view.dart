@@ -206,8 +206,8 @@ class PerfilView extends StatelessWidget {
       'Enamoramiento',
       'Pareja',
       'Para dedicar',
-      'Pasión',
-      'Buenos días amor',
+      'Pasion',
+      'Buenos dias amor',
       'Buenas noches amor',
     ];
     final selected = Set<String>.from(provider.settings.interests);

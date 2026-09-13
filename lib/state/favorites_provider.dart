@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class FavoritesProvider extends ChangeNotifier {
   static const _key = 'frases_amor_saved';
 
-  Set<String> _savedIds = {'frase-01', 'frase-04'};
+  Set<String> _savedIds = {};
   SharedPreferences? _prefs;
 
   Set<String> get savedIds => _savedIds;

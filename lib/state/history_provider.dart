@@ -4,7 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HistoryProvider extends ChangeNotifier {
   static const _key = 'frases_amor_history';
 
-  List<String> _historyIds = ['frase-01', 'frase-02', 'frase-03'];
+  List<String> _historyIds = [];
   SharedPreferences? _prefs;
 
   List<String> get historyIds => _historyIds;

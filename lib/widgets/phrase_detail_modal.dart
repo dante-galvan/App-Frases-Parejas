@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:frases_amor_flutter/l10n/app_localizations.dart';
@@ -11,23 +12,37 @@ import '../state/toast_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/image_exporter.dart';
 
-class PhraseDetailModal extends StatelessWidget {
+class PhraseDetailModal extends StatefulWidget {
   final Phrase phrase;
 
   const PhraseDetailModal({super.key, required this.phrase});
+
+  @override
+  State<PhraseDetailModal> createState() => _PhraseDetailModalState();
+}
+
+class _PhraseDetailModalState extends State<PhraseDetailModal> {
+  late List<Phrase> _relatedPhrases;
+
+  @override
+  void initState() {
+    super.initState();
+    final allPhrases = context.read<PhrasesProvider>().phrases;
+    final others = allPhrases.where((p) => p.id != widget.phrase.id).toList();
+    final rng = Random();
+    others.shuffle(rng);
+    _relatedPhrases = others.take(12).toList();
+  }
 
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
     final favoritesProvider = context.watch<FavoritesProvider>();
     final historyProvider = context.read<HistoryProvider>();
-    final phrasesProvider = context.read<PhrasesProvider>();
-    final isSaved = favoritesProvider.isSaved(phrase.id);
+    final isSaved = favoritesProvider.isSaved(widget.phrase.id);
     final l10n = AppLocalizations.of(context)!;
 
-    historyProvider.add(phrase.id);
-
-    final allPhrases = phrasesProvider.phrases;
+    historyProvider.add(widget.phrase.id);
 
     return DraggableScrollableSheet(
       initialChildSize: 0.92,
@@ -61,7 +76,7 @@ class PhraseDetailModal extends StatelessWidget {
                         AspectRatio(
                           aspectRatio: 9 / 16,
                           child: Image.asset(
-                            'Imagenes/${phrase.image}',
+                            'Imagenes/${widget.phrase.image}',
                             fit: BoxFit.cover,
                             errorBuilder: (_, __, ___) => Container(
                               color: RomanticColors.darkSurfaceAlt,
@@ -112,7 +127,7 @@ class PhraseDetailModal extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                phrase.category.toUpperCase(),
+                                widget.phrase.category.toUpperCase(),
                                 style: TextStyle(
                                   color: Colors.white.withValues(alpha: 0.75),
                                   fontSize: 11,
@@ -122,7 +137,7 @@ class PhraseDetailModal extends StatelessWidget {
                               ),
                               const SizedBox(height: 10),
                               Text(
-                                phrase.text,
+                                widget.phrase.text,
                                 style: const TextStyle(
                                   color: Colors.white,
                                   fontSize: 22,
@@ -135,7 +150,7 @@ class PhraseDetailModal extends StatelessWidget {
                               Wrap(
                                 spacing: 6,
                                 runSpacing: 6,
-                                children: phrase.tags.map((tag) {
+                                children: widget.phrase.tags.map((tag) {
                                   return Container(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 10, vertical: 4),
@@ -169,7 +184,7 @@ class PhraseDetailModal extends StatelessWidget {
                                     ? RomanticColors.romantic400
                                     : Colors.white,
                                 onTap: () {
-                                  favoritesProvider.toggle(phrase.id);
+                                  favoritesProvider.toggle(widget.phrase.id);
                                   context.read<ToastProvider>().show(
                                         isSaved
                                             ? l10n.eliminadaDeFavoritos
@@ -184,7 +199,7 @@ class PhraseDetailModal extends StatelessWidget {
                               _CircleButton(
                                 icon: Icons.share,
                                 onTap: () async {
-                                  await exportAndShare(phrase, context);
+                                  await exportAndShare(widget.phrase, context);
                                 },
                               ),
                               const SizedBox(width: 8),
@@ -193,7 +208,7 @@ class PhraseDetailModal extends StatelessWidget {
                                 onTap: () async {
                                   final toast = context.read<ToastProvider>();
                                   toast.showInfo(l10n.generandoImagen);
-                                  final ok = await exportPhraseImage(phrase);
+                                  final ok = await exportPhraseImage(widget.phrase);
                                   if (ok) {
                                     toast.showSuccess(l10n.guardadaEnGaleria);
                                   } else {
@@ -231,12 +246,11 @@ class PhraseDetailModal extends StatelessWidget {
                             height: 180,
                             child: ListView.separated(
                               scrollDirection: Axis.horizontal,
-                              itemCount: allPhrases.length.clamp(0, 10),
+                              itemCount: _relatedPhrases.length,
                               separatorBuilder: (_, __) =>
                                   const SizedBox(width: 10),
                               itemBuilder: (context, i) {
-                                final p = allPhrases[i];
-                                if (p.id == phrase.id) return const SizedBox();
+                                final p = _relatedPhrases[i];
                                 return SizedBox(
                                   width: 130,
                                   child: GestureDetector(
@@ -352,7 +366,7 @@ class PhraseDetailModal extends StatelessWidget {
               ),
               ...collectionsProvider.collections.map((col) {
                 final isIn =
-                    col.phraseIds.contains(phrase.id);
+                    col.phraseIds.contains(widget.phrase.id);
                 return ListTile(
                     leading: Icon(
                       isIn ? Icons.check_circle : Icons.collections_bookmark_outlined,
@@ -361,7 +375,7 @@ class PhraseDetailModal extends StatelessWidget {
                   title: Text(col.name),
                   subtitle: Text('${col.phraseIds.length} ${l10n.frases}'),
                   onTap: () {
-                    collectionsProvider.togglePhraseInCollection(col.id, phrase.id);
+                    collectionsProvider.togglePhraseInCollection(col.id, widget.phrase.id);
                     toast.show(
                       isIn ? l10n.eliminadaDeColeccion : l10n.agregadaAColeccion,
                       type: ToastType.success,
@@ -406,7 +420,7 @@ class PhraseDetailModal extends StatelessWidget {
               if (controller.text.trim().isNotEmpty) {
                 collectionsProvider.createCollection(
                   controller.text.trim(),
-                  phraseId: phrase.id,
+                  phraseId: widget.phrase.id,
                 );
                 toast.showSuccess(l10n.coleccionCreada);
                 Navigator.pop(context);
