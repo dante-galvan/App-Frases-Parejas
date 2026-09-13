@@ -7,9 +7,17 @@ import 'state/settings_provider.dart';
 import 'models/app_settings.dart';
 import 'views/home_shell.dart';
 import 'widgets/toast.dart';
+import 'widgets/splash_screen.dart';
 
-class FrasesApp extends StatelessWidget {
+class FrasesApp extends StatefulWidget {
   const FrasesApp({super.key});
+
+  @override
+  State<FrasesApp> createState() => _FrasesAppState();
+}
+
+class _FrasesAppState extends State<FrasesApp> {
+  bool _showSplash = true;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +45,11 @@ class FrasesApp extends StatelessWidget {
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      home: const HomeShell(),
+      home: _showSplash
+          ? SplashScreen(
+              onComplete: () => setState(() => _showSplash = false),
+            )
+          : const HomeShell(),
       builder: (context, child) {
         return Stack(
           children: [
