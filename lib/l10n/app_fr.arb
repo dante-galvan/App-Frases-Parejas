@@ -1,0 +1,109 @@
+{
+  "@@locale": "fr",
+  "appTitle": "Phrases d'Amour pour Couples",
+  "inicio": "Accueil",
+  "explorar": "Explorer",
+  "favoritos": "Favoris",
+  "ajustes": "Paramètres",
+  "bienvenido": "Bienvenue !",
+  "seleccionaTemas": "Sélectionnez les thèmes qui vous intéressent le plus pour personnaliser votre expérience.",
+  "comenzarDescubrir": "Commencer à explorer",
+  "fraseDelDia": "CITATION DU JOUR",
+  "tocaParaVerMas": "Appuyez pour voir plus",
+  "explorarPorCategoria": "Explorer par catégorie",
+  "frasesTrending": "Citations tendance",
+  "recienLlegadas": "Nouveautés",
+  "todasLasFrases": "Toutes les citations",
+  "frases": "citations",
+  "apariencia": "Apparence",
+  "modoOscuro": "Mode sombre",
+  "activado": "Activé",
+  "desactivado": "Désactivé",
+  "idioma": "Langue",
+  "idiomaApp": "Langue de l'application",
+  "intereses": "Intérêts",
+  "temasInteres": "Thèmes d'intérêt",
+  "datos": "Données",
+  "historialFrases": "Historique des citations vues",
+  "historialFrasesSubtitle": "Consultez vos citations récentes",
+  "reiniciarOnboarding": "Réinitialiser l'onboarding",
+  "reiniciarOnboardingSubtitle": "Revoir l'écran de bienvenue",
+  "version": "Version 2.0.0",
+  "seleccionarIdioma": "Sélectionner la langue",
+  "editarIntereses": "Modifier les intérêts",
+  "guardar": "Enregistrer",
+  "todas": "Toutes",
+  "todosLosTonos": "Tous les tons",
+  "noHayFrases": "Aucune citation pour ce filtre",
+  "favoritosCount": "Favoris ({count})",
+  "@favoritosCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coleccionesCount": "Collections ({count})",
+  "@coleccionesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sinFavoritos": "Vous n'avez pas encore de favoris",
+  "tocaCorazon": "Appuyez sur le cœur de n'importe quelle citation pour la sauvegarder ici",
+  "sinColecciones": "Aucune collection",
+  "creaColeccion": "Créez votre première collection en sauvegardant des citations depuis n'importe quelle carte",
+  "colecciones": "Collections",
+  "agregar": "Ajouter",
+  "eliminar": "Supprimer",
+  "frasesEnColeccion": "Citations dans \"{name}\"",
+  "@frasesEnColeccion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nuevaColeccion": "Nouvelle collection",
+  "nombreColeccion": "Nom de la collection",
+  "cancelar": "Annuler",
+  "crear": "Créer",
+  "coleccionCreada": "Collection créée",
+  "agregadaAColeccion": "Ajoutée à la collection",
+  "eliminadaDeColeccion": "Retirée de la collection",
+  "masFrases": "Plus de citations",
+  "guardadaEnFavoritos": "Sauvegardée dans les favoris",
+  "eliminadaDeFavoritos": "Retirée des favoris",
+  "generandoImagen": "Génération de l'image...",
+  "guardadaEnGaleria": "Sauvegardée dans votre galerie",
+  "noPudoGuardar": "Impossible de sauvegarder",
+  "agregarAColeccion": "Ajouter à la collection",
+  "historial": "Historique",
+  "historialCount": "Historique ({count})",
+  "@historialCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "borrarTodo": "Tout effacer",
+  "sinHistorial": "Aucun historique",
+  "frasesQueVeas": "Les citations que vous consultez apparaîtront ici",
+  "bienvenidoMensaje": "Bienvenue ! Catalogue prêt à découvrir",
+  "descubrePorTemas": "Découvrez par thèmes, occasions et émotions",
+  "frasesGuardadas": "{count} citations sauvegardées",
+  "@frasesGuardadas": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "preferenciasCentro": "Préférences et centre de contrôle",
+  "destacada": "À LA UNE",
+  "trending": "TENDANCE",
+  "nueva": "NOUVELLE"
+}

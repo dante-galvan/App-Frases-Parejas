@@ -1,0 +1,109 @@
+{
+  "@@locale": "de",
+  "appTitle": "Liebeszitate für Paare",
+  "inicio": "Startseite",
+  "explorar": "Erkunden",
+  "favoritos": "Favoriten",
+  "ajustes": "Einstellungen",
+  "bienvenido": "Willkommen!",
+  "seleccionaTemas": "Wähle die Themen, die dich am meisten interessieren, um dein Erlebnis zu personalisieren.",
+  "comenzarDescubrir": "Entdecken beginnen",
+  "fraseDelDia": "ZITAT DES TAGES",
+  "tocaParaVerMas": "Tippe für mehr",
+  "explorarPorCategoria": "Nach Kategorie erkunden",
+  "frasesTrending": "Beliebte Zitate",
+  "recienLlegadas": "Neuheiten",
+  "todasLasFrases": "Alle Zitate",
+  "frases": "Zitate",
+  "apariencia": "Erscheinungsbild",
+  "modoOscuro": "Dunkelmodus",
+  "activado": "Aktiviert",
+  "desactivado": "Deaktiviert",
+  "idioma": "Sprache",
+  "idiomaApp": "App-Sprache",
+  "intereses": "Interessen",
+  "temasInteres": "Interessengebiete",
+  "datos": "Daten",
+  "historialFrases": "Verlauf der angezeigten Zitate",
+  "historialFrasesSubtitle": "Überprüfe deine letzten Zitate",
+  "reiniciarOnboarding": "Onboarding zurücksetzen",
+  "reiniciarOnboardingSubtitle": "Sieh dir erneut die Willkommensseite an",
+  "version": "Version 2.0.0",
+  "seleccionarIdioma": "Sprache auswählen",
+  "editarIntereses": "Interessen bearbeiten",
+  "guardar": "Speichern",
+  "todas": "Alle",
+  "todosLosTonos": "Alle Töne",
+  "noHayFrases": "Keine Zitate für diesen Filter",
+  "favoritosCount": "Favoriten ({count})",
+  "@favoritosCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coleccionesCount": "Sammlungen ({count})",
+  "@coleccionesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sinFavoritos": "Du hast noch keine Favoriten",
+  "tocaCorazon": "Tippe auf das Herz bei einem Zitat, um es hier zu speichern",
+  "sinColecciones": "Keine Sammlungen",
+  "creaColeccion": "Erstelle de erste Sammlung, indem du Zitate von einer Karte speicherst",
+  "colecciones": "Sammlungen",
+  "agregar": "Hinzufügen",
+  "eliminar": "Löschen",
+  "frasesEnColeccion": "Zitate in \"{name}\"",
+  "@frasesEnColeccion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nuevaColeccion": "Neue Sammlung",
+  "nombreColeccion": "Name der Sammlung",
+  "cancelar": "Abbrechen",
+  "crear": "Erstellen",
+  "coleccionCreada": "Sammlung erstellt",
+  "agregadaAColeccion": "Zur Sammlung hinzugefügt",
+  "eliminadaDeColeccion": "Aus der Sammlung entfernt",
+  "masFrases": "Mehr Zitate",
+  "guardadaEnFavoritos": "Zu Favoriten gespeichert",
+  "eliminadaDeFavoritos": "Aus Favoriten entfernt",
+  "generandoImagen": "Bild wird generiert...",
+  "guardadaEnGaleria": "In deiner Galerie gespeichert",
+  "noPudoGuardar": "Konnte nicht gespeichert werden",
+  "agregarAColeccion": "Zur Sammlung hinzufügen",
+  "historial": "Verlauf",
+  "historialCount": "Verlauf ({count})",
+  "@historialCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "borrarTodo": "Alles löschen",
+  "sinHistorial": "Kein Verlauf",
+  "frasesQueVeas": "Die Zitate, die du ansiehst, erscheinen hier",
+  "bienvenidoMensaje": "Willkommen! Katalog bereit zum Entdecken",
+  "descubrePorTemas": "Entdecke nach Themen, Anlässen und Emotionen",
+  "frasesGuardadas": "{count} Zitate gespeichert",
+  "@frasesGuardadas": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "preferenciasCentro": "Präferenzen und Kontrollzentrum",
+  "destacada": "EMPFOHLEN",
+  "trending": "TREND",
+  "nueva": "NEU"
+}

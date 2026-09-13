@@ -1,0 +1,109 @@
+{
+  "@@locale": "it",
+  "appTitle": "Frasi d'Amore per Coppie",
+  "inicio": "Home",
+  "explorar": "Esplora",
+  "favoritos": "Preferiti",
+  "ajustes": "Impostazioni",
+  "bienvenido": "Benvenuto!",
+  "seleccionaTemas": "Seleziona gli argomenti che ti interessano di più per personalizzare la tua esperienza.",
+  "comenzarDescubrir": "Inizia a esplorare",
+  "fraseDelDia": "FRASE DEL GIORNO",
+  "tocaParaVerMas": "Tocca per vedere di più",
+  "explorarPorCategoria": "Esplora per categoria",
+  "frasesTrending": "Frasi di tendenza",
+  "recienLlegadas": "Nuovi arrivi",
+  "todasLasFrases": "Tutte le frasi",
+  "frases": "frasi",
+  "apariencia": "Aspetto",
+  "modoOscuro": "Modalità scura",
+  "activado": "Attivato",
+  "desactivado": "Disattivato",
+  "idioma": "Lingua",
+  "idiomaApp": "Lingua dell'app",
+  "intereses": "Interessi",
+  "temasInteres": "Argomenti di interesse",
+  "datos": "Dati",
+  "historialFrases": "Cronologia delle frasi visualizzate",
+  "historialFrasesSubtitle": "Rivedi le frasi recenti",
+  "reiniciarOnboarding": "Ripristina onboarding",
+  "reiniciarOnboardingSubtitle": "Rivisualizza la schermata iniziale",
+  "version": "Versione 2.0.0",
+  "seleccionarIdioma": "Seleziona lingua",
+  "editarIntereses": "Modifica interessi",
+  "guardar": "Salva",
+  "todas": "Tutte",
+  "todosLosTonos": "Tutti i toni",
+  "noHayFrases": "Nessuna frase per questo filtro",
+  "favoritosCount": "Preferiti ({count})",
+  "@favoritosCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coleccionesCount": "Collezioni ({count})",
+  "@coleccionesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sinFavoritos": "Non hai ancora preferiti",
+  "tocaCorazon": "Tocca il cuore su qualsiasi frase per salvarla qui",
+  "sinColecciones": "Nessuna collezione",
+  "creaColeccion": "Crea la tua prima collezione salvando frasi da qualsiasi scheda",
+  "colecciones": "Collezioni",
+  "agregar": "Aggiungi",
+  "eliminar": "Elimina",
+  "frasesEnColeccion": "Frasi in \"{name}\"",
+  "@frasesEnColeccion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nuevaColeccion": "Nuova collezione",
+  "nombreColeccion": "Nome della collezione",
+  "cancelar": "Annulla",
+  "crear": "Crea",
+  "coleccionCreada": "Collezione creata",
+  "agregadaAColeccion": "Aggiunta alla collezione",
+  "eliminadaDeColeccion": "Rimossa dalla collezione",
+  "masFrases": "Altre frasi",
+  "guardadaEnFavoritos": "Salvata nei preferiti",
+  "eliminadaDeFavoritos": "Rimossa dai preferiti",
+  "generandoImagen": "Generazione immagine...",
+  "guardadaEnGaleria": "Salvata nella tua galleria",
+  "noPudoGuardar": "Impossibile salvare",
+  "agregarAColeccion": "Aggiungi alla collezione",
+  "historial": "Cronologia",
+  "historialCount": "Cronologia ({count})",
+  "@historialCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "borrarTodo": "Cancella tutto",
+  "sinHistorial": "Nessuna cronologia",
+  "frasesQueVeas": "Le frasi che visualizzerai appariranno qui",
+  "bienvenidoMensaje": "Benvenuto! Catalogo pronto da scoprire",
+  "descubrePorTemas": "Scopri per argomenti, occasioni ed emozioni",
+  "frasesGuardadas": "{count} frasi salvate",
+  "@frasesGuardadas": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "preferenciasCentro": "Preferenze e centro di controllo",
+  "destacada": "IN EVIDENZA",
+  "trending": "TENDENZA",
+  "nueva": "NUOVA"
+}

@@ -1,0 +1,109 @@
+{
+  "@@locale": "en",
+  "appTitle": "Love Quotes for Couples",
+  "inicio": "Home",
+  "explorar": "Explore",
+  "favoritos": "Favorites",
+  "ajustes": "Settings",
+  "bienvenido": "Welcome!",
+  "seleccionaTemas": "Select the topics you're most interested in to personalize your experience.",
+  "comenzarDescubrir": "Start exploring",
+  "fraseDelDia": "QUOTE OF THE DAY",
+  "tocaParaVerMas": "Tap to see more",
+  "explorarPorCategoria": "Explore by category",
+  "frasesTrending": "Trending quotes",
+  "recienLlegadas": "New arrivals",
+  "todasLasFrases": "All quotes",
+  "frases": "quotes",
+  "apariencia": "Appearance",
+  "modoOscuro": "Dark mode",
+  "activado": "On",
+  "desactivado": "Off",
+  "idioma": "Language",
+  "idiomaApp": "App language",
+  "intereses": "Interests",
+  "temasInteres": "Topics of interest",
+  "datos": "Data",
+  "historialFrases": "Viewed quotes history",
+  "historialFrasesSubtitle": "Check your recent quotes",
+  "reiniciarOnboarding": "Reset onboarding",
+  "reiniciarOnboardingSubtitle": "See the welcome screen again",
+  "version": "Version 2.0.0",
+  "seleccionarIdioma": "Select language",
+  "editarIntereses": "Edit interests",
+  "guardar": "Save",
+  "todas": "All",
+  "todosLosTonos": "All tones",
+  "noHayFrases": "No quotes for this filter",
+  "favoritosCount": "Favorites ({count})",
+  "@favoritosCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coleccionesCount": "Collections ({count})",
+  "@coleccionesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sinFavoritos": "No favorites yet",
+  "tocaCorazon": "Tap the heart on any quote to save it here",
+  "sinColecciones": "No collections",
+  "creaColeccion": "Create your first collection by saving quotes from any card",
+  "colecciones": "Collections",
+  "agregar": "Add",
+  "eliminar": "Delete",
+  "frasesEnColeccion": "Quotes in \"{name}\"",
+  "@frasesEnColeccion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nuevaColeccion": "New collection",
+  "nombreColeccion": "Collection name",
+  "cancelar": "Cancel",
+  "crear": "Create",
+  "coleccionCreada": "Collection created",
+  "agregadaAColeccion": "Added to collection",
+  "eliminadaDeColeccion": "Removed from collection",
+  "masFrases": "More quotes",
+  "guardadaEnFavoritos": "Saved to favorites",
+  "eliminadaDeFavoritos": "Removed from favorites",
+  "generandoImagen": "Generating image...",
+  "guardadaEnGaleria": "Saved to your gallery",
+  "noPudoGuardar": "Could not save",
+  "agregarAColeccion": "Add to collection",
+  "historial": "History",
+  "historialCount": "History ({count})",
+  "@historialCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "borrarTodo": "Clear all",
+  "sinHistorial": "No history",
+  "frasesQueVeas": "Quotes you view will appear here",
+  "bienvenidoMensaje": "Welcome! Couples love quotes catalog ready",
+  "descubrePorTemas": "Discover romantic phrases to dedicate to your partner",
+  "frasesGuardadas": "{count} quotes saved",
+  "@frasesGuardadas": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "preferenciasCentro": "Preferences and control center",
+  "destacada": "FEATURED",
+  "trending": "TRENDING",
+  "nueva": "NEW"
+}

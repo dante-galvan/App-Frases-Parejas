@@ -1,0 +1,109 @@
+{
+  "@@locale": "es",
+  "appTitle": "Frases de Amor para Parejas",
+  "inicio": "Inicio",
+  "explorar": "Explorar",
+  "favoritos": "Favoritos",
+  "ajustes": "Ajustes",
+  "bienvenido": "¡Bienvenido!",
+  "seleccionaTemas": "Selecciona los temas que más te interesen para personalizar tu experiencia.",
+  "comenzarDescubrir": "Comenzar a descubrir",
+  "fraseDelDia": "FRASE DEL DÍA",
+  "tocaParaVerMas": "Toca para ver más",
+  "explorarPorCategoria": "Explorar por categoría",
+  "frasesTrending": "Frases trending",
+  "recienLlegadas": "Recién llegadas",
+  "todasLasFrases": "Todas las frases",
+  "frases": "frases",
+  "apariencia": "Apariencia",
+  "modoOscuro": "Modo oscuro",
+  "activado": "Activado",
+  "desactivado": "Desactivado",
+  "idioma": "Idioma",
+  "idiomaApp": "Idioma de la app",
+  "intereses": "Intereses",
+  "temasInteres": "Temas de interés",
+  "datos": "Datos",
+  "historialFrases": "Historial de frases vistas",
+  "historialFrasesSubtitle": "Revisa las últimas frases",
+  "reiniciarOnboarding": "Reiniciar onboarding",
+  "reiniciarOnboardingSubtitle": "Vuelve a ver la pantalla de inicio",
+  "version": "Versión 2.0.0",
+  "seleccionarIdioma": "Seleccionar idioma",
+  "editarIntereses": "Editar intereses",
+  "guardar": "Guardar",
+  "todas": "Todas",
+  "todosLosTonos": "Todos los tonos",
+  "noHayFrases": "No hay frases para este filtro",
+  "favoritosCount": "Favoritos ({count})",
+  "@favoritosCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coleccionesCount": "Colecciones ({count})",
+  "@coleccionesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sinFavoritos": "Aún no tienes favoritos",
+  "tocaCorazon": "Toca el corazón en cualquier frase para guardarla aquí",
+  "sinColecciones": "Sin colecciones",
+  "creaColeccion": "Crea tu primera colección guardando frases desde cualquier tarjeta",
+  "colecciones": "Colecciones",
+  "agregar": "Agregar",
+  "eliminar": "Eliminar",
+  "frasesEnColeccion": "Frases en \"{name}\"",
+  "@frasesEnColeccion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nuevaColeccion": "Nueva colección",
+  "nombreColeccion": "Nombre de la colección",
+  "cancelar": "Cancelar",
+  "crear": "Crear",
+  "coleccionCreada": "Colección creada",
+  "agregadaAColeccion": "Agregada a colección",
+  "eliminadaDeColeccion": "Eliminada de colección",
+  "masFrases": "Más frases",
+  "guardadaEnFavoritos": "Guardada en favoritos",
+  "eliminadaDeFavoritos": "Eliminada de favoritos",
+  "generandoImagen": "Generando imagen...",
+  "guardadaEnGaleria": "Guardada en tu galería",
+  "noPudoGuardar": "No se pudo guardar",
+  "agregarAColeccion": "Agregar a colección",
+  "historial": "Historial",
+  "historialCount": "Historial ({count})",
+  "@historialCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "borrarTodo": "Borrar todo",
+  "sinHistorial": "Sin historial",
+  "frasesQueVeas": "Las frases que veas aparecerán aquí",
+  "bienvenidoMensaje": "¡Bienvenido! Catálogo de frases para parejas listo",
+  "descubrePorTemas": "Descubre frases románticas para dedicar a tu pareja",
+  "frasesGuardadas": "{count} frases guardadas",
+  "@frasesGuardadas": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "preferenciasCentro": "Preferencias y centro de control",
+  "destacada": "DESTACADA",
+  "trending": "TRENDING",
+  "nueva": "NUEVA"
+}

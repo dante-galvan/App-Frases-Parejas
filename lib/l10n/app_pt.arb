@@ -1,0 +1,109 @@
+{
+  "@@locale": "pt",
+  "appTitle": "Frases de Amor para Casais",
+  "inicio": "Início",
+  "explorar": "Explorar",
+  "favoritos": "Favoritos",
+  "ajustes": "Configurações",
+  "bienvenido": "Bem-vindo!",
+  "seleccionaTemas": "Selecione os temas que mais lhe interessam para personalizar sua experiência.",
+  "comenzarDescubrir": "Começar a explorar",
+  "fraseDelDia": "FRASE DO DIA",
+  "tocaParaVerMas": "Toque para ver mais",
+  "explorarPorCategoria": "Explorar por categoria",
+  "frasesTrending": "Frases em alta",
+  "recienLlegadas": "Novidades",
+  "todasLasFrases": "Todas as frases",
+  "frases": "frases",
+  "apariencia": "Aparência",
+  "modoOscuro": "Modo escuro",
+  "activado": "Ativado",
+  "desactivado": "Desativado",
+  "idioma": "Idioma",
+  "idiomaApp": "Idioma do aplicativo",
+  "intereses": "Interesses",
+  "temasInteres": "Temas de interesse",
+  "datos": "Dados",
+  "historialFrases": "Histórico de frases visualizadas",
+  "historialFrasesSubtitle": "Revise suas frases recentes",
+  "reiniciarOnboarding": "Reiniciar onboarding",
+  "reiniciarOnboardingSubtitle": "Veja a tela inicial novamente",
+  "version": "Versão 2.0.0",
+  "seleccionarIdioma": "Selecionar idioma",
+  "editarIntereses": "Editar interesses",
+  "guardar": "Salvar",
+  "todas": "Todas",
+  "todosLosTonos": "Todos os tons",
+  "noHayFrases": "Não há frases para este filtro",
+  "favoritosCount": "Favoritos ({count})",
+  "@favoritosCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "coleccionesCount": "Coleções ({count})",
+  "@coleccionesCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sinFavoritos": "Você ainda não tem favoritos",
+  "tocaCorazon": "Toque no coração em qualquer frase para salvá-la aqui",
+  "sinColecciones": "Sem coleções",
+  "creaColeccion": "Crie sua primeira coleção salvando frases de qualquer cartão",
+  "colecciones": "Coleções",
+  "agregar": "Adicionar",
+  "eliminar": "Excluir",
+  "frasesEnColeccion": "Frases em \"{name}\"",
+  "@frasesEnColeccion": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nuevaColeccion": "Nova coleção",
+  "nombreColeccion": "Nome da coleção",
+  "cancelar": "Cancelar",
+  "crear": "Criar",
+  "coleccionCreada": "Coleção criada",
+  "agregadaAColeccion": "Adicionada à coleção",
+  "eliminadaDeColeccion": "Removida da coleção",
+  "masFrases": "Mais frases",
+  "guardadaEnFavoritos": "Salva nos favoritos",
+  "eliminadaDeFavoritos": "Removida dos favoritos",
+  "generandoImagen": "Gerando imagem...",
+  "guardadaEnGaleria": "Salva na sua galeria",
+  "noPudoGuardar": "Não foi possível salvar",
+  "agregarAColeccion": "Adicionar à coleção",
+  "historial": "Histórico",
+  "historialCount": "Histórico ({count})",
+  "@historialCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "borrarTodo": "Limpar tudo",
+  "sinHistorial": "Sem histórico",
+  "frasesQueVeas": "As frases que você ver aparecerão aqui",
+  "bienvenidoMensaje": "Bem-vindo! Catálogo pronto para descobrir",
+  "descubrePorTemas": "Descubra por temas, ocasiões e emoções",
+  "frasesGuardadas": "{count} frases salvas",
+  "@frasesGuardadas": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "preferenciasCentro": "Preferências e centro de controle",
+  "destacada": "DESTACADA",
+  "trending": "EM ALTA",
+  "nueva": "NOVA"
+}

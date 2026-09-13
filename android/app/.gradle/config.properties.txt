@@ -1,0 +1,2 @@
+#Mon Sep 07 02:25:10 GMT-03:00 2026
+java.home=/home/session-1/Descargas/android-studio/jbr
