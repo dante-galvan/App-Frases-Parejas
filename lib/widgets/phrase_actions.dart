@@ -25,35 +25,21 @@ class PhraseActions extends StatelessWidget {
     final isSaved = favoritesProvider.isSaved(phrase.id);
 
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            Colors.white.withValues(alpha: 0.12),
-            Colors.white.withValues(alpha: 0.04),
-          ],
-        ),
-        borderRadius: BorderRadius.circular(24),
+        color: Colors.black.withValues(alpha: 0.45),
+        borderRadius: BorderRadius.circular(28),
         border: Border.all(
-          color: Colors.white.withValues(alpha: 0.2),
+          color: Colors.white.withValues(alpha: 0.12),
           width: 0.5,
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.15),
-            blurRadius: 12,
-            offset: const Offset(0, 4),
-          ),
-        ],
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _DetailAction(
-            icon: isSaved ? Icons.favorite : Icons.favorite_outline,
-            label: l10n.favorito,
+          _BarAction(
+            icon: isSaved ? Icons.favorite_rounded : Icons.favorite_outline_rounded,
             color: isSaved ? RomanticColors.romantic400 : Colors.white,
             onTap: () {
               favoritesProvider.toggle(phrase.id);
@@ -65,9 +51,9 @@ class PhraseActions extends StatelessWidget {
                   );
             },
           ),
-          _DetailAction(
+          _barSeparator(),
+          _BarAction(
             icon: Icons.share_rounded,
-            label: l10n.compartir,
             onTap: () async {
               final toast = context.read<ToastProvider>();
               toast.showInfo(l10n.preparandoParaCompartir);
@@ -77,9 +63,9 @@ class PhraseActions extends StatelessWidget {
               await exportAndShare(phrase, context, text: translatedText);
             },
           ),
-          _DetailAction(
+          _barSeparator(),
+          _BarAction(
             icon: Icons.download_rounded,
-            label: l10n.descargar,
             onTap: () async {
               final toast = context.read<ToastProvider>();
               toast.showInfo(l10n.generandoImagen);
@@ -94,12 +80,23 @@ class PhraseActions extends StatelessWidget {
               }
             },
           ),
-          _DetailAction(
-            icon: Icons.bookmark_add_rounded,
-            label: l10n.coleccion,
+          _barSeparator(),
+          _BarAction(
+            icon: Icons.bookmark_outline_rounded,
             onTap: () => _showAddToCollection(context),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _barSeparator() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Container(
+        width: 1,
+        height: 18,
+        color: Colors.white.withValues(alpha: 0.18),
       ),
     );
   }
@@ -231,15 +228,13 @@ class PhraseActions extends StatelessWidget {
   }
 }
 
-class _DetailAction extends StatelessWidget {
+class _BarAction extends StatelessWidget {
   final IconData icon;
-  final String label;
   final Color? color;
   final VoidCallback onTap;
 
-  const _DetailAction({
+  const _BarAction({
     required this.icon,
-    required this.label,
     this.color,
     required this.onTap,
   });
@@ -250,50 +245,13 @@ class _DetailAction extends StatelessWidget {
     return GestureDetector(
       behavior: HitTestBehavior.opaque,
       onTap: onTap,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            width: 44,
-            height: 44,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [
-                  Colors.white.withValues(alpha: 0.22),
-                  Colors.white.withValues(alpha: 0.08),
-                ],
-              ),
-              border: Border.all(
-                color: Colors.white.withValues(alpha: 0.3),
-                width: 0.5,
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.12),
-                  blurRadius: 8,
-                  offset: const Offset(0, 2),
-                ),
-              ],
-            ),
-            child: Icon(
-              icon,
-              color: effectiveColor,
-              size: 21,
-            ),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            label,
-            style: TextStyle(
-              color: effectiveColor,
-              fontSize: 10,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+        child: Icon(
+          icon,
+          color: effectiveColor,
+          size: 22,
+        ),
       ),
     );
   }
