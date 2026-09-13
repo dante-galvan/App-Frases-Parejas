@@ -170,7 +170,6 @@ Future<void> exportAndShare(Phrase phrase, BuildContext context, {String? text})
 
     await Share.shareXFiles(
       [XFile(file.path, mimeType: 'image/png')],
-      text: text ?? phrase.text,
       subject: 'Frase de amor',
     );
   } catch (_) {}

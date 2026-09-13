@@ -341,7 +341,6 @@ class _CollectionsTab extends StatelessWidget {
 
   void _showCollectionDetail(BuildContext context, CollectionItem col) {
     final phrasesProvider = context.read<PhrasesProvider>();
-    final collectionsProvider = context.read<CollectionsProvider>();
     final l10n = AppLocalizations.of(context)!;
 
     showModalBottomSheet(
@@ -352,94 +351,105 @@ class _CollectionsTab extends StatelessWidget {
         initialChildSize: 0.7,
         maxChildSize: 0.9,
         minChildSize: 0.5,
-        builder: (_, scrollController) => Container(
-          decoration: BoxDecoration(
-            color: Theme.of(context).brightness == Brightness.dark
-                ? RomanticColors.darkSurface
-                : RomanticColors.lightSurface,
-            borderRadius:
-                const BorderRadius.vertical(top: Radius.circular(20)),
-          ),
-          child: Column(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(
-                  l10n.frasesEnColeccion(col.name),
-                  style: const TextStyle(
-                      fontSize: 18, fontWeight: FontWeight.w700),
-                ),
+        builder: (_, scrollController) => Consumer<CollectionsProvider>(
+          builder: (context, collectionsProv, _) {
+            final updatedCol = collectionsProv.collections.firstWhere(
+              (c) => c.id == col.id,
+              orElse: () => col,
+            );
+            return Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).brightness == Brightness.dark
+                    ? RomanticColors.darkSurface
+                    : RomanticColors.lightSurface,
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(20)),
               ),
-              Expanded(
-                child: col.phraseIds.isEmpty
-                    ? _EmptyCollectionDetail(isDark: isDark)
-                    : ListView.separated(
-                        controller: scrollController,
-                        padding:
-                            const EdgeInsets.symmetric(horizontal: 16),
-                        itemCount: col.phraseIds.length,
-                        separatorBuilder: (_, __) =>
-                            const SizedBox(height: 8),
-                        itemBuilder: (context, i) {
-                          final phraseId = col.phraseIds[i];
-                          final phrase =
-                              phrasesProvider.getById(phraseId);
-                          if (phrase == null) {
-                            return const SizedBox.shrink();
-                          }
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(
+                      l10n.frasesEnColeccion(updatedCol.name),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w700),
+                    ),
+                  ),
+                  Expanded(
+                    child: updatedCol.phraseIds.isEmpty
+                        ? _EmptyCollectionDetail(isDark: isDark)
+                        : ListView.separated(
+                            controller: scrollController,
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 16),
+                            itemCount: updatedCol.phraseIds.length,
+                            separatorBuilder: (_, __) =>
+                                const SizedBox(height: 8),
+                            itemBuilder: (context, i) {
+                              final phraseId = updatedCol.phraseIds[i];
+                              final phrase =
+                                  phrasesProvider.getById(phraseId);
+                              if (phrase == null) {
+                                return const SizedBox.shrink();
+                              }
 
-                          return Container(
-                            decoration: BoxDecoration(
-                              color: isDark
-                                  ? Colors.white.withValues(alpha: 0.05)
-                                  : Colors.white,
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: isDark
-                                    ? Colors.white.withValues(alpha: 0.08)
-                                    : Colors.black.withValues(alpha: 0.06),
-                              ),
-                            ),
-                            child: ListTile(
-                              contentPadding:
-                                  const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 4),
-                              leading: ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: SizedBox(
-                                  width: 48,
-                                  height: 48,
-                                  child: Image.asset(
-                                    'Imagenes/${phrase.image}',
-                                    fit: BoxFit.cover,
+                              return Container(
+                                decoration: BoxDecoration(
+                                  color: isDark
+                                      ? Colors.white
+                                          .withValues(alpha: 0.05)
+                                      : Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                  border: Border.all(
+                                    color: isDark
+                                        ? Colors.white
+                                            .withValues(alpha: 0.08)
+                                        : Colors.black
+                                            .withValues(alpha: 0.06),
                                   ),
                                 ),
-                              ),
-                              title: Text(
-                                phrasesProvider.getText(phrase,
-                                    Localizations.localeOf(context)),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontSize: 13,
-                                    fontWeight: FontWeight.w500),
-                              ),
-                              trailing: IconButton(
-                                icon: const Icon(
-                                    Icons.remove_circle_outline,
-                                    color: Colors.red,
-                                    size: 22),
-                                onPressed: () => collectionsProvider
-                                    .togglePhraseInCollection(
-                                        col.id, phrase.id),
-                              ),
-                            ),
-                          );
-                        },
-                      ),
+                                child: ListTile(
+                                  contentPadding:
+                                      const EdgeInsets.symmetric(
+                                          horizontal: 12, vertical: 4),
+                                  leading: ClipRRect(
+                                    borderRadius: BorderRadius.circular(8),
+                                    child: SizedBox(
+                                      width: 48,
+                                      height: 48,
+                                      child: Image.asset(
+                                        'Imagenes/${phrase.image}',
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                  title: Text(
+                                    phrasesProvider.getText(phrase,
+                                        Localizations.localeOf(context)),
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500),
+                                  ),
+                                  trailing: IconButton(
+                                    icon: const Icon(
+                                        Icons.remove_circle_outline,
+                                        color: Colors.red,
+                                        size: 22),
+                                    onPressed: () => collectionsProv
+                                        .togglePhraseInCollection(
+                                            updatedCol.id, phrase.id),
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            );
+          },
         ),
       ),
     );
