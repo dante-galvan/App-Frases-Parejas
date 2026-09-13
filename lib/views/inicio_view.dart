@@ -7,6 +7,7 @@ import '../models/phrase.dart';
 import '../theme/app_colors.dart';
 import '../widgets/phrase_card.dart';
 import '../widgets/phrase_detail_modal.dart';
+import '../utils/category_translations.dart';
 
 class InicioView extends StatelessWidget {
   final void Function(String category)? onCategoryTap;
@@ -75,7 +76,7 @@ class InicioView extends StatelessWidget {
                 final cat = categories[i];
                 final count = phrasesProvider.countForCategory(cat);
                 return _CategoryChip(
-                  name: cat,
+                  name: CategoryTranslations.label(cat, Localizations.localeOf(context)),
                   count: count,
                   isDark: isDark,
                   onTap: onCategoryTap != null
@@ -279,7 +280,7 @@ class _FeaturedSection extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      phrase.category.toUpperCase(),
+                      CategoryTranslations.label(phrase.categoryId, Localizations.localeOf(context)).toUpperCase(),
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.7),
                         fontSize: 11,

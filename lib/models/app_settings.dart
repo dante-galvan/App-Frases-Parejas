@@ -80,7 +80,7 @@ class AppSettings {
         dailyNotification: true,
         newPhrasesNotification: true,
         recommendationsNotification: false,
-        interests: ['Amor', 'Para dedicar', 'Románticas'],
+        interests: ['amor', 'para_dedicar', 'pareja'],
         hasCompletedOnboarding: false,
       );
 
@@ -120,7 +120,7 @@ class AppSettings {
       recommendationsNotification:
           json['recommendationsNotification'] as bool? ?? false,
       interests: (json['interests'] as List?)?.cast<String>() ??
-          const ['Amor', 'Para dedicar', 'Románticas'],
+          const ['amor', 'para_dedicar', 'pareja'],
       hasCompletedOnboarding:
           json['hasCompletedOnboarding'] as bool? ?? false,
     );

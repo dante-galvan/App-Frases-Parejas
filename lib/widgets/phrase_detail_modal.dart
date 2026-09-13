@@ -11,6 +11,7 @@ import '../state/collections_provider.dart';
 import '../state/toast_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/image_exporter.dart';
+import '../utils/category_translations.dart';
 
 class PhraseDetailModal extends StatefulWidget {
   final Phrase phrase;
@@ -28,10 +29,12 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
   void initState() {
     super.initState();
     final allPhrases = context.read<PhrasesProvider>().phrases;
-    final others = allPhrases.where((p) => p.id != widget.phrase.id).toList();
+    final sameCategory = allPhrases
+        .where((p) => p.categoryId == widget.phrase.categoryId && p.id != widget.phrase.id)
+        .toList();
     final rng = Random();
-    others.shuffle(rng);
-    _relatedPhrases = others.take(12).toList();
+    sameCategory.shuffle(rng);
+    _relatedPhrases = sameCategory.take(12).toList();
   }
 
   @override
@@ -127,7 +130,7 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                widget.phrase.category.toUpperCase(),
+                                CategoryTranslations.label(widget.phrase.categoryId, Localizations.localeOf(context)).toUpperCase(),
                                 style: TextStyle(
                                   color: Colors.white.withValues(alpha: 0.75),
                                   fontSize: 11,

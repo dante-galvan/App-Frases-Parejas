@@ -8,6 +8,7 @@ import '../models/app_settings.dart';
 import '../theme/app_colors.dart';
 import '../widgets/history_modal.dart';
 import '../widgets/onboarding_modal.dart';
+import '../utils/category_translations.dart';
 
 class PerfilView extends StatelessWidget {
   const PerfilView({super.key});
@@ -202,13 +203,13 @@ class PerfilView extends StatelessWidget {
       BuildContext context, SettingsProvider provider) {
     final l10n = AppLocalizations.of(context)!;
     final allInterests = [
-      'Amor',
-      'Enamoramiento',
-      'Pareja',
-      'Para dedicar',
-      'Pasion',
-      'Buenos dias amor',
-      'Buenas noches amor',
+      'amor',
+      'enamoramiento',
+      'pareja',
+      'para_dedicar',
+      'pasion',
+      'buenos_dias_amor',
+      'buenas_noches_amor',
     ];
     final selected = Set<String>.from(provider.settings.interests);
 
@@ -254,7 +255,7 @@ class PerfilView extends StatelessWidget {
                       final isSelected = selected.contains(interest);
                       return CheckboxListTile(
                         value: isSelected,
-                        title: Text(interest),
+                        title: Text(CategoryTranslations.label(interest, Localizations.localeOf(context))),
                         activeColor: RomanticColors.romantic600,
                         onChanged: (v) {
                           setState(() {

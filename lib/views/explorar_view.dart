@@ -7,6 +7,7 @@ import '../models/phrase.dart';
 import '../theme/app_colors.dart';
 import '../widgets/phrase_card.dart';
 import '../widgets/phrase_detail_modal.dart';
+import '../utils/category_translations.dart';
 
 class ExplorarView extends StatefulWidget {
   final String? initialCategory;
@@ -62,7 +63,7 @@ class _ExplorarViewState extends State<ExplorarView> {
 
     List<Phrase> filtered = phrasesProvider.phrases;
     if (_selectedCategory != null) {
-      filtered = filtered.where((p) => p.category == _selectedCategory).toList();
+      filtered = filtered.where((p) => p.categoryId == _selectedCategory).toList();
     }
 
     return Column(
@@ -102,7 +103,7 @@ class _ExplorarViewState extends State<ExplorarView> {
                     ),
                   ),
                   child: Text(
-                    cat,
+                    CategoryTranslations.label(cat, Localizations.localeOf(context)),
                     style: TextStyle(
                       fontSize: 12,
                       fontWeight: FontWeight.w500,

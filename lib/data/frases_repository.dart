@@ -6,6 +6,38 @@ import 'images.dart';
 class FrasesRepository {
   static List<Phrase>? _cache;
 
+  static const Map<String, String> _categorySlugMap = {
+    'Amor': 'amor',
+    'Enamoramiento': 'enamoramiento',
+    'Pareja': 'pareja',
+    'Para dedicar': 'para_dedicar',
+    'Pasion': 'pasion',
+    'Pasión': 'pasion',
+    'Buenos dias amor': 'buenos_dias_amor',
+    'Buenos días amor': 'buenos_dias_amor',
+    'Buenas noches amor': 'buenas_noches_amor',
+  };
+
+  static const Map<String, String> _slugToEsName = {
+    'amor': 'Amor',
+    'enamoramiento': 'Enamoramiento',
+    'pareja': 'Pareja',
+    'para_dedicar': 'Para dedicar',
+    'pasion': 'Pasion',
+    'buenos_dias_amor': 'Buenos dias amor',
+    'buenas_noches_amor': 'Buenas noches amor',
+  };
+
+  static String slugForCategory(String categoryName) {
+    return _categorySlugMap[categoryName] ?? categoryName.toLowerCase();
+  }
+
+  static String esNameForSlug(String slug) {
+    return _slugToEsName[slug] ?? slug;
+  }
+
+  static List<String> allSlugs() => _slugToEsName.keys.toList();
+
   static Future<List<Phrase>> load() async {
     if (_cache != null) return _cache!;
 
@@ -28,6 +60,7 @@ class FrasesRepository {
         text: texto,
         image: image,
         category: categoria,
+        categoryId: slugForCategory(categoria),
       );
     }).toList();
 
@@ -44,15 +77,15 @@ class FrasesRepository {
 
     final Map<String, int> categoryCount = {};
     for (final p in phrases) {
-      categoryCount[p.category] = (categoryCount[p.category] ?? 0) + 1;
+      categoryCount[p.categoryId] = (categoryCount[p.categoryId] ?? 0) + 1;
     }
 
     final Map<String, int> categoryCurrent = {};
     final Set<String> lastThreeIds = {};
     for (final p in phrases) {
-      categoryCurrent[p.category] = (categoryCurrent[p.category] ?? 0) + 1;
-      final count = categoryCount[p.category]!;
-      final current = categoryCurrent[p.category]!;
+      categoryCurrent[p.categoryId] = (categoryCurrent[p.categoryId] ?? 0) + 1;
+      final count = categoryCount[p.categoryId]!;
+      final current = categoryCurrent[p.categoryId]!;
       if (current > count - 3) {
         lastThreeIds.add(p.id);
       }
@@ -70,6 +103,7 @@ class FrasesRepository {
           text: p.text,
           image: p.image,
           category: p.category,
+          categoryId: p.categoryId,
           isFeaturedToday: isFeatured,
           isTrending: isTrending,
           isNew: isNew,
@@ -79,10 +113,10 @@ class FrasesRepository {
   }
 
   static List<String> categoriesFrom(List<Phrase> phrases) {
-    return phrases.map((p) => p.category).toSet().toList();
+    return phrases.map((p) => p.categoryId).toSet().toList();
   }
 
-  static int countForCategory(List<Phrase> phrases, String category) {
-    return phrases.where((p) => p.category == category).length;
+  static int countForCategory(List<Phrase> phrases, String categoryId) {
+    return phrases.where((p) => p.categoryId == categoryId).length;
   }
 }

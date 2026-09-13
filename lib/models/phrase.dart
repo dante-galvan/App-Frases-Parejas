@@ -29,6 +29,7 @@ class Phrase {
   final String text;
   final String image;
   final String category;
+  final String categoryId;
   final String? subcategory;
   final String tone;
   final List<String> tags;
@@ -42,6 +43,7 @@ class Phrase {
     required this.text,
     required this.image,
     required this.category,
+    required this.categoryId,
     this.subcategory,
     this.tone = '',
     this.tags = const [],
@@ -62,6 +64,7 @@ class Phrase {
       text: json['text'] as String,
       image: json['image'] as String,
       category: json['category'] as String,
+      categoryId: json['categoryId'] as String? ?? json['category'] as String,
       subcategory: json['subcategory'] as String?,
       tone: json['tone'] as String? ?? '',
       tags: (json['tags'] as List?)?.cast<String>() ?? const [],
@@ -77,6 +80,7 @@ class Phrase {
         'text': text,
         'image': image,
         'category': category,
+        'categoryId': categoryId,
         'subcategory': subcategory,
         'tone': tone,
         'tags': tags,

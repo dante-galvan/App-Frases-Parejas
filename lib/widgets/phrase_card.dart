@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frases_amor_flutter/l10n/app_localizations.dart';
 import '../models/phrase.dart';
 import '../theme/app_colors.dart';
+import '../utils/category_translations.dart';
 
 class PhraseCard extends StatelessWidget {
   final Phrase phrase;
@@ -140,7 +141,7 @@ class PhraseCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      phrase.category,
+                      CategoryTranslations.label(phrase.categoryId, Localizations.localeOf(context)),
                       style: TextStyle(
                         color: Colors.white.withValues(alpha: 0.7),
                         fontSize: 9,

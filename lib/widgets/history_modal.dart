@@ -5,6 +5,7 @@ import '../state/phrases_provider.dart';
 import '../state/history_provider.dart';
 import '../models/phrase.dart';
 import '../theme/app_colors.dart';
+import '../utils/category_translations.dart';
 import 'phrase_detail_modal.dart';
 
 class HistoryModal extends StatelessWidget {
@@ -158,7 +159,7 @@ class HistoryModal extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         children: [
                                           Text(
-                                            phrase.category,
+                                            CategoryTranslations.label(phrase.categoryId, Localizations.localeOf(context)),
                                             style: TextStyle(
                                               fontSize: 10,
                                               fontWeight: FontWeight.w600,
