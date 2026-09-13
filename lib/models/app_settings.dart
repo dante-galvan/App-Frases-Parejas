@@ -76,7 +76,7 @@ class AppSettings {
 
   factory AppSettings.defaults() => const AppSettings(
         darkMode: true,
-        language: LanguageCode.es,
+        language: LanguageCode.en,
         dailyNotification: true,
         newPhrasesNotification: true,
         recommendationsNotification: false,
@@ -108,12 +108,12 @@ class AppSettings {
   }
 
   factory AppSettings.fromJson(Map<String, dynamic> json) {
-    final lang = json['language'] as String? ?? 'es';
+    final lang = json['language'] as String? ?? 'en';
     return AppSettings(
       darkMode: json['darkMode'] as bool? ?? true,
       language: LanguageCode.values.firstWhere(
         (e) => e.name == lang,
-        orElse: () => LanguageCode.es,
+        orElse: () => LanguageCode.en,
       ),
       dailyNotification: json['dailyNotification'] as bool? ?? true,
       newPhrasesNotification: json['newPhrasesNotification'] as bool? ?? true,
