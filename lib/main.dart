@@ -8,9 +8,11 @@ import 'state/favorites_provider.dart';
 import 'state/history_provider.dart';
 import 'state/collections_provider.dart';
 import 'state/toast_provider.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  MobileAds.instance.initialize();
 
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(

@@ -9,6 +9,7 @@ import 'favoritos_view.dart';
 import 'perfil_view.dart';
 import '../widgets/header.dart';
 import '../widgets/onboarding_modal.dart';
+import '../widgets/banner_ad.dart';
 
 class HomeShell extends StatefulWidget {
   const HomeShell({super.key});
@@ -96,6 +97,7 @@ class _HomeShellState extends State<HomeShell> {
                 ],
               ),
             ),
+            const BannerAdWidget(),
           ],
         ),
       ),

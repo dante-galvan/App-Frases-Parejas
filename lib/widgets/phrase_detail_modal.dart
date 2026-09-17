@@ -8,6 +8,7 @@ import '../state/history_provider.dart';
 import '../theme/app_colors.dart';
 import '../utils/category_translations.dart';
 import 'phrase_actions.dart';
+import 'banner_ad.dart';
 
 class PhraseDetailModal extends StatefulWidget {
   final Phrase phrase;
@@ -339,6 +340,8 @@ class _PhraseDetailModalState extends State<PhraseDetailModal> {
                               },
                             ),
                           ),
+                          const SizedBox(height: 20),
+                          const Center(child: BannerAdWidget()),
                           const SizedBox(height: 20),
                         ],
                       ),
